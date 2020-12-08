@@ -1,5 +1,8 @@
 # Changelog
 
+## indev 0.1.2 (12/8/2020)
+- Database Modification
+
 ## indev 0.1.1 (12/8/2020)
 - Setting up Express Routes
 - Applying EJS as render engine

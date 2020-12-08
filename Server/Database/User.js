@@ -10,12 +10,23 @@ const requestNotRequired = {
     required: false
 }
 
+const requestBoolean = {
+    type: Boolean,
+    required: true
+}
+
 const userSchema = new mongoose.Schema({
     id: requestRequired,
     firstName: requestRequired,
     lastName: requestRequired,
     email: requestRequired,
-    password: requestRequired
+    password: requestRequired,
+    phoneNumber: requestRequired,
+    messengerLink: requestNotRequired,
+    twitter: requestNotRequired,
+    linkedIn: requestNotRequired,
+    instagram: requestNotRequired,
+    confirmed: requestBoolean
 });
 
 module.exports = User = mongoose.model('tbl_users', userSchema);
