@@ -13,4 +13,4 @@ To serve as a platform for the upcoming MCM Virtual Marketplace. December 16 - 1
 
 ### Designers
 * [Abigail Dubouzet](https://github.com/abbywaiting)
-* [Ria Cordero](https://www.facebook.com/riritheartist)
+* [Ria Cordero](https://github.com/riaacordero)
