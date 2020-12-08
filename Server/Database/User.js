@@ -16,7 +16,6 @@ const requestBoolean = {
 }
 
 const userSchema = new mongoose.Schema({
-    id: requestRequired,
     firstName: requestRequired,
     lastName: requestRequired,
     email: requestRequired,

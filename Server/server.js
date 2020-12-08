@@ -13,7 +13,7 @@ const profile = require("./Routes/Profile.js")
 connectDB();
 
 // Setting up Express
-// app.use(express.json);
+app.use(express.json({extended: false}));
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '../Client'));
 app.use("/login", login);
