@@ -16,7 +16,6 @@ const requestNotRequired = {
 }
 
 const reviewSchema = new mongoose.Schema({
-    id: requestRequired,
     userID: requestRequired,
     productID: requestRequired,
     comment: requestRequired,

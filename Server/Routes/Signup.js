@@ -10,14 +10,14 @@ router.use(function(req, res, next) {
     next();
 })
 
-// Login Routes
+// Signup Routes
 router
     .route("/")
     .get((req, res) => {
         res.render(path.join(__dirname, '../../Client/ejs/pages', 'signup.ejs'));
     })
     .post( async (req, res) => {
-        await connection().then( async mongoose => {
+        await connection().then( async () => {
             try {
                 const {firstName, lastName, email, password, phoneNumber, messengerLink, twitter, linkedIn, instagram, confirmed} = req.body;
                 User.findOne({email: email}, async (err, existingUser) => {

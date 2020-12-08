@@ -8,7 +8,7 @@ router.use(function(req, res, next) {
     next();
 })
 
-// Login Routes
+// Profile Routes
 router
     .route("/")
     .get((req, res) => {
