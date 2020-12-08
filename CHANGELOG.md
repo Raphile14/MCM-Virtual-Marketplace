@@ -1,5 +1,12 @@
 # Changelog
 
+## indev 0.1.4 (12/8/2020)
+- Initial Login handling
+
+## indev 0.1.3 (12/8/2020)
+- Route Improvements
+- Added use of Express-Session
+
 ## indev 0.1.2 (12/8/2020)
 - Database Modification
 
