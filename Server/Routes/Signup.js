@@ -4,6 +4,8 @@ const crypto = require("crypto-js");
 const connection = require("../Database/Connection.js");
 const path = require('path');
 const User = require("../Database/User");
+const er = require('../Classes/EmailRegistration.js');
+const EmailRegistration = new er();
 let router = express.Router();
 
 router.use(function(req, res, next) {
@@ -27,6 +29,9 @@ router
                         let userModel = new User(user);                        
                         await userModel.save();
                         res.json(userModel); 
+                        User.find({email: req.body.email}, async (err, addedUser) => {
+                            EmailRegistration.sendEmail(user, addedUser[0]._id);
+                        });                                              
                     }
                     else {
                         console.log("User has already signed up");
