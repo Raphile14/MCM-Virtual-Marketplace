@@ -1,5 +1,6 @@
 "use strict";
 const express = require("express");
+const crypto = require("crypto-js");
 const connection = require("../Database/Connection.js");
 const path = require('path');
 const User = require("../Database/User");
@@ -20,7 +21,8 @@ router
         await connection().then( async () => {
             try {
                 const {email, password} = req.body;
-                User.findOne({email, password}, async (err, existingUser) => {
+                hashPass = crypto.MD5(password);
+                User.findOne({email, hashPass}, async (err, existingUser) => {
                     
                     // Successful Login
                     if (existingUser != null) {

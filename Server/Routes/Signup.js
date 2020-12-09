@@ -1,5 +1,6 @@
 "use strict";
 const express = require("express");
+const crypto = require("crypto-js");
 const connection = require("../Database/Connection.js");
 const path = require('path');
 const User = require("../Database/User");
@@ -26,7 +27,7 @@ router
                         user.firstName = firstName;
                         user.lastName = lastName;
                         user.email = email;
-                        user.password = password;
+                        user.password = crypto.MD5(password);
                         user.phoneNumber = phoneNumber;
                         user.messengerLink = messengerLink;
                         user.twitter = twitter;
