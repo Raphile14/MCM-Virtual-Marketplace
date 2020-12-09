@@ -22,7 +22,14 @@ const productSchema = new mongoose.Schema({
     price: requestRequired,
     description: requestRequired,
     category: requestRequired,
-    confirmed: requestBoolean
+    confirmed: requestBoolean,
+    imagePath1: requestRequired,
+    imagePath2: requestNotRequired,
+    imagePath3: requestNotRequired,
+    imagePath4: requestNotRequired,
+    imagePath5: requestNotRequired,
+    imagePath6: requestNotRequired,
+    imagePath7: requestNotRequired
 });
 
 module.exports = Review = mongoose.model('tbl_products', productSchema);

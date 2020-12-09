@@ -21,11 +21,14 @@ const userSchema = new mongoose.Schema({
     email: requestRequired,
     password: requestRequired,
     phoneNumber: requestRequired,
+    city: requestRequired,
     messengerLink: requestNotRequired,
     twitter: requestNotRequired,
     linkedIn: requestNotRequired,
     instagram: requestNotRequired,
-    confirmed: requestBoolean
+    confirmed: requestBoolean,
+    isAdmin: requestBoolean,
+    avatarPath: requestNotRequired
 });
 
 module.exports = User = mongoose.model('tbl_users', userSchema);
