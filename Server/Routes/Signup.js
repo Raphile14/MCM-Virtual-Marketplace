@@ -20,25 +20,13 @@ router
     .post( async (req, res) => {
         await connection().then( async () => {
             try {
-                const {firstName, lastName, email, password, phoneNumber, messengerLink, twitter, linkedIn, instagram, confirmed} = req.body;
-                User.findOne({email: email}, async (err, existingUser) => {
+                User.findOne({email: req.body.email}, async (err, existingUser) => {
                     if (existingUser == null) {
-                        let user = {};
-                        user.firstName = firstName;
-                        user.lastName = lastName;
-                        user.email = email;
-                        user.password = crypto.MD5(password);
-                        user.phoneNumber = phoneNumber;
-                        user.messengerLink = messengerLink;
-                        user.twitter = twitter;
-                        user.linkedIn = linkedIn;
-                        user.instagram = instagram;
-                        user.confirmed = confirmed;
-
-                        let userModel = new User(user);
-                        
+                        let user = req.body;
+                        user.password = crypto.MD5(req.body.password);
+                        let userModel = new User(user);                        
                         await userModel.save();
-                        res.json(userModel);     
+                        res.json(userModel); 
                     }
                     else {
                         console.log("User has already signed up");

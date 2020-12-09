@@ -5,11 +5,6 @@ const requestRequired = {
     required: true
 }
 
-const requestRequiredInt = {
-    type: Int8Array,
-    required: true
-}
-
 const requestNotRequired = {
     type: String,
     required: false
@@ -19,7 +14,7 @@ const reviewSchema = new mongoose.Schema({
     userID: requestRequired,
     productID: requestRequired,
     comment: requestRequired,
-    rating: requestRequiredInt
+    rating: requestRequired
 });
 
 module.exports = Review = mongoose.model('tbl_reviews', reviewSchema);

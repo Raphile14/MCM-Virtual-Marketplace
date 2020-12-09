@@ -17,6 +17,7 @@ router
     .get((req, res) => {
         res.render(path.join(__dirname, '../../Client/ejs/pages', 'login.ejs'));
     })
+    // SOLUTION .post("/loginForm", async(req, res))
     .post( async (req, res) => {
         await connection().then( async () => {
             try {
@@ -26,7 +27,7 @@ router
                     
                     // Successful Login
                     if (existingUser != null) {
-                        req.session.email = email;
+                        // req.session.email = email;
                         // if (req.session.email) {
                         //     console.log("email detected");
                         // }

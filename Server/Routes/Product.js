@@ -19,17 +19,7 @@ router
     .post( async (req, res) => {
         await connection().then( async () => {
             try {
-                const {userID, productName, quantity, price, description, category} = req.body;
-                let product = {};
-                product.userID = userID;
-                product.productName = productName;
-                product.quantity = quantity;
-                product.price = price;
-                product.description = description;
-                product.category = category;
-
-                let productModel = new Product(product);
-
+                let productModel = new Product(req.body);
                 await productModel.save();
                 res.json(productModel);
             }

@@ -12,9 +12,20 @@ router.use(function(req, res, next) {
 
 // Product Routes
 router
-    .route("/")
+    .route("/:id")
     .get((req, res) => {
-        res.render(path.join(__dirname, '../../Client/ejs/pages', 'review.ejs'));
+        Review.findById(req.params.id, (err, existingProduct) => {
+            if (err){
+                console.log(err);
+            }
+            else if (existingProduct == null) {
+                console.log("None Existing Product");
+                res.send("None Existing Product")
+            }
+            else {
+                res.render(path.join(__dirname, '../../Client/ejs/pages', 'review.ejs'));
+            }
+        });
         // TODO: Need product profile page
     })
     .post( async (req, res) => {
