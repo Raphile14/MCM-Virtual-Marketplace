@@ -7,33 +7,46 @@
         <main>
             <div class="window_login">
                 <table>
-                    <form>
+                    <form method="POST">
                         <caption align="top">
                             <h1>Sign up to start shopping!</h1>
                         </caption>
                         <tr>
-                            <td><input type="text" name="" placeholder="First Name"></td>
-                            <td><input type="text" name="" placeholder="Last Name"></td>
+                            <td><input type="text" name="firstName" placeholder="First Name"></td>
+                            <td><input type="text" name="lastName" placeholder="Last Name"></td>
                         </tr>
                         <tr>
-                            <td><input type="email" name="" placeholder="MCM Email Address"></td>
-                            <td><input type="number" name="" placeholder="Phone Number"></td>
+                            <td><input type="email" name="email" placeholder="MCM Email Address"></td>
+                            <td><input type="number" name="phoneNumber" placeholder="Phone Number"></td>
                         </tr>
                         <tr>
-                            <td><input type="password" name="" placeholder="Create Password"></td>
-                            <td><input type="password" name="" placeholder="Confirm Password"></td>
+                            <td><input type="password" name="password" placeholder="Create Password"></td>
+                            <td><input type="password" name="confirmPassword" placeholder="Confirm Password"></td>
                         </tr>
                         <tr>
-                            <td><input type="text" name="" placeholder="Messenger Link"></td>
-                            <td><input type="text" name="" placeholder="Instagram"></td>
+                            <td> <input type="text" name="city" placeholder="City"> </td>
                         </tr>
                         <tr>
-                            <td><input type="text" name="" placeholder="Twitter"></td>
-                            <td><input type="text" name="" placeholder="LinkedIn"></td>
+                            <td><input type="text" name="messengerLink" placeholder="Messenger Link"></td>
+                            <td><input type="text" name="instagram" placeholder="Instagram"></td>
                         </tr>
                         <tr>
-                            <td><input type="submit" name="" value="CREATE ACCOUNT"></td>
+                            <td><input type="text" name="twitter" placeholder="Twitter"></td>
+                            <td><input type="text" name="linkedIn" placeholder="LinkedIn"></td>
                         </tr>
+                        <tr>
+                            <td><input type="submit" name="register" value="CREATE ACCOUNT"></td>
+                        </tr>
+                        <tr>
+                            <% if (signupError) { %>
+                                <td class="txt_error"> Missing Fields! </td>
+                            <% } %>  
+                        </tr>   
+                        <tr>
+                            <% if (signupExist) { %>
+                                <td class="txt_error"> User already registered! </td>
+                            <% } %>  
+                        </tr>                      
                     </form>
                 </table>
             </div>

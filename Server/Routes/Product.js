@@ -1,5 +1,7 @@
 "use strict";
 const express = require("express");
+const formidable = require('formidable');
+const fs = require('fs');
 const connection = require("../Database/Connection.js");
 const path = require('path');
 const Product = require("../Database/Product");
@@ -19,22 +21,31 @@ router
     })
     .post( async (req, res) => {
         let data = req.body;
-        console.log(req.body);
-        await connection().then( async () => {
-            try {
-                let productModel = new Product(req.body);
-                console.log(req.body);
-                await productModel.save();
-                res.json(productModel);
-            }
-            catch (e) {
-                res.render(path.join(__dirname, '../../Client/ejs/pages', 'product.ejs'), {productError: true, data});
-                console.log(e);
-            }
-            finally {
-                connection.close;
-            }
-        } )
+        let form = new formidable.IncomingForm();
+        form.uploadDir = 'tmp';
+        form.parse(req, function (err, fields, files) {
+            let oldpath = files.filetoupload.path;
+            let newpath = path.join(__dirname, '../../Client/images/products/' + files.filetoupload.name);
+            fs.renameSync(oldpath, newpath, function (err) {
+                if (err) throw err;
+                console.log('File uploaded and moved!');
+            });
+        });
+        // await connection().then( async () => {
+        //     try {
+        //         let productModel = new Product(req.body);
+        //         console.log(req.body);
+        //         await productModel.save();
+        //         res.json(productModel);
+        //     }
+        //     catch (e) {
+        //         res.render(path.join(__dirname, '../../Client/ejs/pages', 'product.ejs'), {productError: true, data});
+        //         console.log(e);
+        //     }
+        //     finally {
+        //         connection.close;
+        //     }
+        // } )
     });
 
 module.exports = router;
