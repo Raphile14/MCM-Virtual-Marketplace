@@ -21,6 +21,8 @@ router
     })
     .post( async (req, res) => {
         let data = req.body;
+
+        // Picture Validation
         let form = new formidable.IncomingForm();
         form.uploadDir = 'tmp';
         form.parse(req, function (err, fields, files) {
@@ -31,21 +33,23 @@ router
                 console.log('File uploaded and moved!');
             });
         });
-        // await connection().then( async () => {
-        //     try {
-        //         let productModel = new Product(req.body);
-        //         console.log(req.body);
-        //         await productModel.save();
-        //         res.json(productModel);
-        //     }
-        //     catch (e) {
-        //         res.render(path.join(__dirname, '../../Client/ejs/pages', 'product.ejs'), {productError: true, data});
-        //         console.log(e);
-        //     }
-        //     finally {
-        //         connection.close;
-        //     }
-        // } )
+
+        // Save Database
+        await connection().then( async () => {
+            try {
+                let productModel = new Product(req.body);
+                console.log(req.body);
+                await productModel.save();
+                res.json(productModel);
+            }
+            catch (e) {
+                res.render(path.join(__dirname, '../../Client/ejs/pages', 'product.ejs'), {productError: true, data});
+                console.log(e);
+            }
+            finally {
+                connection.close;
+            }
+        } )
     });
 
 module.exports = router;
