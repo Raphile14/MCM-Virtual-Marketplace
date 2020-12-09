@@ -15,15 +15,16 @@ router.use(function(req, res, next) {
 router
     .route("/")
     .get((req, res) => {
-        res.render(path.join(__dirname, '../../Client/ejs/pages', 'login.ejs'));
+        res.render(path.join(__dirname, '../../Client/ejs/pages', 'login.ejs'), {loginError: false});
     })
     // SOLUTION .post("/loginForm", async(req, res))
     .post( async (req, res) => {
         await connection().then( async () => {
             try {
                 const {email, password} = req.body;
-                hashPass = crypto.MD5(password);
+                let hashPass = crypto.MD5(password);
                 User.findOne({email, hashPass}, async (err, existingUser) => {
+                    console.log("passed here")
                     
                     // Successful Login
                     if (existingUser != null) {
@@ -37,7 +38,7 @@ router
                     }
                     // Failed Login
                     else {
-                        console.log("Failed Login")
+                        return res.render(path.join(__dirname, "../../Client/ejs/pages/login"), {loginError: true});
                     }
                 });
             }

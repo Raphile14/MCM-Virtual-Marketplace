@@ -2,7 +2,7 @@
 const express = require("express");
 const connection = require("../Database/Connection.js");
 const path = require('path');
-const Seller = require("../Database/Product");
+const Product = require("../Database/Product");
 let router = express.Router();
 
 router.use(function(req, res, next) {
@@ -11,10 +11,42 @@ router.use(function(req, res, next) {
 
 // Product Routes
 router
-    .route("/")
+    .route("/:choice")
     .get((req, res) => {
-        let products = Seller.find({confirmed: false});
-        console.log(products);
+        let confirmed = false;
+        if (req.params.choice == "false" || req.params.choice == "true") {
+            confirmed = eval(req.params.choice);
+            console.log(confirmed);
+            
+            Product.find({confirmed}, async (err, existingUser) => {
+
+                // Successful Login
+                if (existingUser != null) {
+                    console.log(existingUser);
+                }
+                // Failed Login
+                else {
+                    console.log("Failed Login")
+                }
+            });
+        }
+        else if (req.params.choice == "all") {
+            Product.find(async (err, existingUser) => {
+
+                // Successful Login
+                if (existingUser != null) {
+                    console.log(existingUser);
+                }
+                // Failed Login
+                else {
+                    console.log("Failed Login")
+                }
+            });
+        }
+        else {
+            console.log("invalid query")
+        }
+        
         res.render(path.join(__dirname, '../../Client/ejs/pages', 'seller.ejs'));
         // TODO: Need Admin Seller page
     })

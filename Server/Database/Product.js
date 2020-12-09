@@ -32,4 +32,4 @@ const productSchema = new mongoose.Schema({
     imagePath7: requestNotRequired
 });
 
-module.exports = Review = mongoose.model('tbl_products', productSchema);
+module.exports = Product = mongoose.model('tbl_products', productSchema);

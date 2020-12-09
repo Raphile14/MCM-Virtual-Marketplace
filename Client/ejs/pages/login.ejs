@@ -15,26 +15,31 @@
                     </tr>     
                 </table>
 
-                <table class="tbl_login_txtfield">
-                    <tr>
-                        <td><input class="txtfield_login" type="email" placeholder="MCM Email Address"></td>
-                    </tr>
-                    <tr>
-                        <td><input class="txtfield_login" type="password" placeholder="Password"></td>
-                    </tr>
-                    <tr>
-                        <td class="txt_error">User credentials do not match our records. Try again!</td>
-                    </tr>
-                </table>
-
-                <table class="tbl_login_btn">
-                    <tr>
-                        <td><input class="btn_login" type="submit" value="LOGIN"></td>
-                    </tr>
-                    <tr>
-                        <td class="txt_login_new">New member? Sign up here!</td>
-                    </tr>
-                </table>
+                <form method="POST">
+                    <table class="tbl_login_txtfield">
+                        <tr>
+                            <td><input class="txtfield_login" type="email" placeholder="MCM Email Address"></td>
+                        </tr>
+                        <tr>
+                            <td><input class="txtfield_login" type="password" placeholder="Password"></td>
+                        </tr>
+                        <tr>
+                            <% if (loginError) { %>
+                                <td class="txt_error">User credentials do not match our records. Try again!</td>
+                            <% } %>                            
+                        </tr>
+                    </table>
+    
+                    <table class="tbl_login_btn">
+                        <tr>
+                            <td><input class="btn_login" type="submit" value="LOGIN"></td>
+                        </tr>
+                        <tr>
+                            <td class="txt_login_new"> New member? <a href="/signup"> Sign up here! </a> </td>
+                        </tr>
+                    </table>
+                </form>
+                
             
             </div>
         </main>
