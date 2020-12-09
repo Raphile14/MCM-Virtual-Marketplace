@@ -27,7 +27,7 @@ router
         form.uploadDir = 'tmp';
         form.parse(req, function (err, fields, files) {
             let oldpath = files.filetoupload.path;
-            let newpath = path.join(__dirname, '../../Client/images/products/' + files.filetoupload.name);
+            let newpath = path.join(__dirname, '../../Client/images/products', files.filetoupload.name);
             fs.renameSync(oldpath, newpath, function (err) {
                 if (err) throw err;
                 console.log('File uploaded and moved!');
@@ -41,6 +41,9 @@ router
                 console.log(req.body);
                 await productModel.save();
                 res.json(productModel);
+                // User.find({email: req.body.email}, async (err, addedUser) => {
+                //     EmailRegistration.sendEmail(user, addedUser[0]._id);
+                // });  
             }
             catch (e) {
                 res.render(path.join(__dirname, '../../Client/ejs/pages', 'product.ejs'), {productError: true, data});

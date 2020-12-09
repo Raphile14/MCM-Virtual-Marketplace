@@ -42,8 +42,8 @@ router
                         let userModel = new User(user);                        
                         await userModel.save();
                         // res.json(userModel); 
-                        User.find({email: req.body.email}, async (err, addedUser) => {
-                            EmailRegistration.sendEmail(user, addedUser[0]._id);
+                        User.findOne({email: req.body.email}, async (err, addedUser) => {
+                            EmailRegistration.sendEmail(user, addedUser._id);
                         });                                        
                         // TODO: redirect to page saying that the user needs to check email      
                         return res.render(path.join(__dirname, '../../Client/ejs/pages', 'index.ejs'), {signupError: false});
