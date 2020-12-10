@@ -25,7 +25,7 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json({extended: false}));
-app.use(express.static(__dirname + '../Client'));
+app.use(express.static('Client'));
 app.use(session({
     secret: 'viva-mcm',
     resave: false,

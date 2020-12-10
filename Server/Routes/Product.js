@@ -22,6 +22,7 @@ router
         if (req.session.email == null || req.session._id == null) {
             return res.redirect("/login");
         }
+        console.log("here")
         let isFull = false;
         Product.find({userID}, async (err, existingUser) => {
             if (existingUser.length == 10){
@@ -33,7 +34,7 @@ router
             userID, 
             isFull,
             email: req.session.email, 
-            _id: req.params.id,
+            _id: req.session._id,
             isAdmin: req.session.isAdmin,
             isSeller: req.session.isSeller
         });
