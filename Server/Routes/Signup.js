@@ -41,7 +41,6 @@ router
                         user.password = crypto.MD5(req.body.password);
                         let userModel = new User(user);                        
                         await userModel.save();
-                        // res.json(userModel); 
                         User.findOne({email: req.body.email}, async (err, addedUser) => {
                             EmailRegistration.sendEmail(user, addedUser._id);
                         });                                        

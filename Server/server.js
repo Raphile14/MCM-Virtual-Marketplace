@@ -42,15 +42,14 @@ app.use("/confirmation", confirmation);
 // Routings
 app.get("/", (req, res) => {
 
-    // Sample Session Container
-    if (req.session.email) {
-        console.log("email in session");
-    }
-    else {
+    // Session Container
+    if (!req.session.email) {
         console.log("no email in session");
+        // return res.redirect(path.join(__dirname, '../Client/ejs/pages', 'login.ejs'), {loginError: false});
+        return res.redirect('/login');
     }
     
-    res.render(path.join(__dirname, '../Client/ejs/pages', 'index.ejs'));
+    return res.render(path.join(__dirname, '../Client/ejs/pages', 'index.ejs'));
     // res.send('hello world')
 });
 
