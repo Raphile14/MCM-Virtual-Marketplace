@@ -1,18 +1,41 @@
 <html lang="en">
     <head>
         <%- include('../partials/head'); %>
-        <title> Profile - MCM Virtual Marketplace </title>
+        <title> MCM Virtual Marketplace </title>
     </head>
-    <body>
+    <body style="background:white">
         <header>
             <%- include('../partials/header'); %>
         </header>
 
         <main>
+            <br><br>
+            <table class="profile">
+                <tr>
+                    <td>
+                        <p class="profile_products" style="text-align:left">Lorem Ipsum D. Sitamet</p>
+                        <p class="profile_contact">liSitamet@mcm.edu.ph</p>
+                        <p class="profile_contact">+639123456789</p>
+                    </td>
+                    <td style="width:350px; padding:20px">
+                        <p class="profile_icon" style="text-align:left">Contact Me:</p>
+                        <img src="../../images/icon_messenger.png" class="profile_icon" align ="left" alt="messenger">
+                        <img src="../../images/icon_instagram.png" class="profile_icon" align ="left" alt="instagram">
+                        <img src="../../images/icon_twitter.png" class="profile_icon" align ="left" alt="twitter">
+                        <img src="../../images/icon_linkedin.png" class="profile_icon" align ="left" alt="linkedin">
+                    </td>
+                </tr>
+            </table>
 
-            Profile
-            
+            <br><br><br><br><br>
+
+            <p class="profile_products">Products On Sale</p>
+
+            <%- include('../partials/catalog_table'); %>
+
         </main>
+
+        <br><br>
 
         <footer>
             <%- include('../partials/footer'); %>

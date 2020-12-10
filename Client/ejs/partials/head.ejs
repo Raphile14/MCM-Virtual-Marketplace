@@ -5,13 +5,13 @@
 
 <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet" />
 <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css?family=Merriweather&display=swap" rel="stylesheet" />
 
 <style>
 body {
   background:#263B5B;
   color: #9F9F9F;
   font-family: Lato;
-  font-weight: Regular;
   font-size: 13px;
 }
 
@@ -194,6 +194,7 @@ input.btn_search {
   background: #263B5B;
   color: white;
   position: relative;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.08);
   /* top: 0px; */
   /* left: 11px; */
   font-family: Roboto;
@@ -202,10 +203,13 @@ input.btn_search {
   /* text-align: center; */
 }
 
-/* table.catalog {
-  width: 750px;
+table.catalog {
+  /* width: 750px;
   height: 1000px;
-} */
+  padding: 100px; */
+  border-spacing: 20px;
+  border-collapse: separate;
+}
 
 td {
   text-align: center;
@@ -215,8 +219,91 @@ td.catalog {
   background: white;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.25);
   border-radius: 5px;
-  width: 300px;
-  height: 400px;
+  width: 377px;
+  height: 524px;
+}
+
+img.catalog {
+  width: 341px;
+  height: 259px;
+}
+
+p.item {
+  font-family: Merriweather;
+  font-size: 36px;
+  font-weight: bold;
+  color: black;
+}
+
+p.price {
+  font-family: Roboto;
+  font-size: 30px;
+  color: #0DA313;
+  line-height: 25%;
+}
+
+input.btn_catalog {
+  width: 161px;
+  height: 51px;
+  background: #C12727;
+  color: white;
+  position: relative;
+  font-family: Roboto;
+  font-size: 20px;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.25);
+}
+
+input.txt_profile {
+  width: 538px;
+  height: 53px;
+  position: relative;
+  font-size: 15px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.08);
+  border: none;
+  padding: 20px;
+}
+
+p.profile_products {
+  color: #C12727;
+  background: none;
+  position: relative;
+  font-family: Roboto;
+  font-weight: bold;
+  font-size: 36px;
+  text-align: center;
+}
+
+table.profile {
+  width: 1317px;
+  /* height: 62px; */
+  background: white;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.25);
+  border-radius: 5px;
+  border-spacing: 50px;
+  border-collapse: separate;
+}
+
+p.profile_contact {
+  font-family: Roboto;
+  font-size: 30px;
+  color: #263B5B;
+  text-align: left;
+  line-height: 75%;
+}
+
+p.profile_icon {
+  font-family: Roboto;
+  font-size: 25px;
+  color: #263B5B;
+  text-align: left;
+  font-weight: bold;
+}
+
+img.profile_icon {
+  width: 52px;
+  height: 52px;
 }
 
 </style>

@@ -5,51 +5,49 @@
     </head>
     <body>
         <main>
-            <div class="window_login">
-                <table>
-                    <form method="POST">
-                        <caption align="top">
-                            <h1>Sign up to start shopping!</h1>
-                        </caption>
-                        <tr>
-                            <td><input type="text" name="firstName" placeholder="First Name" required></td>
-                            <td><input type="text" name="lastName" placeholder="Last Name" required></td>
-                        </tr>
-                        <tr>
-                            <td><input type="email" name="email" placeholder="MCM Email Address" required></td>
-                            <td><input type="number" name="phoneNumber" placeholder="Phone Number" required></td>
-                        </tr>
-                        <tr>
-                            <td><input type="password" name="password" placeholder="Create Password" required></td>
-                            <td><input type="password" name="confirmPassword" placeholder="Confirm Password" required></td>
-                        </tr>
-                        <tr>
-                            <td> <input type="text" name="city" placeholder="City" required> </td>
-                        </tr>
-                        <tr>
-                            <td><input type="text" name="messengerLink" placeholder="Messenger Link"></td>
-                            <td><input type="text" name="instagram" placeholder="Instagram"></td>
-                        </tr>
-                        <tr>
-                            <td><input type="text" name="twitter" placeholder="Twitter"></td>
-                            <td><input type="text" name="linkedIn" placeholder="LinkedIn"></td>
-                        </tr>
-                        <tr>
-                            <td><input type="submit" name="register" value="CREATE ACCOUNT"></td>
-                        </tr>
-                        <tr>
-                            <% if (signupError) { %>
-                                <td class="txt_error"> Missing Fields! </td>
-                            <% } %>  
-                        </tr>   
-                        <tr>
-                            <% if (signupExist) { %>
-                                <td class="txt_error"> Email already in use! </td>
-                            <% } %>  
-                        </tr>                      
-                    </form>
-                </table>
-            </div>
+            <table class="login">
+                <form method="POST">
+                    <caption align="top">
+                        <h1>Sign up to start shopping!</h1>
+                    </caption>
+                    <tr>
+                        <td><input type="text" name="firstName" placeholder="First Name" required></td>
+                        <td><input type="text" name="lastName" placeholder="Last Name" required></td>
+                    </tr>
+                    <tr>
+                        <td><input type="email" name="email" placeholder="MCM Email Address" required></td>
+                        <td><input type="number" name="phoneNumber" placeholder="Phone Number" required></td>
+                    </tr>
+                    <tr>
+                        <td><input type="password" name="password" placeholder="Create Password" required></td>
+                        <td><input type="password" name="confirmPassword" placeholder="Confirm Password" required></td>
+                    </tr>
+                    <tr>
+                        <td> <input type="text" name="city" placeholder="City" required> </td>
+                    </tr>
+                    <tr>
+                        <td><input type="text" name="messengerLink" placeholder="Messenger Link"></td>
+                        <td><input type="text" name="instagram" placeholder="Instagram"></td>
+                    </tr>
+                    <tr>
+                        <td><input type="text" name="twitter" placeholder="Twitter"></td>
+                        <td><input type="text" name="linkedIn" placeholder="LinkedIn"></td>
+                    </tr>
+                    <tr>
+                        <td><input type="submit" name="register" value="CREATE ACCOUNT"></td>
+                    </tr>
+                    <tr>
+                        <% if (signupError) { %>
+                            <td class="txt_error"> Missing Fields! </td>
+                        <% } %>  
+                    </tr>   
+                    <tr>
+                        <% if (signupExist) { %>
+                            <td class="txt_error"> Email already in use! </td>
+                        <% } %>  
+                    </tr>                      
+                </form>
+            </table>
         </main>
     </body>
 </html>
