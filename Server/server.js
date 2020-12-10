@@ -10,9 +10,10 @@ const bodyParser = require('body-parser');
 const login = require("./Routes/Login.js");
 const signup = require("./Routes/Signup.js");
 const product = require("./Routes/Product.js");
-const profile = require("./Routes/Profile.js")
-const ticket = require("./Routes/Ticket.js")
-const seller = require("./Routes/Seller.js")
+const profile = require("./Routes/Profile.js");
+const ticket = require("./Routes/Ticket.js");
+const seller = require("./Routes/Seller.js");
+const logout = require("./Routes/Logout.js");
 const confirmation = require("./Routes/Confirmation.js")
 // const review = require("./Routes/Review.js");    REMOVED
 
@@ -37,6 +38,7 @@ app.use("/profile", profile);
 app.use("/ticket", ticket);
 app.use("/seller", seller);
 app.use("/confirmation", confirmation);
+app.use("/logout", logout);
 // app.use("/review", review);  REMOVED
 
 // Routings
