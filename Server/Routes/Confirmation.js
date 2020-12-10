@@ -21,7 +21,7 @@ router
             }
             if (existingUser != null) {
                 User.findByIdAndUpdate({_id: req.params.id}, {confirmed: true}, (err, result) => {
-                    res.render(path.join(__dirname, '../../Client/ejs/pages', 'index.ejs'));
+                    res.redirect("/");
                 })                
             }
             else {
