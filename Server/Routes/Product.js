@@ -28,7 +28,13 @@ router
                 isFull = true;
             }
         });
-        res.render(path.join(__dirname, '../../Client/ejs/pages', 'product.ejs'), {productError: false, userID, isFull});
+        res.render(path.join(__dirname, '../../Client/ejs/pages', 'product.ejs'), {
+            productError: false, 
+            userID, 
+            isFull,
+            email: req.session.email, 
+            _id: req.params.id
+        });
     })
     .post( async (req, res) => {
         let data = req.body;
@@ -81,7 +87,12 @@ router
                 });
             }
             catch (e) {
-                res.render(path.join(__dirname, '../../Client/ejs/pages', 'product.ejs'), {productError: true, data});
+                res.render(path.join(__dirname, '../../Client/ejs/pages', 'product.ejs'), {
+                    productError: true, 
+                    data,
+                    email: req.session.email, 
+                    _id: req.params.id
+                });
                 console.log(e);
             }
             finally {
