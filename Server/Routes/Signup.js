@@ -40,6 +40,7 @@ router
                         user.email = req.body.email.toLowerCase();
                         user.isAdmin = false;
                         user.confirmed = false;
+                        user.isSeller = false;
                         user.password = crypto.MD5(req.body.password);
                         let userModel = new User(user);                        
                         await userModel.save();
@@ -47,7 +48,7 @@ router
                             EmailRegistration.sendEmail(user, addedUser._id);
                         });                                        
                         // TODO: redirect to page saying that the user needs to check email      
-                        return res.render(path.join(__dirname, '../../Client/ejs/pages', 'index.ejs'), {signupError: false});
+                        return res.redirect("/");
                     }
                     else {
                         console.log("User has already signed up");

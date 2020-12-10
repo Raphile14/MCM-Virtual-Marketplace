@@ -13,6 +13,8 @@ router
     .get((req, res) => {
         req.session.email = null;
         req.session._id = null;
+        req.session.isAdmin = null;
+        req.session.isSeller = null;
         res.redirect("/login");
     });
 

@@ -31,7 +31,9 @@ router
                     _id: req.params.id,
                     firstName: existingUser.firstName,
                     lastName: existingUser.lastName,
-                    phoneNumber: existingUser.phoneNumber
+                    phoneNumber: existingUser.phoneNumber,
+                    isAdmin: req.session.isAdmin,
+                    isSeller: req.session.isSeller
                 });
             }
         });        

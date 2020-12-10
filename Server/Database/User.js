@@ -29,6 +29,7 @@ const userSchema = new mongoose.Schema({
     instagram: requestNotRequired,
     confirmed: requestBoolean,
     isAdmin: requestBoolean,
+    isSeller: requestBoolean,
     avatarPath: requestNotRequired
 });
 

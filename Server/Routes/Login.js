@@ -36,6 +36,8 @@ router
                             console.log("Login Success")
                             req.session.email = email;                            
                             req.session._id = existingUser._id;
+                            req.session.isAdmin = existingUser.isAdmin;
+                            req.session.isSeller = existingUser.isSeller;
                             console.log(req.session._id);
                             return res.redirect("/");
                         }

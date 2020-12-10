@@ -46,7 +46,12 @@ app.get("/", (req, res) => {
 
     // Session Container
     if (req.session.email == null || req.session._id == null) return res.redirect('/login');    
-    return res.render(path.join(__dirname, '../Client/ejs/pages', 'index.ejs'), {email: req.session.email, _id: req.session._id});
+    return res.render(path.join(__dirname, '../Client/ejs/pages', 'index.ejs'), {
+        email: req.session.email, 
+        _id: req.session._id,
+        isAdmin: req.session.isAdmin,
+        isSeller: req.session.isSeller
+    });
 
 });
 

@@ -19,9 +19,9 @@ router
     .get((req, res) => {
         let userID = "5fd1cc9353cd1a64a8991cb9";
         // let userID = req.session._id;
-        // if (req.session.email == null || req.session._id == null) {
-        //     return res.redirect("/login");
-        // }
+        if (req.session.email == null || req.session._id == null) {
+            return res.redirect("/login");
+        }
         let isFull = false;
         Product.find({userID}, async (err, existingUser) => {
             if (existingUser.length == 10){
@@ -33,7 +33,9 @@ router
             userID, 
             isFull,
             email: req.session.email, 
-            _id: req.params.id
+            _id: req.params.id,
+            isAdmin: req.session.isAdmin,
+            isSeller: req.session.isSeller
         });
     })
     .post( async (req, res) => {
@@ -91,7 +93,9 @@ router
                     productError: true, 
                     data,
                     email: req.session.email, 
-                    _id: req.params.id
+                    _id: req.params.id,
+                    isAdmin: req.session.isAdmin,
+                    isSeller: req.session.isSeller
                 });
                 console.log(e);
             }
