@@ -1,7 +1,7 @@
 <meta charset="UTF-8">
 
 <!-- CSS (load bootstrap from a CDN) -->
-<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.min.css"> -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.min.css">
 
 <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet" />
 <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet" />
@@ -15,7 +15,7 @@ body {
   font-size: 13px;
 }
 
-.window_login {
+table.login {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -25,109 +25,198 @@ body {
   background: white;
   border-radius: 10px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
-/* table {
+table {
   margin: auto;
-  width: 50%;
-  border: 3px solid green;
-  padding: 10px;
-} */
+  /* width: 50%; */
+  /* border: 3px solid green; */
+  /* padding: 10px; */
+}
 
-.tbl_login_title {
-  width: 384px;
+table.login_title {
+  /* width: 384px; */
+  width: 100%;
   height: 159px;
   top: 55px;
-  left: 223px;
+  /* left: 223px; */
   position: absolute;
+  text-align: center;
 }
 
-.txt_login_MCM {
-  width: 384px;
+p.login_MCM {
+  /* width: 384px; */
   color: #263B5B;
   background: none;
-  position: absolute;
-  top: 124px;
-  left: 0px;
+  position: relative;
+  /* top: 124px; */
+  /* left: 0px; */
   font-family: Roboto;
   font-weight: bold;
   font-size: 30px;
   text-align: center;
+  padding: 20px;
 }
 
-.img_logo {
-  width: 100px;
-  height: 100px;
-  background: rgba(196,196,196,1);
-  position: absolute;
-  top: 0px;
-  left: 142px;
-  border-radius: 50%;
-}
-
-.tbl_login_txtfield {
+/* WORKS */
+table.login_txtfield {
   /* width: 538px; */
-  width: 575px;
+  width: 100%;
   /* height: 126px;  */
   height: 175px; 
   position: absolute;
   top: 246px;
-  left: 147px;
+  /* left: 147px; */
   /* box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25); */
   text-align: center;
 }
 
-.txtfield_login {
+input.txt_login {
   width: 538px;
   height: 53px;
   position: relative;
-  overflow: hidden;
   font-size: 15px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
   border: none;
   padding: 20px;
 }
 
-.txt_error {
+p.login_dot {
+  /* width: 538px; */
+  position: relative;
+  color: white;
+  background: none;
+  font-family: Roboto;
+  font-style: italic;
+  font-size: 15px;
+  /* text-align: left; */
+  /* border: 3px solid green; */
+}
+
+p.login_error {
+  /* width: 538px; */
+  position: relative;
   color: #C12727;
   background: none;
   font-family: Roboto;
   font-style: italic;
   font-size: 15px;
-  text-align: left;
+  /* text-align: left; */
+  /* border: 3px solid green; */
 }
 
-.tbl_login_btn {
-  width: 300px;
+table.login_btn {
+  /* width: 300px; */
+  width: 100%;
   height: 100px;
   background: none;
   position: absolute;
-  top: 478px;
-  left: 324px;
-  overflow: hidden;
+  /* top: 478px; */
+  top: 465px;
+  /* left: 324px; */
+  text-align: center;
 }
 
-.txt_login_new {
-  color: #9F9F9F;
-  background: none;
-  position: absolute;
-  top: 65px;
-}
-
-.btn_login {
+input.btn_login {
   width: 161px;
   height: 51px;
   background: #C12727;
   color: white;
-  position: absolute;
-  top: 0px;
-  left: 11px;
+  position: relative;
+  /* top: 0px; */
+  /* left: 11px; */
   border-radius: 5px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.46000000834465027);
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.25);
   font-family: Roboto;
   font-size: 20px;
+  border: none;
+  /* text-align: center; */
+}
+
+a {
+  color:#407688; 
+  text-decoration: underline;
+}
+
+ul.header {
+  list-style-type: none;
+  margin: 0;
+  overflow: hidden;
+  background: none;
+  padding: 0px 80px;
+  background: #263B5B;
+}
+
+ul.menu {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
   text-align: center;
+  padding: 80px 0px 30px;
+}
+
+li a{
+  float: center;
+  color:#263B5B;
+  text-align: center;
+  font-family: Roboto;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+li a.header {
+  float: right;
+  color: white;
+  padding: 20px 20px;
+}
+
+li.menu {
+  display: inline;
+  padding: 20px 20px;
+}
+
+li.footer {
+  float: left;
+  color: #C4C4C4;
+  text-align: center;
+  padding: 80px 20px;
+  font-size: 20px;
+}
+
+a:hover {
+  color: #407688
+}
+
+input.btn_search {
+  width: 75px;
+  height: 51px;
+  background: #263B5B;
+  color: white;
+  position: relative;
+  /* top: 0px; */
+  /* left: 11px; */
+  font-family: Roboto;
+  font-size: 15px;
+  border: none;
+  /* text-align: center; */
+}
+
+/* table.catalog {
+  width: 750px;
+  height: 1000px;
+} */
+
+td {
+  text-align: center;
+}
+
+td.catalog {
+  background: white;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.25);
+  border-radius: 5px;
+  width: 300px;
+  height: 400px;
 }
 
 </style>

@@ -5,41 +5,53 @@
     </head>
     <body>
         <main>
-            <div class="window_login">
-                <table class="tbl_login_title">
-                    <tr>
-                        <td><div class="img_logo"></div></td>
-                    </tr>
-                    <tr>
-                        <td class="txt_login_MCM">MCM Virtual Marketplace</td>
-                    </tr>     
-                </table>
-
-                <form method="POST">
-                    <table class="tbl_login_txtfield">
-                        <tr>
-                            <td><input class="txtfield_login" type="email" placeholder="MCM Email Address"></td>
-                        </tr>
-                        <tr>
-                            <td><input class="txtfield_login" type="password" placeholder="Password"></td>
-                        </tr>
-                        <tr>
-                            <% if (loginError) { %>
-                                <td class="txt_error">User credentials do not match our records. Try again!</td>
-                            <% } %>                            
-                        </tr>
-                    </table>
-    
-                    <table class="tbl_login_btn">
-                        <tr>
-                            <td><input class="btn_login" type="submit" value="LOGIN"></td>
-                        </tr>
-                        <tr>
-                            <td class="txt_login_new"> New member? <a href="/signup"> Sign up here! </a> </td>
-                        </tr>
-                    </table>
+            <table class="login">
+                <tr>
+                    <td>
+                        <table class="login_title">
+                            <tr>
+                                <td><img src="../../images/logo.png" alt="logo" width="100" height="100"></td>
+                            </tr>
+                            <tr>
+                                <td><p class="login_MCM">MCM Virtual Marketplace</p></td>
+                            </tr>     
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <form method="POST">
+                            <table class="login_txtfield">
+                                <tr>
+                                    <td><input class="txt_login" type="email" placeholder="MCM Email Address"></td>
+                                </tr>
+                                <tr>
+                                    <td><input class="txt_login" type="password" placeholder="Password"></td>
+                                </tr>
+                                <tr>
+                                    <!-- IF NO ERROR aka staring point -->
+                                        <td><p class="login_dot">.</p></td>
+                                    <% if (loginError) { %>
+                                        <td><p class="login_error">User credentials do not match our records. Try again!</p></td>
+                                    <% } %>                          
+                                </tr>
+                            </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <table class="login_btn">
+                            <tr>
+                                <td><input class="btn_login" type="submit" value="LOGIN"></td>
+                            </tr>
+                            <tr>
+                                <td >New member? <a href="/signup" "> Sign up here! </a></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
                 </form>
-            </div>
+            </table>
         </main>
     </body>
 </html>
