@@ -21,7 +21,7 @@ router
                 let ticketModel = new Ticket(ticket);
 
                 await ticketModel.save();
-                res.json(ticketModel);
+                // res.json(ticketModel);
             }
             catch (e) {
                 console.log(e);

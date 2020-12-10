@@ -23,18 +23,28 @@ router
             try {
                 const {email, password} = req.body;
                 let hashPass = crypto.MD5(password);
-                User.findOne({email, hashPass}, async (err, existingUser) => {
-                    console.log("passed here")
-                    
+                console.log(req.body);                
+                User.findOne({email: email}, async (err, existingUser) => {
+                    console.log(hashPass);
+                    console.log("inputted password: " + hashPass)
+                    console.log(existingUser);
                     // Successful Login
                     if (existingUser != null) {
-                        // req.session.email = email;
-                        // if (req.session.email) {
-                        //     console.log("email detected");
-                        // }
-                        // else {
-                        //     console.log("no email detected");
-                        // }
+                        if (existingUser.password == hashPass) {
+                            console.log("Login Success")
+                            req.session.email = email;
+                            // if (req.session.email) {
+                            //     console.log("email detected");
+                            // }
+                            // else {
+                            //     console.log("no email detected");
+                            // }
+                            return res.redirect("/");
+                        }
+                        else {
+                            return res.render(path.join(__dirname, "../../Client/ejs/pages/login"), {loginError: true});
+                        }
+                        
                     }
                     // Failed Login
                     else {

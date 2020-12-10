@@ -17,7 +17,7 @@ router
             console.log(existingUser);            
             if (err) {
                 console.log(err);
-                res.send(err);     
+                // res.send(err);     
             }
             if (existingUser != null) {
                 User.findByIdAndUpdate({_id: req.params.id}, {confirmed: true}, (err, result) => {

@@ -63,7 +63,7 @@ router
                 let reviewModel = new Review(review);
 
                 await reviewModel.save();
-                res.json(reviewModel);
+                // res.json(reviewModel);
             }
             catch (e) {
                 console.log(e);

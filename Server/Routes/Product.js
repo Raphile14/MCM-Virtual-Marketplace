@@ -40,7 +40,7 @@ router
                 let productModel = new Product(req.body);
                 console.log(req.body);
                 await productModel.save();
-                res.json(productModel);
+                // res.json(productModel);
                 // User.find({email: req.body.email}, async (err, addedUser) => {
                 //     EmailRegistration.sendEmail(user, addedUser[0]._id);
                 // });  

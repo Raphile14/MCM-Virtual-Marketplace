@@ -13,6 +13,9 @@ router.use(function(req, res, next) {
 router
     .route("/:id")
     .get((req, res) => {
+        if (!req.session.email) {
+            return res.redirect("/login");
+        }    
         User.findById(req.params.id, (err, existingUser) => {
             console.log(existingUser);
             if (err) {
