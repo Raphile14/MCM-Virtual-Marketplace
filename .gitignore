@@ -1,3 +1,4 @@
 .env
 /Server/dev.js
 /node_modules
+credentials.json
