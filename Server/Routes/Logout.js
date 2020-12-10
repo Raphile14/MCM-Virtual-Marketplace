@@ -12,6 +12,7 @@ router
     .route("/")
     .get((req, res) => {
         req.session.email = null;
+        req.session._id = null;
         res.redirect("/login");
     });
 

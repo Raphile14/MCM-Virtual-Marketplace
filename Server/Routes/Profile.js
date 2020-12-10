@@ -13,9 +13,7 @@ router.use(function(req, res, next) {
 router
     .route("/:id")
     .get((req, res) => {
-        if (!req.session.email) {
-            return res.redirect("/login");
-        }    
+        if (req.session.email == null || req.session._id == null) return res.redirect("/login");
         User.findById(req.params.id, (err, existingUser) => {
             console.log(existingUser);
             if (err) {
@@ -27,7 +25,14 @@ router
                 res.send("None existing user");        
             }
             else {
-                res.render(path.join(__dirname, '../../Client/ejs/pages', 'profile.ejs'), {existingUser});
+                res.render(path.join(__dirname, '../../Client/ejs/pages', 'profile.ejs'), 
+                {
+                    email: req.session.email, 
+                    _id: req.params.id,
+                    firstName: existingUser.firstName,
+                    lastName: existingUser.lastName,
+                    phoneNumber: existingUser.phoneNumber
+                });
             }
         });        
     })

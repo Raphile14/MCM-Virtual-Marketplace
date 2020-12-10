@@ -18,6 +18,7 @@ const requestBoolean = {
 const productSchema = new mongoose.Schema({
     userID: requestRequired,
     productName: requestRequired,
+    productCounter: requestRequired,
     quantity: requestRequired,
     price: requestRequired,
     description: requestRequired,

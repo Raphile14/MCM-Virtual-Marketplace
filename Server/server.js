@@ -45,15 +45,14 @@ app.use("/logout", logout);
 app.get("/", (req, res) => {
 
     // Session Container
-    if (!req.session.email) {
-        console.log("no email in session");
-        // return res.redirect(path.join(__dirname, '../Client/ejs/pages', 'login.ejs'), {loginError: false});
-        return res.redirect('/login');
-    }
-    
-    return res.render(path.join(__dirname, '../Client/ejs/pages', 'index.ejs'));
-    // res.send('hello world')
+    if (req.session.email == null || req.session._id == null) return res.redirect('/login');    
+    return res.render(path.join(__dirname, '../Client/ejs/pages', 'index.ejs'), {email: req.session.email, _id: req.session._id});
+
 });
+
+app.get("*", (req, res) => {
+    return res.render(path.join(__dirname, '../Client/ejs/pages', 'page_not_found.ejs'));
+})
 
 app.listen(process.env.PORT, () => {
     console.log("Server is listening on " + process.env.PORT);

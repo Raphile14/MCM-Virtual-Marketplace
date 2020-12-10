@@ -17,28 +17,26 @@ router
     .get((req, res) => {
         res.render(path.join(__dirname, '../../Client/ejs/pages', 'login.ejs'), {loginError: false});
     })
-    // SOLUTION .post("/loginForm", async(req, res))
     .post( async (req, res) => {
+        if (req.session.email != null && req.session._id != null) {
+            return res.redirect("/");
+        }
         await connection().then( async () => {
             try {
-                const {email, password} = req.body;
-                let hashPass = crypto.MD5(password);
+                let email = req.body.email.toLowerCase();
+                let hashPass = crypto.MD5(req.body.password);
                 console.log(req.body);                
-                User.findOne({email: email}, async (err, existingUser) => {
-                    console.log(hashPass);
+                User.findOne({email}, async (err, existingUser) => {
+                    console.log("Raw inputted password: " + req.body.password);
                     console.log("inputted password: " + hashPass)
                     console.log(existingUser);
                     // Successful Login
                     if (existingUser != null) {
                         if (existingUser.password == hashPass) {
                             console.log("Login Success")
-                            req.session.email = email;
-                            // if (req.session.email) {
-                            //     console.log("email detected");
-                            // }
-                            // else {
-                            //     console.log("no email detected");
-                            // }
+                            req.session.email = email;                            
+                            req.session._id = existingUser._id;
+                            console.log(req.session._id);
                             return res.redirect("/");
                         }
                         else {

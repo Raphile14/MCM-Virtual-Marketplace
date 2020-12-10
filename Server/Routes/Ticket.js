@@ -15,6 +15,9 @@ router
     .route("/")
     .get((req, res) => {})
     .post( async (req, res) => {
+        if (req.session.email == null || req.session._id == null) {
+            return res.redirect("/login");
+        }
         await connection().then( async () => {
             try {
                 let ticket = req.body;

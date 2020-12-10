@@ -36,6 +36,8 @@ router
                     }              
                     if (existingUser == null) {                        
                         let user = req.body;
+                        user.productCounter = "0";
+                        user.email = req.body.email.toLowerCase();
                         user.isAdmin = false;
                         user.confirmed = false;
                         user.password = crypto.MD5(req.body.password);
