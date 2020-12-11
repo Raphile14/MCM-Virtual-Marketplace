@@ -1,0 +1,29 @@
+<div class="col-md-4">
+    <table class="catalog">
+        <tr>
+            <!-- REPEAT -->
+            <td class="catalog">
+                <table class="catalog">
+                    <tr>
+                        <td>
+                            <!-- <img src="../../images/logo.png" class="catalog" alt="product"> -->
+                            <img src="<%= products.imagePath1 %>" class="catalog" alt="product">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p class="item"> <%= products.productName %> </p>
+                            <p class="price"> ₱<%= products.price %> </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input class="btn_catalog" type="button" value="Order Now">
+                            <input class="btn_catalog" style="background:#263B5B" type="button" value="Learn More">
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</div>

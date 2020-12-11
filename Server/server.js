@@ -5,16 +5,19 @@ const connectDB = require("./Database/Connection.js");
 const app = express();
 const session = require('express-session');
 const bodyParser = require('body-parser');
+// const google = require("./Classes/GoogleAPI");
 
 // JS Routes
 const login = require("./Routes/Login.js");
 const signup = require("./Routes/Signup.js");
 const product = require("./Routes/Product.js");
+const productview = require("./Routes/ProductView.js");
 const profile = require("./Routes/Profile.js");
 const ticket = require("./Routes/Ticket.js");
 const seller = require("./Routes/Seller.js");
 const logout = require("./Routes/Logout.js");
-const confirmation = require("./Routes/Confirmation.js")
+const confirmation = require("./Routes/Confirmation.js");
+const Product = require('./Database/Product.js');
 // const review = require("./Routes/Review.js");    REMOVED
 
 // Connect to MongoDB
@@ -34,6 +37,7 @@ app.use(session({
 app.use("/login", login);
 app.use("/signup", signup);
 app.use("/product", product);
+app.use("/productview", productview);
 app.use("/profile", profile);
 app.use("/ticket", ticket);
 app.use("/seller", seller);
@@ -45,14 +49,21 @@ app.use("/logout", logout);
 app.get("/", (req, res) => {
 
     // Session Container
-    if (req.session.email == null || req.session._id == null) return res.redirect('/login');    
-    return res.render(path.join(__dirname, '../Client/ejs/pages', 'index.ejs'), {
-        email: req.session.email, 
-        _id: req.session._id,
-        isAdmin: req.session.isAdmin,
-        isSeller: req.session.isSeller
-    });
+    if (req.session.email == null || req.session._id == null) return res.redirect('/login');   
+    Product.find({confirmed: true}, async (err, existingProduct) => {
+        let products = existingProduct;
 
+        if (existingProduct == null) {
+            products = [];
+        }
+        return res.render(path.join(__dirname, '../Client/ejs/pages', 'index.ejs'), {
+            email: req.session.email, 
+            _id: req.session._id,
+            isAdmin: req.session.isAdmin,
+            isSeller: req.session.isSeller,
+            products
+        });
+    });     
 });
 
 app.get("*", (req, res) => {

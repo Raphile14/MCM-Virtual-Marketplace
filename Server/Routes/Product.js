@@ -17,77 +17,46 @@ router.use(function(req, res, next) {
 router
     .route("/")
     .get((req, res) => {
-        let userID = "5fd1cc9353cd1a64a8991cb9";
-        // let userID = req.session._id;
-        if (req.session.email == null || req.session._id == null) {
-            return res.redirect("/login");
-        }
-        console.log("here")
         let isFull = false;
-        Product.find({userID}, async (err, existingUser) => {
-            if (existingUser.length == 10){
-                isFull = true;
+
+        // User Validation
+        if (req.session.email == null || req.session._id == null) return res.redirect("/login");
+        if (!req.session.isSeller) return res.redirect("/");
+
+        Product.find({userID: req.session._id}, async (err, existingProducts) => {
+            if (err) {
+                return res.redirect("/");
             }
-        });
-        res.render(path.join(__dirname, '../../Client/ejs/pages', 'product.ejs'), {
-            productError: false, 
-            userID, 
-            isFull,
-            email: req.session.email, 
-            _id: req.session._id,
-            isAdmin: req.session.isAdmin,
-            isSeller: req.session.isSeller
-        });
+            if (existingProducts.length == 10){
+                isFull = true;
+                // Show page where list of selling items is full
+                return res.redirect("/");
+            }
+            else {
+                res.render(path.join(__dirname, '../../Client/ejs/pages', 'product.ejs'), {
+                    productError: false, 
+                    isFull,
+                    email: req.session.email, 
+                    _id: req.session._id,
+                    isAdmin: req.session.isAdmin,
+                    isSeller: req.session.isSeller
+                });
+            }
+        });        
     })
     .post( async (req, res) => {
         let data = req.body;
-        let userID = "5fd1cc9353cd1a64a8991cb9";
-        let email = "bjmontes@mcm.edu.ph";
-        // let userID = req.session._id;
-
-        // // Picture Validation
-        // let form = new formidable.IncomingForm();
-        // form.uploadDir = 'tmp';
-        // form.parse(req, function (err, fields, files) {
-        //     let oldpath = files.filetoupload.path;
-        //     let newpath = path.join(__dirname, '../../Client/images/products', files.filetoupload.name);
-        //     fs.renameSync(oldpath, newpath, function (err) {
-        //         if (err) throw err;
-        //         console.log('File uploaded and moved!');
-        //     });
-        // });
 
         // Save Database
         await connection().then( async () => {
             try {
                 let product = req.body;
-                product.userID = userID;
-                // Product Counter
-                User.findOne({email}, async (err, existingUser) => {
-                    if (existingUser != null) {
-                        product.productCounter = existingUser.productCounter;
-                        User.updateOne({email}, { $set: {name: "Mickey", address: "Canyon 123" } }, async (err, existingUser) => {
-                            if (existingUser != null) {
-                                product.productCounter = existingUser.productCounter;
-                                // existingUser.productCounter = (product.productCounter + 1).toString();
-                                let productModel = new Product(product);
-                                console.log(req.body);
-                                await productModel.save();
-                                
-                            }
-                            else {
-                                console.log("No user found!");
-                            }
-                        });
-                        let productModel = new Product(product);
-                        console.log(req.body);
-                        await productModel.save();
-                        
-                    }
-                    else {
-                        console.log("No user found!");
-                    }
-                });
+                product.userID = req.session._id;
+                product.confirmed = false;
+
+                let productModel = new Product(product);
+                await productModel.save();
+                res.redirect("/");
             }
             catch (e) {
                 res.render(path.join(__dirname, '../../Client/ejs/pages', 'product.ejs'), {

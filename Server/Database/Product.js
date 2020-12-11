@@ -18,8 +18,8 @@ const requestBoolean = {
 const productSchema = new mongoose.Schema({
     userID: requestRequired,
     productName: requestRequired,
-    productCounter: requestRequired,
     quantity: requestRequired,
+    availability: requestBoolean,
     price: requestRequired,
     description: requestRequired,
     category: requestRequired,
@@ -28,9 +28,7 @@ const productSchema = new mongoose.Schema({
     imagePath2: requestNotRequired,
     imagePath3: requestNotRequired,
     imagePath4: requestNotRequired,
-    imagePath5: requestNotRequired,
-    imagePath6: requestNotRequired,
-    imagePath7: requestNotRequired
+    imagePath5: requestNotRequired
 });
 
 module.exports = Product = mongoose.model('tbl_products', productSchema);

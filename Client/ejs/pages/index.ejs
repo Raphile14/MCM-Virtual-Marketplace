@@ -26,9 +26,21 @@
                 </tr>
             </table>
 
-            <br><br>
-
-            <%- include('../partials/catalog_table'); %>
+            <br><br>    
+            
+            <% if (products.length != 0) { %>
+                <p class="profile_products">Products On Sale </p>
+            <% } else { %>
+                <p class="profile_products">No Products On Sale </p>
+            <% } %>
+            
+            <div class="container">
+                <div class="row">
+                    <% for (let x = 0; x < products.length; x++) { %>
+                        <%- include('../partials/browse_catalog', {products: products[x]}); %>
+                    <%} %>
+                </div>                
+            </div> 
 
         </main>
 
