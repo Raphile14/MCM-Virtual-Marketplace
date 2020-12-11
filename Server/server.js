@@ -16,6 +16,7 @@ const profile = require("./Routes/Profile.js");
 const ticket = require("./Routes/Ticket.js");
 const seller = require("./Routes/Seller.js");
 const logout = require("./Routes/Logout.js");
+const info = require("./Routes/ProductInfo.js");
 const confirmation = require("./Routes/Confirmation.js");
 const Product = require('./Database/Product.js');
 // const review = require("./Routes/Review.js");    REMOVED
@@ -42,6 +43,7 @@ app.use("/profile", profile);
 app.use("/ticket", ticket);
 app.use("/seller", seller);
 app.use("/confirmation", confirmation);
+app.use("/info", info);
 app.use("/logout", logout);
 // app.use("/review", review);  REMOVED
 
@@ -66,9 +68,13 @@ app.get("/", (req, res) => {
     });     
 });
 
-app.get("*", (req, res) => {
+app.get("/page_not_found", (req, res) => {
     return res.render(path.join(__dirname, '../Client/ejs/pages', 'page_not_found.ejs'));
-})
+});
+
+app.get("*", (req, res) => {
+    return res.redirect("/page_not_found");    
+});
 
 app.listen(process.env.PORT, () => {
     console.log("Server is listening on " + process.env.PORT);

@@ -20,46 +20,29 @@ router
         if (req.session.email == null || req.session._id == null) {
             return res.redirect("/login");
         }
-        if (req.session.isSeller){
-            Product.findOne({_id: req.params.productID}, async (err, existingUser) => {
-                let data = existingUser;
-                if (existingUser.userID == req.session._id){
-                    return res.render(path.join(__dirname, '../../Client/ejs/pages', 'product.ejs'), {
-                        productError: true,
-                        isFull: false,
-                        data,
-                        _id: req.session._id,
-                        email: req.session.email,
-                        isAdmin: req.session.isAdmin,
-                        isSeller: req.session.isSeller
-                    });
-                }
-                else{
-                    // Goes back if it's not the owner
-                    return res.redirect("/");
-                }
+        Product.findOne({_id: req.params.productID}, async (err, product) => {
+            let data = product;
+            return res.render(path.join(__dirname, '../../Client/ejs/pages', 'view_product.ejs'), {
+                productError: true,
+                isFull: false,
+                data,
+                _id: req.session._id,
+                email: req.session.email,
+                isAdmin: req.session.isAdmin,
+                isSeller: req.session.isSeller
             });
-        }
-        else{
-            // // Redirect to product page viewer
-            // res.render(path.join(__dirname, '../../Client/ejs/pages', 'product.ejs'), {
-            //     isFull,
-            //     existingUser,
-            //     isAdmin: req.session.isAdmin,
-            //     isSeller: req.session.isSeller
-            // });
-        }
+        });
     })
     .post( async (req, res) => {
-        let productID = req.params.productID;
+        // let productID = req.params.productID;
 
         // Update Database
         // const {productName, quantity, price, description, category, imagePath1, imagePath2, imagePath3, imagePath4, imagePath5, imagePath6} = req.body;
         // { $set: {name: "Mickey", address: "Canyon 123" } }
-        Product.updateOne({_id: productID}, { $set: req.body }, async (err, existingUser) => {
-            if (err) throw err;
-            console.log("1 document updated");
-        });
+        // Product.updateOne({_id: productID}, { $set: req.body }, async (err, existingUser) => {
+        //     if (err) throw err;
+        //     console.log("1 document updated");
+        // });
 
         // // Save Database
         // await connection().then( async () => {
@@ -108,7 +91,7 @@ router
         //         connection.close;
         //     }
         // } )
-        res.redirect("/");
+        // res.redirect("/");
     });
 
 module.exports = router;
