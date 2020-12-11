@@ -441,3 +441,25 @@ input.btn_product {
   font-size: 20px;
   border: none;
 }
+
+th.admin, td.admin {
+  border-style: solid;
+  border-collapse: collapse;
+  color: black;
+  font-family: Roboto;
+  font-size: 15px;
+  padding: 10px 20px 10px;
+  text-align: center;
+}
+
+input.btn_admin {
+  width: 137px;
+  height: 38px;
+  background: #0DA313;
+  color: white;
+  border-radius: 5px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.25);
+  font-family: Roboto;
+  font-size: 15px;
+  border: none;
+}
