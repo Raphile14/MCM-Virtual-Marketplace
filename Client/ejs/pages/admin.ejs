@@ -3,17 +3,70 @@
         <%- include('../partials/head'); %>
         <title> MCM Virtual Marketplace </title>
     </head>
-    <body>
+    <body style="background:white">
         <header>
             <%- include('../partials/header'); %>
         </header>
 
         <main>
+            <ul class="menu">
+                <li class="menu"><a href="/">All Products</a></li>
+                <li class="menu"><a href="/">Confirmed</a></li>
+                <li class="menu"><a href="/">Unconfirmed</a></li>
+                <li class="menu"><a href="/">Tickets</a></li>
+            </ul>
 
-            Admin Seller
-            Raphael Gwapo
+            <br><br>
+            
+            <!-- OVERALL -->
+            <table>
+                <tr>
+                    <th class="admin"> Product ID </th>
+                    <th class="admin"> Product Name </th>
+                    <th class="admin"> Seller Name </th>
+                    <th class="admin"> Price </th>
+                    <th class="admin"> Quantity </th>
+                    <th class="admin"> Description </th>
+                </tr>
+                <tr>
+                    <td class="admin"> 0000001 </td>
+                    <td class="admin"> Chocolate </td>
+                    <td class="admin"> Bob </td>
+                    <td class="admin"> ₱100.00 </td>
+                    <td class="admin"> 1 </td>
+                    <td class="admin"> 
+                        <input class="btn_admin" type="submit" value="Approve">
+                        <input class="btn_admin" style="background:#C12727" type="submit" value="Delete">
+                    </td>
+                </tr>
+            </table>
+
+            <br><br>    
+            <!-- TICKET -->
+            <table>
+                <tr>
+                    <th class="admin"> Ticket ID </th>
+                    <th class="admin"> Seller Name </th>
+                    <th class="admin"> Buyer Name </th>
+                    <th class="admin"> Product Name </th>
+                    <th class="admin"> Price </th>
+                    <th class="admin"> Quantity </th>
+                    <th class="admin"> Payment Method</th>
+                </tr>
+                <tr>
+                    <td class="admin"> 0000001 </td>
+                    <td class="admin"> Bob </td>
+                    <td class="admin"> Boba </td>
+                    <td class="admin"> Chocolate </td>
+                    <td class="admin"> ₱100.00 </td>
+                    <td class="admin"> 1 </td>
+                    <td class="admin"> GCash </td>
+                </tr>
+            </table>
 
         </main>
+
+        <br><br>
 
         <footer>
             <%- include('../partials/footer'); %>
