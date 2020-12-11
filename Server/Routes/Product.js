@@ -53,6 +53,7 @@ router
             try {
                 let product = req.body;
                 product.userID = req.session._id;
+                product.category = req.body.category.toLowerCase().replace(/\s/g, '');
                 product.confirmed = false;
 
                 let productModel = new Product(product);

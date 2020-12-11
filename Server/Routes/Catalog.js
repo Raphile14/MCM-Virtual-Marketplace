@@ -16,39 +16,24 @@ router
     .get((req, res) => {
         try {
             if (req.session.email == null || req.session._id == null) return res.redirect("/login");
-            User.findById(req.params.id, (err, existingUser) => {
-                sellerEmail = existingUser.email;
-                console.log(existingUser);
-                if (err) {
-                    return res.redirect("/page_not_found");
+            Product.find({confirmed: true, category: req.params.category, userID: {$ne: req.session._id}}, async (err, existingProduct) => {
+                let products = existingProduct;
+                if (existingProduct == null) {
+                    products = [];
                 }
-                else if (existingUser == null) {
-                    return res.redirect("/page_not_found");     
+                for (let i = products.length - 1; i > 0; i--) {
+                    let counter = Math.floor(Math.random() * (i + 1));
+                    let temp = products[i];
+                    products[i] = products[counter];
+                    products[counter] = temp;
                 }
-                else {
-                    let ownership = req.params.id == req.session._id;
-
-                    // Products
-                    Product.find({userID: req.params.id, confirmed: true}, async (err, existingProduct) => {
-                        let products = existingProduct;
-
-                        if (existingProduct == null) {
-                            products = [];
-                        }
-                        res.render(path.join(__dirname, '../../Client/ejs/pages', 'index.ejs'), 
-                        {
-                            email: sellerEmail, 
-                            _id: req.session._id,
-                            ownership,
-                            firstName: existingUser.firstName,
-                            lastName: existingUser.lastName,
-                            phoneNumber: existingUser.phoneNumber,
-                            isAdmin: req.session.isAdmin,
-                            isSeller: req.session.isSeller,
-                            products
-                        });
-                    });
-                }
+                return res.render(path.join(__dirname, '../../Client/ejs/pages', 'index.ejs'), {
+                    email: req.session.email, 
+                    _id: req.session._id,
+                    isAdmin: req.session.isAdmin,
+                    isSeller: req.session.isSeller,
+                    products
+                });
             }); 
         }
         catch (e) {

@@ -11,10 +11,10 @@
         <main>
             <ul class="menu">
                 <li class="menu"><a href="/">All Categories</a></li>
-                <li class="menu"><a href="/">Health & Beauty</a></li>
-                <li class="menu"><a href="/">Food</a></li>
-                <li class="menu"><a href="/">Digital Products</a></li>
-                <li class="menu"><a href="/">Electronics</a></li>
+                <li class="menu"><a href="/catalog/health&beauty">Health & Beauty</a></li>
+                <li class="menu"><a href="/catalog/food">Food</a></li>
+                <li class="menu"><a href="/catalog/digitalproducts">Digital Products</a></li>
+                <li class="menu"><a href="/catalog/electronics">Electronics</a></li>
             </ul>
 
             <table>
@@ -38,7 +38,7 @@
                 <div class="row">
                     <% for (let x = 0; x < products.length; x++) { %>
                         <%- include('../partials/browse_catalog', {products: products[x]}); %>
-                    <%} %>
+                    <% } %>
                 </div>                
             </div> 
 

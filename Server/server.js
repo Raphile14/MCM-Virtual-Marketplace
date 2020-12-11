@@ -14,6 +14,7 @@ const product = require("./Routes/Product.js");
 const recover = require("./Routes/Recover.js");
 const profileedit = require("./Routes/ProfileEdit.js");
 const profile = require("./Routes/Profile.js");
+const catalog = require("./Routes/Catalog.js");
 const ticket = require("./Routes/Ticket.js");
 const seller = require("./Routes/Seller.js");
 const logout = require("./Routes/Logout.js");
@@ -39,6 +40,7 @@ app.use(session({
 app.use("/login", login);
 app.use("/signup", signup);
 app.use("/product", product);
+app.use("/catalog", catalog);
 app.use("/profile", profile);
 app.use("/profileedit", profileedit);
 app.use("/recover", recover);
@@ -54,11 +56,16 @@ app.get("/", (req, res) => {
 
     // Session Container
     if (req.session.email == null || req.session._id == null) return res.redirect('/login');   
-    Product.find({confirmed: true}, async (err, existingProduct) => {
+    Product.find({confirmed: true, userID: {$ne: req.session._id}}, async (err, existingProduct) => {
         let products = existingProduct;
-
         if (existingProduct == null) {
             products = [];
+        }
+        for (let i = products.length - 1; i > 0; i--) {
+            let j = Math.floor(Math.random() * (i + 1));
+            let temp = products[i];
+            products[i] = products[j];
+            products[j] = temp;
         }
         return res.render(path.join(__dirname, '../Client/ejs/pages', 'index.ejs'), {
             email: req.session.email, 

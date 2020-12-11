@@ -68,8 +68,10 @@ router
     .post( async (req, res) => {
         Product.findOne({_id: req.params.productID}, async (err, product) => {
             if (product.userID == req.session._id){
+                let {productName, quantity, availability, price, description, category, imagePath1, imagePath2, imagePath3, imagePath4, imagePath5} = req.body;
+                category = category.toLowerCase().replace(/\s/g, '');
                 // Update Database
-                Product.updateOne({_id: req.params.productID}, { $set: req.body }, async (err, existingUser) => {
+                Product.updateOne({_id: req.params.productID}, { $set: productName, quantity, availability, price, description, category, imagePath1, imagePath2, imagePath3, imagePath4, imagePath5 }, async (err, existingUser) => {
                     if (err) throw err;
                     console.log("1 document updated");
                 });
