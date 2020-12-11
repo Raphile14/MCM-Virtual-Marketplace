@@ -1,4 +1,4 @@
-<div class="col-md-4">
+<div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
     <table class="catalog">
         <tr>
             <!-- REPEAT -->
@@ -18,8 +18,13 @@
                     </tr>
                     <tr>
                         <td>
-                            <input class="btn_catalog" type="button" value="Order Now">
-                            <input class="btn_catalog" style="background:#263B5B" type="button" value="Learn More">
+                            <form class="form_inline" action="/">
+                                <input class="btn_catalog" type="submit" value="Order Now">
+                            </form>                            
+
+                            <form class="form_inline" action="/info/<%= products._id %>">
+                                <input class="btn_catalog" style="background:#263B5B" type="submit" value="Learn More">
+                            </form>                            
                         </td>
                     </tr>
                 </table>
