@@ -24,21 +24,15 @@ router
         await connection().then( async () => {
             try {
                 let email = req.body.email.toLowerCase();
-                let hashPass = crypto.MD5(req.body.password);
-                console.log(req.body);                
+                let hashPass = crypto.MD5(req.body.password);               
                 User.findOne({email}, async (err, existingUser) => {
-                    console.log("Raw inputted password: " + req.body.password);
-                    console.log("inputted password: " + hashPass)
-                    console.log(existingUser);
                     // Successful Login
                     if (existingUser != null) {
                         if (existingUser.password == hashPass) {
-                            console.log("Login Success")
                             req.session.email = email;                            
                             req.session._id = existingUser._id;
                             req.session.isAdmin = existingUser.isAdmin;
                             req.session.isSeller = existingUser.isSeller;
-                            console.log(req.session._id);
                             return res.redirect("/");
                         }
                         else {
