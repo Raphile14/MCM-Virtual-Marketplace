@@ -25,8 +25,7 @@ router
                     return res.redirect("/page_not_found");
                 }
                 else if (existingUser == null) {
-                    console.log("None existing user");
-                    res.send("None existing user");        
+                    return res.redirect("/page_not_found");     
                 }
                 else {
                     let ownership = req.params.id == req.session._id;

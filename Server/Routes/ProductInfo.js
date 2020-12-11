@@ -64,18 +64,6 @@ router
                 });
             });
         }
-        // Product.findOne({_id: req.params.productID}, async (err, product) => {
-        //     let data = product;
-        //     return res.render(path.join(__dirname, '../../Client/ejs/pages', 'view_product.ejs'), {
-        //         productError: false,
-        //         isFull: false,
-        //         data,
-        //         _id: req.session._id,
-        //         email: req.session.email,
-        //         isAdmin: req.session.isAdmin,
-        //         isSeller: req.session.isSeller
-        //     });
-        // });
     })
     .post( async (req, res) => {
         Product.findOne({_id: req.params.productID}, async (err, product) => {

@@ -22,7 +22,6 @@ const userSchema = new mongoose.Schema({
     password: requestRequired,
     phoneNumber: requestRequired,
     city: requestRequired,
-    productCounter: requestRequired,
     messengerLink: requestNotRequired,
     twitter: requestNotRequired,
     linkedIn: requestNotRequired,
@@ -30,6 +29,7 @@ const userSchema = new mongoose.Schema({
     confirmed: requestBoolean,
     isAdmin: requestBoolean,
     isSeller: requestBoolean,
+    isRecovering: requestBoolean,
     avatarPath: requestNotRequired
 });
 
