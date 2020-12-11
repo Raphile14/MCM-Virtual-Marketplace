@@ -10,52 +10,48 @@
 
         <main>
             <br><br>
+                <form method="POST">
+                    <table class="view_product">
+                        <tr>
+                            <td rowspan="6">
+                                <img src="../../images/temp.png" alt="logo" width="435" height="519">
+                            </td>
+                            <td class="view_product">
+                                <p class="item">Item #1</p>
+                                <p class="price">₱100.00</p><br>
+                                <p class="error_caption">
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod 
+                                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, 
+                                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+                                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore. Lorem 
+                                    ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt 
+                                    ut labore. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod 
+                                    tempor incididunt.
+                                </p>
 
-            <table class="product">
-                <tr>
-                    <td rowspan="4" class="product">
-                        <img src="../../images/logo.png" alt="logo" width="435" height="519">
-                    </td>
-                    <td class="product">
-                        <input name ="" type="text" class="txt_login" style="width:100%" placeholder="Product Name">
-                    </td>
-                </tr>
-                <tr>
-                    <td class="product">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt 
-                        ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco 
-                        laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in 
-                        voluptate velit esse cillum dolore. Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
-                        sed do eiusmod tempor incididunt ut labore. Lorem ipsum dolor sit amet, consectetur adipiscing 
-                        elit, sed do eiusmod tempor incididunt.
-                    </td>
-                </tr>
-                <tr>
-                    <td class="product">
-                        <textarea id="" name="" class="product" placeholder="Description"></textarea>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="1" class="product">
-                        <form method="post" enctype="multipart/form-data">
-                            <input type="file" name="filetoupload" value="Upload Photo">
-                            <input type="button" value="Save Product" id="saveProduct">
-                            <input type="button" value="Delete" id="deleteProduct">
-                        </form>
-                    </td>
-                </tr>
-            </table>
+                                <input class="view_product" type="button" value="20 items left" disabled>  
 
-            <div id="myModal" class="modal">
-                <div class="modal-content">
-                  <span class="close">&times;</span>
-                  <!-- IF saveProduct is pressed -->
-                  <p>Product saved.</p>
-                  <!-- ELSE -->
-                  <p>Are you sure you want to delete this product?</p>
-                  <input type="button" value="Yes, I'm Sure" id="deleteProduct">
-                </div>
-            </div>
+                                <br><br><br>
+
+                                <input class="btn_catalog" type="button" value="Order Now" id="orderProduct">  
+                            </td>
+                        </tr>
+                    </table>
+
+                    <div id="myModal" class="modal">
+                        <div class="modal-content">
+                            <span class="close">&times;</span>
+                            <p>
+                                To checkout the product, <b>contact the seller</b> through any of these platforms:<br><br>
+                                <img src="../../images/icon_messenger.png" class="profile_icon" alt="messenger">
+                                <img src="../../images/icon_instagram.png" class="profile_icon" alt="instagram">
+                                <img src="../../images/icon_twitter.png" class="profile_icon" alt="twitter">
+                                <img src="../../images/icon_linkedin.png" class="profile_icon" alt="linkedin">
+                            </p>
+                        </div>
+                    </div> 
+
+                </form>                           
 
         </main>
 
@@ -67,7 +63,7 @@
 
         <script>
             var modal = document.getElementById("myModal");
-            var btn = document.getElementById("saveProduct");
+            var btn = document.getElementById("orderProduct");
             var span = document.getElementsByClassName("close")[0];
             btn.onclick = function() {
               modal.style.display = "block";
