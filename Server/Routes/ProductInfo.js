@@ -20,78 +20,64 @@ router
         if (req.session.email == null || req.session._id == null) {
             return res.redirect("/login");
         }
-        Product.findOne({_id: req.params.productID}, async (err, product) => {
-            let data = product;
-            return res.render(path.join(__dirname, '../../Client/ejs/pages', 'view_product.ejs'), {
-                productError: true,
-                isFull: false,
-                data,
-                _id: req.session._id,
-                email: req.session.email,
-                isAdmin: req.session.isAdmin,
-                isSeller: req.session.isSeller
+        if (req.session.isSeller){
+            Product.findOne({_id: req.params.productID}, async (err, existingUser) => {
+                let data = existingUser;
+                if (existingUser.userID == req.session._id){
+                    return res.render(path.join(__dirname, '../../Client/ejs/pages', 'product.ejs'), {
+                        productError: true,
+                        isFull: false,
+                        data,
+                        _id: req.session._id,
+                        email: req.session.email,
+                        isAdmin: req.session.isAdmin,
+                        isSeller: req.session.isSeller
+                    });
+                }
+                else{
+                    Product.findOne({_id: req.params.productID}, async (err, product) => {
+                        let data = product;
+                        return res.render(path.join(__dirname, '../../Client/ejs/pages', 'view_product.ejs'), {
+                            productError: false,
+                            isFull: false,
+                            data,
+                            _id: req.session._id,
+                            email: req.session.email,
+                            isAdmin: req.session.isAdmin,
+                            isSeller: req.session.isSeller
+                        });
+                    });
+                }
             });
-        });
+        }
+        else{
+            Product.findOne({_id: req.params.productID}, async (err, product) => {
+                let data = product;
+                return res.render(path.join(__dirname, '../../Client/ejs/pages', 'view_product.ejs'), {
+                    productError: false,
+                    isFull: false,
+                    data,
+                    _id: req.session._id,
+                    email: req.session.email,
+                    isAdmin: req.session.isAdmin,
+                    isSeller: req.session.isSeller
+                });
+            });
+        }
     })
     .post( async (req, res) => {
-        // let productID = req.params.productID;
-
-        // Update Database
-        // const {productName, quantity, price, description, category, imagePath1, imagePath2, imagePath3, imagePath4, imagePath5, imagePath6} = req.body;
-        // { $set: {name: "Mickey", address: "Canyon 123" } }
-        // Product.updateOne({_id: productID}, { $set: req.body }, async (err, existingUser) => {
-        //     if (err) throw err;
-        //     console.log("1 document updated");
-        // });
-
-        // // Save Database
-        // await connection().then( async () => {
-        //     try {
-        //         let product = req.body;
-        //         product.userID = userID;
-        //         // Product Counter
-        //         User.findOne({email}, async (err, existingUser) => {
-        //             if (existingUser != null) {
-        //                 product.productCounter = existingUser.productCounter;
-        //                 User.updateOne({email}, { $set: {name: "Mickey", address: "Canyon 123" } }, async (err, existingUser) => {
-        //                     if (existingUser != null) {
-        //                         product.productCounter = existingUser.productCounter;
-        //                         // existingUser.productCounter = (product.productCounter + 1).toString();
-        //                         let productModel = new Product(product);
-        //                         console.log(req.body);
-        //                         await productModel.save();
-                                
-        //                     }
-        //                     else {
-        //                         console.log("No user found!");
-        //                     }
-        //                 });
-        //                 let productModel = new Product(product);
-        //                 console.log(req.body);
-        //                 await productModel.save();
-                        
-        //             }
-        //             else {
-        //                 console.log("No user found!");
-        //             }
-        //         });
-        //     }
-        //     catch (e) {
-        //         res.render(path.join(__dirname, '../../Client/ejs/pages', 'product.ejs'), {
-        //             productError: true, 
-        //             data,
-        //             email: req.session.email, 
-        //             _id: req.params.id,
-        //             isAdmin: req.session.isAdmin,
-        //             isSeller: req.session.isSeller
-        //         });
-        //         console.log(e);
-        //     }
-        //     finally {
-        //         connection.close;
-        //     }
-        // } )
-        // res.redirect("/");
+        Product.findOne({_id: req.params.productID}, async (err, product) => {
+            if (product.userID == req.session._id){
+                // Update Database
+                Product.updateOne({_id: req.params.productID}, { $set: req.body }, async (err, existingUser) => {
+                    if (err) throw err;
+                    console.log("1 document updated");
+                });
+                res.redirect("/");
+            } else {
+                res.redirect("/profile/" + product.userID);
+            }
+        });
     });
 
 module.exports = router;

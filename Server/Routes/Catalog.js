@@ -12,11 +12,9 @@ router.use(function(req, res, next) {
 
 // Profile Routes
 router
-    .route("/:id")
+    .route("/:category")
     .get((req, res) => {
         try {
-            let ownership = false;
-            let sellerEmail;
             if (req.session.email == null || req.session._id == null) return res.redirect("/login");
             User.findById(req.params.id, (err, existingUser) => {
                 sellerEmail = existingUser.email;
@@ -37,7 +35,7 @@ router
                         if (existingProduct == null) {
                             products = [];
                         }
-                        res.render(path.join(__dirname, '../../Client/ejs/pages', 'profile.ejs'), 
+                        res.render(path.join(__dirname, '../../Client/ejs/pages', 'index.ejs'), 
                         {
                             email: sellerEmail, 
                             _id: req.session._id,
@@ -50,8 +48,6 @@ router
                             products
                         });
                     });
-    
-                    
                 }
             }); 
         }

@@ -4,7 +4,7 @@ const crypto = require("crypto-js");
 const connection = require("../Database/Connection.js");
 const path = require('path');
 const User = require("../Database/User");
-const er = require('../Classes/EmailRegistration.js');
+const er = require('../Classes/EmailRecovery.js');
 const EmailRegistration = new er();
 let router = express.Router();
 
@@ -17,31 +17,34 @@ router.use(function(req, res, next) {
 router
     .route("/")
     .get((req, res) => {
-        res.render(path.join(__dirname, '../../Client/ejs/pages', 'signup.ejs'), {signupError: false, signupExist: false});
+        let user = {};
+        res.render(path.join(__dirname, '../../Client/ejs/pages', 'signup.ejs'), {errorMessage: null, user, edit: false});
     })
     .post( async (req, res) => {
+        let email = req.body.email.toLowerCase();
+        let user = req.body;        
+        if (!email.includes("@mcm.edu.ph")) {
+            return res.render(path.join(__dirname, '../../Client/ejs/pages', 'signup.ejs'), {errorMessage: "Only MCM emails are accepted!", user, edit: false});
+        }
+        if (req.body.password != req.body.confirmPassword) {
+            return res.render(path.join(__dirname, '../../Client/ejs/pages', 'signup.ejs'), {errorMessage: "Passwords are not the same!", user, edit: false});
+        }
+        
         await connection().then( async () => {
             console.log(req.body);
-            
-            try {    
-                // if (req.body.firstName == null 
-                //     // || req.body.lastName == null || req.body.email == null || req.body.phoneNumber || req.body.city == null
-                //     ) {
-                //     console.log("Missing Data")
-                //     return res.render(path.join(__dirname, '../../Client/ejs/pages', 'signup.ejs'), {signupError: true});
-                // }            
+            try {        
                 User.findOne({email: req.body.email}, async (err, existingUser) => {    
                     if (err) {
                         console.log("test");
                     }              
                     if (existingUser == null) {                        
-                        let user = req.body;
                         user.productCounter = "0";
-                        user.email = req.body.email.toLowerCase();
+                        user.email = email,
                         user.isAdmin = false;
                         user.confirmed = false;
                         user.isSeller = false;
                         user.password = crypto.MD5(req.body.password);
+                        user.isRecovering = false;
                         let userModel = new User(user);                        
                         await userModel.save();
                         User.findOne({email: req.body.email}, async (err, addedUser) => {
@@ -52,13 +55,13 @@ router
                     }
                     else {
                         console.log("User has already signed up");
-                        return res.render(path.join(__dirname, '../../Client/ejs/pages', 'signup.ejs'), {signupError: false, signupExist: true});
+                        return res.render(path.join(__dirname, '../../Client/ejs/pages', 'signup.ejs'), {errorMessage: "User has already signed up!", user, edit: false});
                     }
                 })                
             }
             catch (e) {
                 console.log(e);
-                return res.render(path.join(__dirname, '../../Client/ejs/pages', 'signup.ejs'), {signupError: true, signupExist: false});
+                return res.render(path.join(__dirname, '../../Client/ejs/pages', 'signup.ejs'), {errorMessage: "Server error! Try again later!", user, edit: false});
             }
             finally {
                 connection.close;

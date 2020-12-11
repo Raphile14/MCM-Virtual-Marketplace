@@ -14,22 +14,16 @@
                     <table class="view_product">
                         <tr>
                             <td rowspan="6">
-                                <img src="../../images/temp.png" alt="logo" width="435" height="519">
+                                <img src="<%= data.imagePath1 %>" alt="logo" width="435" height="519">
                             </td>
                             <td class="view_product">
-                                <p class="item">Item #1</p>
-                                <p class="price">₱100.00</p><br>
+                                <p class="item"> <%= data.productName %> </p>
+                                <p class="price"> ₱<%= data.price %> </p><br>
                                 <p class="error_caption">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod 
-                                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, 
-                                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-                                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore. Lorem 
-                                    ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt 
-                                    ut labore. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod 
-                                    tempor incididunt.
+                                    <%= data.description %>
                                 </p>
 
-                                <input class="view_product" type="button" value="20 items left" disabled>  
+                                <input class="view_product" type="button" value="<%= data.quantity %> items left" disabled>  
 
                                 <br><br><br>
 

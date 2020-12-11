@@ -8,50 +8,57 @@
             <table class="login" style="height:705px">
                 <tr><td>
                 <table class="signup">
+                    
                     <form method="POST">
                         <tr>
-                            <td colspan="2"><p class="login_MCM">Sign up to start shopping!</p></td>
+                            <% if (edit) { %>
+                                <td colspan="2"><p class="login_MCM">Profile Editing</p></td>
+                            <% } else { %>
+                                <td colspan="2"><p class="login_MCM">Sign up to start shopping!</p></td>
+                            <% } %>
+                            
                         </tr>
                         <tr>
-                            <td><input type="text" name="firstName" class="txt_signup" placeholder="First Name *" required></td>
-                            <td><input type="text" name="lastName" class="txt_signup" placeholder="Last Name *" required></td>
+                            <td><input type="text" name="firstName" class="txt_signup" placeholder="First Name *" value="<%= user.firstName %>" required></td>
+                            <td><input type="text" name="lastName" class="txt_signup" placeholder="Last Name *" value="<%= user.lastName %>" required></td>
                         </tr>
                         <tr>
-                            <td><input type="email" name="email" class="txt_signup" placeholder="MCM Email Address *" required></td>
-                            <td><input type="number" name="phoneNumber" class="txt_signup" placeholder="Phone Number *" required></td>
+                            <% if (edit) { %>
+                                <td><input type="email" name="email" class="txt_signup" placeholder="MCM Email Address *" value="<%= user.email %>" readonly required></td>
+                            <% } else { %>
+                                <td><input type="email" name="email" class="txt_signup" placeholder="MCM Email Address *" value="<%= user.email %>" required></td>
+                            <% } %>
+                            <td><input type="number" name="phoneNumber" class="txt_signup" placeholder="Phone Number *" value="<%= user.phoneNumber %>" required></td>
                         </tr>
                         <tr>
                             <td><input type="password" name="password" class="txt_signup" placeholder="Create Password *" required></td>
                             <td><input type="password" name="confirmPassword" class="txt_signup" placeholder="Confirm Password *" required></td>
                         </tr>
                         <tr>
-                            <td> <input type="text" name="city" class="txt_signup" placeholder="City *" required> </td>
+                            <td> <input type="text" name="city" class="txt_signup" placeholder="City *" value="<%= user.city %>" required> </td>
                             <td></td>
                         </tr>
                         <tr>
-                            <td><input type="text" name="messengerLink" class="txt_signup" placeholder="Messenger Link"></td>
-                            <td><input type="text" name="instagram" class="txt_signup" placeholder="Instagram"></td>
+                            <td><input type="text" name="messengerLink" class="txt_signup" placeholder="Messenger Link" value="<%= user.messengerLink%>"></td>
+                            <td><input type="text" name="instagram" class="txt_signup" placeholder="Instagram" value="<%= user.instagram %>"></td>
                         </tr>
                         <tr>
-                            <td><input type="text" name="twitter" class="txt_signup" placeholder="Twitter"></td>
-                            <td><input type="text" name="linkedIn" class="txt_signup" placeholder="LinkedIn"></td>
+                            <td><input type="text" name="twitter" class="txt_signup" placeholder="Twitter" value="<%= user.twitter %>"></td>
+                            <td><input type="text" name="linkedIn" class="txt_signup" placeholder="LinkedIn" value="<%= user.linkedIn %>"></td>
                         </tr>
                         <tr>
-                            <% if (signupError) { %>
-                                <td colspan="2" class="login_error">Missing Fields</td>
+                            <% if (errorMessage != null) { %>
+                                <td colspan="2" class="login_error"> <%= errorMessage %> </td>
                             <% } %>
                             <!-- IF NO ERROR aka staring point -->
                             <td colspan="2" class="login_dot">.</td> 
                         </tr>   
                         <tr>
-                            <% if (signupExist) { %>
-                                <td colspan="2" class="login_error">Email already in use!</td>
-                            <% } %>  
-                            <!-- IF NO ERROR aka staring point -->
-                            <td colspan="2" class="login_dot">.</td> 
-                        </tr>
-                        <tr>
-                            <td colspan="2"><input type="submit" name="register" class="btn_signup" value="CREATE ACCOUNT"></td>
+                            <% if (edit) { %>
+                                <td colspan="2"><input type="submit" name="register" class="btn_signup" value="SAVE CHANGES"></td>
+                            <% } else { %>
+                                <td colspan="2"><input type="submit" name="register" class="btn_signup" value="CREATE ACCOUNT"></td>
+                            <% } %>
                         </tr>                      
                     </form>
                 </table></td></tr>

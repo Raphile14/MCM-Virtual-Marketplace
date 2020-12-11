@@ -34,6 +34,7 @@ router
             }
             else {
                 res.render(path.join(__dirname, '../../Client/ejs/pages', 'product.ejs'), {
+                    data: {},
                     productError: false, 
                     isFull,
                     email: req.session.email, 

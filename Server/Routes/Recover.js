@@ -4,6 +4,8 @@ const crypto = require("crypto-js");
 const connection = require("../Database/Connection.js");
 const path = require('path');
 const User = require("../Database/User");
+const er = require("../Classes/EmailRecovery");
+const EmailRecovery = new er();
 let router = express.Router();
 
 router.use(function(req, res, next) {
@@ -15,7 +17,7 @@ router.use(function(req, res, next) {
 router
     .route("/")
     .get((req, res) => {
-        res.render(path.join(__dirname, '../../Client/ejs/pages', 'login.ejs'), {loginError: false});
+        res.render(path.join(__dirname, '../../Client/ejs/pages', 'recover.ejs'), {errorMessage: null});
     })
     .post( async (req, res) => {
         if (req.session.email != null && req.session._id != null) {
@@ -24,26 +26,16 @@ router
         await connection().then( async () => {
             try {
                 let email = req.body.email.toLowerCase();
-                let hashPass = crypto.MD5(req.body.password);               
-                User.findOne({email}, async (err, existingUser) => {
+                User.findOneAndUpdate({email}, {$set: {isRecovering: true}}, async (err, existingUser) => {
                     // Successful Login
                     if (existingUser != null) {
-                        if (existingUser.password == hashPass) {
-                            req.session.email = email;                            
-                            req.session._id = existingUser._id;
-                            req.session.isAdmin = existingUser.isAdmin;
-                            req.session.isSeller = existingUser.isSeller;
-                            return res.redirect("/");
-                        }
-                        else {
-                            return res.render(path.join(__dirname, "../../Client/ejs/pages/login"), {loginError: true});
-                        }
-                        
+                        EmailRecovery.sendEmail(existingUser);
+                        return res.render(path.join(__dirname, "../../Client/ejs/pages/recover"), {errorMessage: "Please check your email!"}); 
                     }
-                    // Failed Login
                     else {
-                        return res.render(path.join(__dirname, "../../Client/ejs/pages/login"), {loginError: true});
+                        return res.render(path.join(__dirname, "../../Client/ejs/pages/recover"), {errorMessage: "Email not in Database"});                        
                     }
+
                 });
             }
             catch (e) {
