@@ -17,25 +17,26 @@ router.use(function(req, res, next) {
 router
     .route("/")
     .get((req, res) => {
-        res.render(path.join(__dirname, '../../Client/ejs/pages', 'signup.ejs'), {signupError: false, signupExist: false});
+        let data = {};
+        res.render(path.join(__dirname, '../../Client/ejs/pages', 'signup.ejs'), {errorMessage: null, data});
     })
     .post( async (req, res) => {
+        let data = req.body;        
+        if (!req.body.email.includes("@mcm.edu.ph")) {
+            return res.render(path.join(__dirname, '../../Client/ejs/pages', 'signup.ejs'), {errorMessage: "Only MCM emails are accepted!", data});
+        }
+        if (req.body.password != req.body.confirmPassword) {
+            return res.render(path.join(__dirname, '../../Client/ejs/pages', 'signup.ejs'), {errorMessage: "Passwords are not the same!", data});
+        }
+        
         await connection().then( async () => {
             console.log(req.body);
-            
-            try {    
-                // if (req.body.firstName == null 
-                //     // || req.body.lastName == null || req.body.email == null || req.body.phoneNumber || req.body.city == null
-                //     ) {
-                //     console.log("Missing Data")
-                //     return res.render(path.join(__dirname, '../../Client/ejs/pages', 'signup.ejs'), {signupError: true});
-                // }            
+            try {        
                 User.findOne({email: req.body.email}, async (err, existingUser) => {    
                     if (err) {
                         console.log("test");
                     }              
                     if (existingUser == null) {                        
-                        let user = req.body;
                         user.productCounter = "0";
                         user.email = req.body.email.toLowerCase();
                         user.isAdmin = false;
@@ -52,13 +53,13 @@ router
                     }
                     else {
                         console.log("User has already signed up");
-                        return res.render(path.join(__dirname, '../../Client/ejs/pages', 'signup.ejs'), {signupError: false, signupExist: true});
+                        return res.render(path.join(__dirname, '../../Client/ejs/pages', 'signup.ejs'), {errorMessage: "User has already signed up!", data});
                     }
                 })                
             }
             catch (e) {
                 console.log(e);
-                return res.render(path.join(__dirname, '../../Client/ejs/pages', 'signup.ejs'), {signupError: true, signupExist: false});
+                return res.render(path.join(__dirname, '../../Client/ejs/pages', 'signup.ejs'), {errorMessage: "Server error! Try again later!", data});
             }
             finally {
                 connection.close;

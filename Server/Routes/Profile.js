@@ -16,8 +16,10 @@ router
     .get((req, res) => {
         try {
             let ownership = false;
+            let sellerEmail;
             if (req.session.email == null || req.session._id == null) return res.redirect("/login");
             User.findById(req.params.id, (err, existingUser) => {
+                sellerEmail = existingUser.email;
                 console.log(existingUser);
                 if (err) {
                     return res.redirect("/page_not_found");
@@ -38,7 +40,7 @@ router
                         }
                         res.render(path.join(__dirname, '../../Client/ejs/pages', 'profile.ejs'), 
                         {
-                            email: req.session.email, 
+                            email: sellerEmail, 
                             _id: req.session._id,
                             ownership,
                             firstName: existingUser.firstName,
