@@ -18,6 +18,7 @@ const ticket = require("./Routes/Ticket.js");
 const seller = require("./Routes/Seller.js");
 const logout = require("./Routes/Logout.js");
 const info = require("./Routes/ProductInfo.js");
+const admin = require("./Routes/Admin.js");
 const confirmation = require("./Routes/Confirmation.js");
 const Product = require('./Database/Product.js');
 
@@ -45,6 +46,7 @@ app.use("/ticket", ticket);
 app.use("/seller", seller);
 app.use("/confirmation", confirmation);
 app.use("/info", info);
+app.use("/admin", admin);
 app.use("/logout", logout);
 
 // Routings
