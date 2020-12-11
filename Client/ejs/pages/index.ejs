@@ -36,6 +36,12 @@
             
             <div class="container">
                 <div class="row">
+                    <% for (let i = products.length - 1; i > 0; i--) { %>
+                    <%    let j = Math.floor(Math.random() * (i + 1)); %>
+                    <%    let temp = products[i]; %>
+                    <%    products[i] = products[j]; %>
+                    <%    products[j] = temp; %>
+                    <% } %>
                     <% for (let x = 0; x < products.length; x++) { %>
                         <%- include('../partials/browse_catalog', {products: products[x]}); %>
                     <% } %>

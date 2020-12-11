@@ -13,20 +13,20 @@ router.use(function(req, res, next) {
 router
     .route("/:id")
     .get((req, res) => {
-        User.findById(req.params.id, (err, existingUser) => {
+        User.findById({_id: req.params.id}, (err, existingUser) => {
             console.log(existingUser);            
             if (err) {
                 console.log(err);
                 // res.send(err);     
             }
             if (existingUser != null) {
-                User.findByIdAndUpdate({_id: req.params.id}, {confirmed: true}, (err, result) => {
+                User.findByIdAndUpdate({_id: req.params.id}, {confirmed: true, code: null}, (err, result) => {
                     res.redirect("/");
                 })                
             }
             else {
                 console.log("Confirmation Link Does Not Exist");
-                res.send("Confirmation Link Does Not Exist");
+                return res.redirect("/page_not_found");
             }
         });        
     })

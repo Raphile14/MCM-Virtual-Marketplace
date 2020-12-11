@@ -36,7 +36,7 @@
                         </tr>
                         <tr>
                             <td> <input type="text" name="city" class="txt_signup" placeholder="City *" value="<%= user.city %>" required> </td>
-                            <td></td>
+                            <td> <input type="text" name="avatarPath" class="txt_signup" placeholder="Avatar Link *" value="<%= user.avatarPath %>" required> </td>
                         </tr>
                         <tr>
                             <td><input type="text" name="messengerLink" class="txt_signup" placeholder="Messenger Link" value="<%= user.messengerLink%>"></td>
@@ -46,6 +46,11 @@
                             <td><input type="text" name="twitter" class="txt_signup" placeholder="Twitter" value="<%= user.twitter %>"></td>
                             <td><input type="text" name="linkedIn" class="txt_signup" placeholder="LinkedIn" value="<%= user.linkedIn %>"></td>
                         </tr>
+                        <% if (isRecovering) { %>
+                            <tr>
+                                <td><input type="number" name="code" class="txt_signup" placeholder="Confirmation Code" value=""></td>
+                            </tr>
+                        <% } %>
                         <tr>
                             <% if (errorMessage != null) { %>
                                 <td colspan="2" class="login_error"> <%= errorMessage %> </td>
@@ -59,7 +64,8 @@
                             <% } else { %>
                                 <td colspan="2"><input type="submit" name="register" class="btn_signup" value="CREATE ACCOUNT"></td>
                             <% } %>
-                        </tr>                      
+                        </tr> 
+                        <tr> <td colspan="2"> <a href="/"> Cancel </a></td> </tr>                     
                     </form>
                 </table></td></tr>
             </table>

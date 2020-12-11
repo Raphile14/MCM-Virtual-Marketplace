@@ -60,14 +60,9 @@ app.get("/", (req, res) => {
         let products = existingProduct;
         if (existingProduct == null) {
             products = [];
-        }
-        for (let i = products.length - 1; i > 0; i--) {
-            let j = Math.floor(Math.random() * (i + 1));
-            let temp = products[i];
-            products[i] = products[j];
-            products[j] = temp;
-        }
+        }        
         return res.render(path.join(__dirname, '../Client/ejs/pages', 'index.ejs'), {
+            sessionEmail: req.session.email,
             email: req.session.email, 
             _id: req.session._id,
             isAdmin: req.session.isAdmin,

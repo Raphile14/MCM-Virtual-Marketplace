@@ -19,34 +19,57 @@ router
     .get((req, res) => {
         let user = {};
         User.findById(req.params.id, (err, existingUser) => {
-            if (existingUser == null || err || !existingUser.isRecovering) {
+            user = existingUser;
+            if (existingUser == null || err || (!existingUser.isRecovering && req.session.email == null)) {
                 return res.redirect("/page_not_found");
             }
-            else {
-                user = existingUser;
-                return res.render(path.join(__dirname, '../../Client/ejs/pages', 'signup.ejs'), {errorMessage: null, user, edit: true});
+            else if (existingUser.isRecovering){
+                return renderSignup(res, null, user, true, true);
+            }
+            else {                
+                return renderSignup(res, null, user, true, false);
             }
         });         
     })
     .post( async (req, res) => {
-        console.log(req.body);
         let email = req.body.email.toLowerCase();
-        let user = req.body;    
-
+        let user = req.body; 
         if (req.body.password != req.body.confirmPassword) {
-            return res.render(path.join(__dirname, '../../Client/ejs/pages', 'signup.ejs'), {errorMessage: "Passwords are not the same!", user, edit: false});
+            return renderSignup(res, "Passwords are not the same!", user, true, req.session.email == null);
         }
-        user.email = email,
-        user.isAdmin = false;
-        user.confirmed = true;
-        user.isSeller = false;
-        user.password = crypto.MD5(req.body.password);
+        user.password = crypto.MD5(req.body.password);        
         user.isRecovering = false;
-        User.updateOne({email}, { $set: user }, async (err, existingUser) => {
-            if (err) throw err;
-            console.log("1 document updated");
-        });
-        return res.redirect("/");
+        if (req.session.email == null || req.session._id == null){
+            user.email = email;
+            User.findOne({email}, async (err, existingUser) => {
+                console.log(existingUser.code == req.body.code);
+                console.log(req.body.code);
+                if (existingUser.code == req.body.code){      
+                    user.code = null;              
+                    User.updateOne({email}, { $set: user }, async (err, existingUser) => {
+                        if (err) throw err;
+                        console.log("1 document updated");
+                        return res.redirect("/");
+                    });
+                }
+                else {
+                    return renderSignup(res, "Incorrect Confirmation Code!", user, true, true);
+                    // return res.render(path.join(__dirname, '../../Client/ejs/pages', 'signup.ejs'), {errorMessage: "Incorrect Confirmation Code!", user, edit: false, isRecovering: true});
+                }
+            });
+        } else {
+            email = req.session.email;
+            user.email = email;
+            User.updateOne({email}, { $set: user }, async (err, existingUser) => {
+                if (err) throw err;
+                console.log("1 document updated");                
+            });
+            return res.redirect("/");
+        }        
     });
+
+function renderSignup(res, errorMessage, user, edit, isRecovering) {
+    return res.render(path.join(__dirname, '../../Client/ejs/pages', 'signup.ejs'), {errorMessage, user, edit, isRecovering});
+}
 
 module.exports = router;

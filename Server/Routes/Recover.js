@@ -26,10 +26,11 @@ router
         await connection().then( async () => {
             try {
                 let email = req.body.email.toLowerCase();
-                User.findOneAndUpdate({email}, {$set: {isRecovering: true}}, async (err, existingUser) => {
+                let generatedCode = Math.floor(100000 + Math.random() * 900000);
+                User.findOneAndUpdate({email}, {$set: {isRecovering: true, code: generatedCode}}, async (err, existingUser) => {
                     // Successful Login
-                    if (existingUser != null) {
-                        EmailRecovery.sendEmail(existingUser);
+                    if (existingUser != null) {                        
+                        EmailRecovery.sendEmail(existingUser, generatedCode);
                         return res.render(path.join(__dirname, "../../Client/ejs/pages/recover"), {errorMessage: "Please check your email!"}); 
                     }
                     else {

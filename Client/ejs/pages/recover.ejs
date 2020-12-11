@@ -23,11 +23,11 @@
                         <form method="POST">
                             <table class="login_txtfield">
                                 <tr>
-                                    <td><input class="txt_login" name ="email" type="email" placeholder="MCM Email Address"></td>
+                                    <td><input class="txt_login" name ="email" type="email" placeholder="MCM Email Address" required></td>
                                 </tr>
                                 <tr>
                                     <% if (errorMessage) { %>
-                                        <td><p class="login_error"> Email not in database</p></td>
+                                        <td><p class="login_error"> <%= errorMessage %> </p></td>
                                     <% } %>                          
                                 </tr>
                             </table>
@@ -39,9 +39,13 @@
                             <tr>
                                 <td><input class="btn_login" type="submit" value="SUBMIT"></td>
                             </tr>
+                            <tr>                                
+                                <td colspan="2"> <a href="/login"> Back to Login </a></td>
+                            </tr>
                         </table>
                     </td>
                 </tr>
+                
                 </form>
             </table>
         </main>

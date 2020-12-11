@@ -54,11 +54,17 @@ router
                 let product = req.body;
                 product.userID = req.session._id;
                 product.category = req.body.category.toLowerCase().replace(/\s/g, '');
-                product.confirmed = false;
+                product.confirmed = false;                
+                User.findById({_id: product.userID}, async (err, existingUser) => {                    
+                    product.firstName = existingUser.firstName;
+                    product.lastName = existingUser.lastName;
+                    product.email = existingUser.email;
 
-                let productModel = new Product(product);
-                await productModel.save();
-                res.redirect("/");
+                    let productModel = new Product(product);
+                    await productModel.save();
+                    res.redirect("/");
+                });
+                
             }
             catch (e) {
                 res.render(path.join(__dirname, '../../Client/ejs/pages', 'product.ejs'), {

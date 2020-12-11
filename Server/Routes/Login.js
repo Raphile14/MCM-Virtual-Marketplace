@@ -28,7 +28,7 @@ router
                 User.findOne({email}, async (err, existingUser) => {
                     // Successful Login
                     if (existingUser != null) {
-                        if (existingUser.password == hashPass) {
+                        if (existingUser.password == hashPass && existingUser.confirmed) {
                             req.session.email = email;                            
                             req.session._id = existingUser._id;
                             req.session.isAdmin = existingUser.isAdmin;
