@@ -16,15 +16,15 @@ module.exports = class EmailRegistration {
             let text = 
             'Hi, ' + user.firstName + ' ' + user.lastName + '!'
             + '\n\nThank you for registering for the MCM Virtual Marketplace! ' 
-            + 'To finalize your registration, please click the following link: '
-            + 'http://localhost:5000/confirmation/' + id
+            + 'To finalize your registration, please click on this link: '
+            + 'https://mcmvirtualmarketplace.herokuapp.com/confirmation/' + id
             + '\n\nThank you!';
 
             let message = 
             '<h1> Hi, ' + user.firstName + ' ' + user.lastName + '!</h1> <br>'
             + 'Thank you for registering for the MCM Virtual Marketplace! ' 
-            + 'To finalize your registration, please click the following link: '
-            + '<a href="http://localhost:5000/confirmation/' + id + '"> HERE! </a> <br> <br>'
+            + 'To finalize your registration, please click on this link: '
+            + '<a href="https://mcmvirtualmarketplace.herokuapp.com/confirmation/' + id + '"> HERE! </a> <br> <br>'
             + 'Thank you!';
 
             let mailOptions = {

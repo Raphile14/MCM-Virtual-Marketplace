@@ -17,13 +17,13 @@ module.exports = class EmailOrder {
             let text = 
             'Hi, ' + product.firstName + ' ' + product.lastName + '!'
             + '\n\nUser ' + buyer.firstName + ' ' + buyer.lastName + ' (' + buyer.email + ') has placed an order on the product ' + product.productName + ' with a quantity of ' + quantity + ' for the total price of ₱' + amount + '. '
-            + 'Check the request by logging in and navigating to the "Transaction Tickets Page!'
+            + 'Check the request by logging in and navigating to the "Transaction Tickets" Page!'
             + '\n\nThank you!';
 
             let message = 
             '<h1> Hi, ' + product.firstName + ' ' + product.lastName + '!</h1> <br>'
             + 'User ' + buyer.firstName + ' ' + buyer.lastName + ' (' + buyer.email + ') has placed an order on the product ' + product.productName + ' with a quantity of ' + quantity + ' for the total price of ₱' + amount + '. '
-            + 'Check the request by logging in and navigating to the "Transaction Tickets Page! <br> <br>'
+            + 'Check the request by logging in and navigating to the "Transaction Tickets" Page! <br> <br>'
             + 'Thank you!';
 
             let mailOptions = {

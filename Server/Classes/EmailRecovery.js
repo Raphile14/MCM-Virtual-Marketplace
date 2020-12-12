@@ -15,14 +15,14 @@ module.exports = class EmailRecovery {
         try {            
             let text = 
             'Hi, ' + user.firstName + ' ' + user.lastName + '!'
-            + '\n\nYou may now change your password. Here is the confirmation code: ' + generatedCode + ' Please click the following link: ' 
-            + 'http://localhost:5000/profileedit/' + user._id
-            + '\n\nThank you!';
+            + '\n\nYou may now change your password. Here is the confirmation code: ' + generatedCode + ' Please click on this link: ' 
+            + 'https://mcmvirtualmarketplace.herokuapp.com/profileedit/' + user._id
+            + '\n\nThank you!';            
 
             let message = 
             '<h1> Hi, ' + user.firstName + ' ' + user.lastName + '!</h1> <br>'
-            + '\n\nYou may now change your password. Here is the confirmation code: ' + generatedCode + '. Please click the following link: ' 
-            + '<a href="http://localhost:5000/profileedit/' + user._id + '"> HERE! </a> <br> <br>'
+            + '\n\nYou may now change your password. Here is the confirmation code: ' + generatedCode + '. Please click on this link: ' 
+            + '<a href="https://mcmvirtualmarketplace.herokuapp.com/profileedit/' + user._id + '"> HERE! </a> <br> <br>'
             + 'Thank you!';
 
             let mailOptions = {
