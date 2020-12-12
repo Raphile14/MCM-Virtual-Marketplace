@@ -23,7 +23,7 @@
                                     <input class="btn_catalog" style="background:#263B5B" type="submit" value="Edit">
                                 </form>                                 
                             <% } else { %>                                                                                  
-                                <form class="form_inline" action="/profile/<%= products.userID %>">
+                                <form class="form_inline" action="/order/<%= products._id %> ">
                                     <input class="btn_catalog" type="submit" value="Order Now">
                                 </form>
                                 <form class="form_inline" action="/info/<%= products._id %>">

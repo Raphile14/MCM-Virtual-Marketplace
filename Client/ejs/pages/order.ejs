@@ -1,0 +1,76 @@
+<html lang="en">
+    <head>
+        <%- include('../partials/head'); %>
+        <title> Product - MCM Virtual Marketplace </title>
+    </head>
+    <body style="background:white">
+        <header>
+            <%- include('../partials/header'); %>
+        </header>
+
+        <main>
+            <br><br>
+                                         
+            <form method="POST">
+                <table class="product">
+                    <tr>
+                        <p class="profile_products"> Order Request </p>
+                    </tr>
+                    <tr>
+                        <td rowspan="3" class="product">
+                            <img src="<%= products.imagePath1 %>" class="catalog" alt="logo"> <br> <br>                                                  
+                        </td>
+                        <td class="product">                   
+                            <p> Seller: <a target="_blank" href="/profile/<%= products.userID %>"> <%= products.firstName %> <%= products.lastName %> </a> </p>
+                            <p> Seller Contact Email: <%= products.email %> </p>
+                            <p> Product Name: <%= products.productName %> </p>
+                            <p> Product Category: <%= products.category %> </p>
+                            <p> Price: ₱<%= products.price %> </p>
+                            <p> Quantity Available: <%= products.quantity %> items </p>
+                            <p> Description: <%= products.description %> </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="product">
+                            <input name ="quantity" type="number" class="txt_product" placeholder="Qty. to Order" min="0" max="<%= products.quantity %>" value="" required>
+                            <input type="button" value="Confirm Order" class="btn_product" id="saveProduct">
+                        </td>
+                    </tr>
+                </table>
+
+                <div id="myModal" class="modal">
+                    <div class="modal-content">
+                        <span class="close">&times;</span>
+                        <p> An email will be sent to the seller! Press okay! </p>
+                        <input type="submit" value="Okay!" id="deleteProduct">
+                    </div>
+                </div> 
+            </form>                                       
+        </main>
+
+        <br><br>
+
+        <footer>
+            <%- include('../partials/footer'); %>
+        </footer>
+
+        <script>
+            var modal = document.getElementById("myModal");
+            var btn = document.getElementById("saveProduct");
+            var span = document.getElementsByClassName("close")[0];
+            btn.onclick = function() {
+
+              modal.style.display = "block";
+            }
+            span.onclick = function() {
+              modal.style.display = "none";
+            }
+            window.onclick = function(event) {
+              if (event.target == modal) {
+                modal.style.display = "none";
+              }
+            }
+        </script>
+            
+    </body>
+</html>

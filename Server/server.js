@@ -20,6 +20,7 @@ const seller = require("./Routes/Seller.js");
 const logout = require("./Routes/Logout.js");
 const info = require("./Routes/ProductInfo.js");
 const admin = require("./Routes/Admin.js");
+const order = require("./Routes/Order.js");
 const confirmation = require("./Routes/Confirmation.js");
 const Product = require('./Database/Product.js');
 
@@ -50,6 +51,7 @@ app.use("/confirmation", confirmation);
 app.use("/info", info);
 app.use("/admin", admin);
 app.use("/logout", logout);
+app.use("/order", order);
 
 // Routings
 app.get("/", (req, res) => {

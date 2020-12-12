@@ -12,6 +12,8 @@ const requestBoolean = {
 
 const ticketSchema = new mongoose.Schema({
     sellerID: requestRequired,
+    sellerEmail: requestRequired,
+    buyerID: requestRequired,
     buyerEmail: requestRequired,
     quantity: requestRequired,
     productID: requestRequired,
