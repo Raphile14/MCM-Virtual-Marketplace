@@ -15,12 +15,13 @@ const recover = require("./Routes/Recover.js");
 const profileedit = require("./Routes/ProfileEdit.js");
 const profile = require("./Routes/Profile.js");
 const catalog = require("./Routes/Catalog.js");
-const ticket = require("./Routes/Ticket.js");
+const tickets = require("./Routes/Tickets.js");
 const seller = require("./Routes/Seller.js");
 const logout = require("./Routes/Logout.js");
 const info = require("./Routes/ProductInfo.js");
 const admin = require("./Routes/Admin.js");
 const order = require("./Routes/Order.js");
+const approve = require("./Routes/Approve.js");
 const confirmation = require("./Routes/Confirmation.js");
 const Product = require('./Database/Product.js');
 
@@ -45,13 +46,14 @@ app.use("/catalog", catalog);
 app.use("/profile", profile);
 app.use("/profileedit", profileedit);
 app.use("/recover", recover);
-app.use("/ticket", ticket);
+app.use("/tickets", tickets);
 app.use("/seller", seller);
 app.use("/confirmation", confirmation);
 app.use("/info", info);
 app.use("/admin", admin);
 app.use("/logout", logout);
 app.use("/order", order);
+app.use("/approve", approve);
 
 // Routings
 app.get("/", (req, res) => {

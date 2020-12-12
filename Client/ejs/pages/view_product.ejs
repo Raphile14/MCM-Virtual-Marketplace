@@ -19,9 +19,8 @@
                             <td class="view_product">
                                 <p class="item"> <%= data.productName %> </p>
                                 <p class="price"> ₱<%= data.price %> </p><br>
-                                <p class="error_caption">
-                                    <%= data.description %>
-                                </p>
+                                <p class="error_caption"> <a target="_blank" href="/profile/<%= data.userID %>"> <%= data.firstName %> <%= data.lastName %> </a> </p><br>
+                                <p class="error_caption"> <%= data.description %> </p>
 
                                 <input class="view_product" type="button" value="<%= data.quantity %> items left" disabled>  
 

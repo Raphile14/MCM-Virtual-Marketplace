@@ -1,0 +1,20 @@
+
+<tr>
+    <% if (existingTicket.isSold) { %>
+        <td class="admin" style="background-color: green;"> <%= x %> </td>
+    <% } else { %>
+        <td class="admin" style="background-color: red;"> <%= x %> </td>
+    <% } %>        
+    <td class="admin"> <%= existingTicket.date %> </td>
+    <td class="admin"> <%= existingTicket.productName %> </td>
+    <td class="admin"> <a target="_blank" href="/profile/<%= existingTicket.buyerID %>"> <%= existingTicket.buyerEmail %> </a> </td>
+    <td class="admin"> <%= existingTicket.quantity %> </td>
+    <td class="admin"> ₱<%= existingTicket.totalPrice %> </td>        
+    <% if (existingTicket.isSold) { %>
+        <td class="admin"> Sold </td>
+    <% } else { %>        
+        <form class="form_inline" action="/approve/<%= existingTicket._id %>">
+            <td class="admin"> <input class="btn_admin" type="submit" value="Confirm Purchase"> </td>
+        </form>                                 
+    <% } %>                    
+</tr>

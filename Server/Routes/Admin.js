@@ -4,6 +4,7 @@ const crypto = require("crypto-js");
 const connection = require("../Database/Connection.js");
 const path = require('path');
 const User = require("../Database/User");
+const Ticket = require("../Database/Ticket");
 let router = express.Router();
 
 router.use(function(req, res, next) {
@@ -13,25 +14,82 @@ router.use(function(req, res, next) {
 
 // Login Routes
 router
-    .route("/")
+    .route("/:admin/:category")
     .get((req, res) => {
+        let admin = req.params.admin;
+        let category = req.params.category;
+
+        // Credibility Check
         if (req.session.email == null || req.session._id == null) return res.redirect("/login");
-        User.findById(req.session._id, (err, existingUser) => {
-            console.log(existingUser);            
+        User.findById(req.session._id, (err, existingUser) => {     
             if (existingUser == null) {
                 return res.redirect("/page_not_found");     
             }
             else if (req.session.isAdmin) {
-                return res.render(path.join(__dirname, '../../Client/ejs/pages', 'admin.ejs'), 
-                {
-                    email: existingUser.email, 
-                    _id: req.session._id,
-                    firstName: existingUser.firstName,
-                    lastName: existingUser.lastName,
-                    phoneNumber: existingUser.phoneNumber,
-                    isAdmin: req.session.isAdmin,
-                    isSeller: req.session.isSeller
+                let tickets = [];
+                let categorySelection = ["categories"];
+                let ticketSelection = ["tickets", "confirmed", "unconfirmed", "transactions"];
+
+                // Checks if the link is viable
+                if (!ticketSelection.includes(admin) || !categorySelection.includes(category)){
+                    return res.redirect("/page_not_found");
+                }
+
+                Ticket.find({}, (err, existingTicket) => {     
+                    tickets = existingTicket;
                 });
+
+                // Sorts the data needed
+                if (admin == "tickets"){
+                    if (category == "categories"){
+                        Ticket.find({}, (err, existingTicket) => {     
+                            tickets = existingTicket;
+                        });
+                    } else {
+                        Ticket.find({category}, (err, existingTicket) => {     
+                            tickets = existingTicket;
+                        });
+                    } 
+                } else {
+                    // Transactions tickets with categories
+                    if (admin == "transactions"){
+                        if (category == "categories"){
+                            Ticket.find({isSold: admin == "transactions"}, (err, existingTicket) => {     
+                                tickets = existingTicket;
+                            });
+                        } else {
+                            Ticket.find({isSold: admin == "transactions", category}, (err, existingTicket) => {     
+                                tickets = existingTicket;
+                            });
+                        } 
+                    // Confirmed and unconfirmed tickets with categories    
+                    } else {
+                        if (category == "categories"){
+                            Ticket.find({isConfirmed: admin == "confirmed"}, (err, existingTicket) => {     
+                                tickets = existingTicket;
+                            });
+                        } else {
+                            Ticket.find({isConfirmed: admin == "confirmed", category}, (err, existingTicket) => {     
+                                tickets = existingTicket;
+                            });
+                        } 
+                    }
+                } 
+
+                // Renders the page with the tickets
+                return res.render(path.join(__dirname, '../../Client/ejs/pages', 'admin.ejs'), 
+                    {
+                        admin,
+                        category,
+                        email: existingUser.email, 
+                        _id: req.session._id,
+                        firstName: existingUser.firstName,
+                        lastName: existingUser.lastName,
+                        phoneNumber: existingUser.phoneNumber,
+                        isAdmin: req.session.isAdmin,
+                        isSeller: req.session.isSeller,
+                        tickets
+                    });
             }
             else {
                 return res.redirect("/page_not_found");
@@ -40,47 +98,7 @@ router
         
     })
     .post( async (req, res) => {
-        // if (req.session.email != null && req.session._id != null) {
-        //     return res.redirect("/");
-        // }
-        // await connection().then( async () => {
-        //     try {
-        //         let email = req.body.email.toLowerCase();
-        //         let hashPass = crypto.MD5(req.body.password);
-        //         console.log(req.body);                
-        //         User.findOne({email}, async (err, existingUser) => {
-        //             console.log("Raw inputted password: " + req.body.password);
-        //             console.log("inputted password: " + hashPass)
-        //             console.log(existingUser);
-        //             // Successful Login
-        //             if (existingUser != null) {
-        //                 if (existingUser.password == hashPass) {
-        //                     console.log("Login Success")
-        //                     req.session.email = email;                            
-        //                     req.session._id = existingUser._id;
-        //                     req.session.isAdmin = existingUser.isAdmin;
-        //                     req.session.isSeller = existingUser.isSeller;
-        //                     console.log(req.session._id);
-        //                     return res.redirect("/");
-        //                 }
-        //                 else {
-        //                     return res.render(path.join(__dirname, "../../Client/ejs/pages/login"), {loginError: true});
-        //                 }
-                        
-        //             }
-        //             // Failed Login
-        //             else {
-        //                 return res.render(path.join(__dirname, "../../Client/ejs/pages/login"), {loginError: true});
-        //             }
-        //         });
-        //     }
-        //     catch (e) {
-        //         console.log(e);
-        //     }
-        //     finally {
-        //         connection.close;
-        //     }
-        // });
+        
     });
 
 module.exports = router;

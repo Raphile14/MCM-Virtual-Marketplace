@@ -1,0 +1,45 @@
+<html lang="en">
+    <head>
+        <%- include('../partials/head'); %>
+        <title> Product - MCM Virtual Marketplace </title>
+    </head>
+    <body style="background:white">
+        <header>
+            <%- include('../partials/header'); %>
+        </header>
+
+        <main>
+            <br><br>
+            <p class="profile_products"> <%= errorMessage %> </p>
+            
+            <div class="container">
+                <% if (existingTicket.length > 0) { %>
+                    <div class="col-12">
+                        <table>
+                            <tr>
+                                <th class="admin"> No. </th>
+                                <th class="admin"> Date </th>
+                                <th class="admin"> Product Name </th>
+                                <th class="admin"> Buyer Email </th>
+                                <th class="admin"> Qty. </th>
+                                <th class="admin"> Price (Total) </th>
+                                <th class="admin"> Verdict </th>
+                            </tr>
+                            <% for (let x = 0; x < existingTicket.length; x++) { %>
+                                <%- include('../partials/ticket_catalog', {existingTicket: existingTicket[x], _id: _id, x: x + 1}); %>
+                            <%} %>  
+                        </table>                                                    
+                    </div>  
+                <% } %>                
+            </div> 
+
+        </main>
+
+        <br><br>
+
+        <footer>
+            <%- include('../partials/footer'); %>
+        </footer>        
+            
+    </body>
+</html>

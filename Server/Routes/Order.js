@@ -58,7 +58,16 @@ router
         // Get Buyer Data
         User.findOne({email: req.session.email}, async (err, buyerData) => {
             buyer = buyerData;
+            
+
             Product.findOne({_id: req.params.id} , async (err, productData) => {
+                // Get Date
+                let today = new Date();
+                let dd = String(today.getDate()).padStart(2, '0');
+                let mm = String(today.getMonth() + 1).padStart(2, '0');
+                let yyyy = today.getFullYear();
+                today = mm + '/' + dd + '/' + yyyy;
+
                 product = productData;
                 EmailOrder.sendEmail(buyer, product, req.body.quantity);
                 let ticket = {};
@@ -70,8 +79,13 @@ router
                 ticket.productID = req.params.id;
                 ticket.productName = product.productName;
                 ticket.price = product.price;
+                ticket.isConfirmed = false,
+                ticket.isSold = false,                
+                ticket.date = today;
+                ticket.description = product.description;
                 ticket.description = product.description;
                 ticket.category = product.category;
+                ticket.totalPrice = parseFloat(product.price) * parseFloat(product.quantity);
                 let ticketModel = new Ticket(ticket);
                 await ticketModel.save();
                 return res.redirect("/");

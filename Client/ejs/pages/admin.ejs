@@ -10,60 +10,77 @@
 
         <main>
             <ul class="menu">
-                <li class="menu"><a href="/">All Products</a></li>
-                <li class="menu"><a href="/">Confirmed</a></li>
-                <li class="menu"><a href="/">Unconfirmed</a></li>
-                <li class="menu"><a href="/">Tickets</a></li>
+                <li class="menu"><a href="/admin/tickets/<%= category %>">All Tickets</a></li>
+                <li class="menu"><a href="/admin/confirmed/<%= category %>">Confirmed Tickets</a></li>
+                <li class="menu"><a href="/admin/unconfirmed/<%= category %>">Unconfirmed Tickets</a></li>
+                <li class="menu"><a href="/admin/transactions/<%= category %>">Transactions Tickets</a></li>
+            </ul>
+            <ul class="menu">
+                <li class="menu"><a href="/admin/<%= admin %>/categories">All Category</a></li>
+                <li class="menu"><a href="/admin/<%= admin %>/food">Food</a></li>
+                <li class="menu"><a href="/admin/<%= admin %>/electronics">Electronics</a></li>
+                <li class="menu"><a href="/admin/<%= admin %>/health&beauty">Health & Beuty</a></li>
             </ul>
 
             <br><br>
             
             <!-- OVERALL -->
-            <table>
-                <tr>
-                    <th class="admin"> Product ID </th>
-                    <th class="admin"> Product Name </th>
-                    <th class="admin"> Seller Name </th>
-                    <th class="admin"> Price </th>
-                    <th class="admin"> Quantity </th>
-                    <th class="admin"> Description </th>
-                </tr>
-                <tr>
-                    <td class="admin"> 0000001 </td>
-                    <td class="admin"> Chocolate </td>
-                    <td class="admin"> Bob </td>
-                    <td class="admin"> ₱100.00 </td>
-                    <td class="admin"> 1 </td>
-                    <td class="admin"> 
-                        <input class="btn_admin" type="submit" value="Approve">
-                        <input class="btn_admin" style="background:#C12727" type="submit" value="Delete">
-                    </td>
-                </tr>
-            </table>
+            <% if (admin == "transactions") { %>
+                <% if (tickets.length != 0) { %>
+                    <p class="profile_products">All Available Transaction Tickets</p>
+                <% } else { %>
+                    <p class="profile_products">No Available Transaction Tickets</p>
+                <% } %>
+            <% } else { %>
+                <% if (tickets.length != 0) { %>
+                    <p class="profile_products">All Available Product Tickets</p>
+                <% } else { %>
+                    <p class="profile_products">No Available Product Tickets</p>
+                <% } %>
+            <% } %>
+            <div class="container">
+                <% if (tickets.length != 0) { %>
+                    <table>
+                        <tr>
+                            <th class="admin"> Product ID </th>
+                            <th class="admin"> Product Name </th>
+                            <th class="admin"> Seller Email </th>
+                            <th class="admin"> Quantity </th>
+                            <th class="admin"> Price </th>
+                            <th class="admin"> Description </th>
+                        </tr>
+                        <% if (admin == "tickets") { %>
+                            <% for (let x = 0; x < tickets.length; x++) { %>
+                                <% if (tickets.isSold == false) { %>
+                                    <%- include('../partials/admin_products', {tickets: tickets[x], admin, category}); %>
+                                <% } %>
+                            <% } %>
+                        <% } else { %>
+                            <% for (let x = 0; x < tickets.length; x++) { %>
+                                <%- include('../partials/admin_transactions', {tickets: tickets[x]}); %>
+                            <% } %>
+                        <% } %>
+                    </table>    
+                <% } %>                                                   
+            </div> 
 
-            <br><br>    
             <!-- TICKET -->
-            <table>
-                <tr>
-                    <th class="admin"> Ticket ID </th>
-                    <th class="admin"> Seller Name </th>
-                    <th class="admin"> Buyer Name </th>
-                    <th class="admin"> Product Name </th>
-                    <th class="admin"> Price </th>
-                    <th class="admin"> Quantity </th>
-                    <th class="admin"> Payment Method</th>
-                </tr>
-                <tr>
-                    <td class="admin"> 0000001 </td>
-                    <td class="admin"> Bob </td>
-                    <td class="admin"> Boba </td>
-                    <td class="admin"> Chocolate </td>
-                    <td class="admin"> ₱100.00 </td>
-                    <td class="admin"> 1 </td>
-                    <td class="admin"> GCash </td>
-                </tr>
-            </table>
-
+            <% if (admin == "tickets" && tickets.length != 0) { %>
+                <br><hr><br>
+                <p class="profile_products">All Available Transaction Tickets</p>
+                <div class="container">
+                    <div class="row">
+                            <% for (let x = 0; x < tickets.length; x++) { %>
+                                <% if (tickets.isSold == true) { %>
+                                    <%- include('../partials/admin_transactions', {tickets: tickets[x]}); %>
+                                <% } %>
+                            <% } %>
+                    </div>                
+                </div> 
+            <% } else if (admin == "tickets") { %>
+                <br><hr><br>
+                <p class="profile_products">No Available Transaction Tickets</p>
+            <% } %>    
         </main>
 
         <br><br>
