@@ -110,7 +110,7 @@ async function entriesRetrieve(req, res, type, category){
     }
     else if (type == "tickets") {
         if (category == "all") {
-            await Ticket.find({isConfirmed: true}, (err, existingTicket) => {     
+            await Ticket.find({isSold: true}, (err, existingTicket) => {     
                 if (err) return res.redirect("/page_not_found");
                 entries = existingTicket;
                 return res.render(path.join(__dirname, '../../Client/ejs/pages', 'admin.ejs'), {

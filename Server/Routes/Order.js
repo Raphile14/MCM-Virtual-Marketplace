@@ -83,9 +83,8 @@ router
                 ticket.isSold = false,                
                 ticket.date = today;
                 ticket.description = product.description;
-                ticket.description = product.description;
                 ticket.category = product.category;
-                ticket.totalPrice = parseFloat(product.price) * parseFloat(product.quantity);
+                ticket.totalPrice = parseFloat(product.price) * parseFloat(req.body.quantity);
                 let ticketModel = new Ticket(ticket);
                 await ticketModel.save();
                 return res.redirect("/");
