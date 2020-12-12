@@ -29,7 +29,7 @@ const ticketSchema = new mongoose.Schema({
     category: requestRequired,
     paymentMethod: requestNotRequired,
     date: requestRequired,
-    isConfirmed: false,
+    isConfirmed: requestBoolean,
     isSold: requestBoolean
 });
 

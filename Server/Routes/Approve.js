@@ -18,16 +18,13 @@ router
         try {
             if (req.session.email == null || req.session._id == null) return res.redirect("/login");
             if (req.session.isAdmin && !req.session.isSeller) {
-                Ticket.updateOne({_id: req.params.id}, {isConfirm: true}, async (err, existingTicket) => {   
+                Ticket.findOneAndUpdate({_id: req.params.id}, {isConfirm: true}, async (err, existingTicket) => {   
                     if (existingTicket == null || err) {
                         return res.redirect("/page_not_found");
                     }
-                    Product.updateOne({_id: req.params.id}, {confirmed: true}, async (err, existingTicket) => {   
-                        if (existingTicket == null || err) {
-                            return res.redirect("/page_not_found");
-                        }       
+                    Product.updateOne({_id: existingTicket._id}, {confirmed: true}, async (err, existingProduct) => {   
+                        return res.adminRedirectURL  
                     });
-                    return res.adminRedirectURL         
                 });
             } else {
                 Ticket.updateOne({_id: req.params.id}, {isSold: true}, async (err, existingTicket) => {   

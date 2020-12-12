@@ -47,6 +47,7 @@ router
     })
     .post( async (req, res) => {
         let data = req.body;
+        let ticket;
 
         // Save Database
         await connection().then( async () => {
@@ -62,6 +63,27 @@ router
 
                     let productModel = new Product(product);
                     await productModel.save();
+                    // await productModel.save();
+                    
+                    // ticket.sellerID = product.userID;
+                    // ticket.sellerEmail = productSaved.emailID;
+                    // ticket.buyerID = "";
+                    // ticket.buyerEmail = "";
+                    // ticket.quantity = productSaved.quantity;
+                    // ticket.productID = productSaved._id;
+                    // ticket.productName = productSaved.productName;
+                    // ticket.price = productSaved.price;
+                    // ticket.totalPrice = "";
+                    // ticket.description = productSaved.description;
+                    // ticket.category = productSaved.category;
+                    // ticket.paymentMethod = "";
+                    // ticket.date = "";
+                    // ticket.isConfirmed = false;
+                    // ticket.isSold = false;
+
+                    // let ticketModel = new Ticket(ticket);
+                    // await ticketModel.save();
+
                     res.redirect("/");
                 });
                 

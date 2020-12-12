@@ -10,77 +10,70 @@
 
         <main>
             <ul class="menu">
-                <li class="menu"><a href="/admin/tickets/<%= category %>">All Tickets</a></li>
+                <li class="menu"><a href="/admin/products/<%= category %>">All Tickets</a></li>
                 <li class="menu"><a href="/admin/confirmed/<%= category %>">Confirmed Tickets</a></li>
                 <li class="menu"><a href="/admin/unconfirmed/<%= category %>">Unconfirmed Tickets</a></li>
-                <li class="menu"><a href="/admin/transactions/<%= category %>">Transactions Tickets</a></li>
+                <li class="menu"><a href="/admin/tickets/<%= category %>">Transactions Tickets</a></li>
             </ul>
             <ul class="menu">
-                <li class="menu"><a href="/admin/<%= admin %>/categories">All Category</a></li>
-                <li class="menu"><a href="/admin/<%= admin %>/food">Food</a></li>
-                <li class="menu"><a href="/admin/<%= admin %>/electronics">Electronics</a></li>
-                <li class="menu"><a href="/admin/<%= admin %>/health&beauty">Health & Beuty</a></li>
+                <li class="menu"><a href="/admin/<%= type %>/all">All Categories</a></li>
+                <li class="menu"><a href="/admin/<%= type %>/health&beauty">Health & Beauty</a></li>
+                <li class="menu"><a href="/admin/<%= type %>/food"> Food </a></li>
+                <li class="menu"><a href="/admin/<%= type %>/digitalproducts"> Digital Products </a></li>
+                <li class="menu"><a href="/admin/<%= type %>/electronics"> Electronics </a></li>
+                
             </ul>
-
-            <br><br>
             
-            <!-- OVERALL -->
-            <% if (admin == "transactions") { %>
-                <% if (tickets.length != 0) { %>
-                    <p class="profile_products">All Available Transaction Tickets</p>
+            <% if (type == "products" || type == "confirmed" || type == "unconfirmed") { %>
+                <% if (entries.length != 0) { %>
+                    <p class="profile_products"> All Available Product Placements </p>
                 <% } else { %>
-                    <p class="profile_products">No Available Transaction Tickets</p>
+                    <p class="profile_products"> No Available Product Placements </p>
                 <% } %>
             <% } else { %>
-                <% if (tickets.length != 0) { %>
-                    <p class="profile_products">All Available Product Tickets</p>
+                <% if (entries.length != 0) { %>
+                    <p class="profile_products"> All Available Transaction Tickets </p>
                 <% } else { %>
-                    <p class="profile_products">No Available Product Tickets</p>
+                    <p class="profile_products"> No Available Transaction Tickets </p>
                 <% } %>
             <% } %>
+
+            <!-- OVERALL -->
             <div class="container">
-                <% if (tickets.length != 0) { %>
+                <% if (entries.length != 0) { %>
                     <table>
-                        <tr>
-                            <th class="admin"> Product ID </th>
-                            <th class="admin"> Product Name </th>
-                            <th class="admin"> Seller Email </th>
-                            <th class="admin"> Quantity </th>
-                            <th class="admin"> Price </th>
-                            <th class="admin"> Description </th>
-                        </tr>
-                        <% if (admin == "tickets") { %>
-                            <% for (let x = 0; x < tickets.length; x++) { %>
-                                <% if (tickets.isSold == false) { %>
-                                    <%- include('../partials/admin_products', {tickets: tickets[x], admin, category}); %>
-                                <% } %>
+                        <% if (type == "products" || type == "confirmed" || type == "unconfirmed") { %>
+                            <tr>
+                                <th class="admin"> No. </th>
+                                <th class="admin"> Product Name </th>
+                                <th class="admin"> Seller Email </th>
+                                <th class="admin"> Quantity </th>
+                                <th class="admin"> Price </th>
+                                <th class="admin"> Description </th>
+                            </tr>
+                        <% } else { %>
+                            <tr>
+                                <th class="admin"> No. </th>
+                                <th class="admin"> Date </th>
+                                <th class="admin"> Product Name </th>
+                                <th class="admin"> Seller Email </th>
+                                <th class="admin"> Buyer Email </th>
+                                <th class="admin"> Quantity </th>                                
+                                <th class="admin"> Total Price </th>                                
+                            </tr>
+                        <% } %>
+                        <% if (type == "products" || type == "confirmed" || type == "unconfirmed") { %>
+                            <% for (let x = 0; x < entries.length; x++) { %>
+                                <%- include('../partials/admin_products', {entries: entries[x], type, category, x: x + 1}); %>
                             <% } %>
                         <% } else { %>
-                            <% for (let x = 0; x < tickets.length; x++) { %>
-                                <%- include('../partials/admin_transactions', {tickets: tickets[x]}); %>
+                            <% for (let x = 0; x < entries.length; x++) { %>
+                                <%- include('../partials/admin_transactions', {entries: entries[x], x: x + 1}); %>
                             <% } %>
                         <% } %>
                     </table>    
                 <% } %>                                                   
             </div> 
-
-            <!-- TICKET -->
-            <% if (admin == "tickets" && tickets.length != 0) { %>
-                <br><hr><br>
-                <p class="profile_products">All Available Transaction Tickets</p>
-                <div class="container">
-                    <div class="row">
-                            <% for (let x = 0; x < tickets.length; x++) { %>
-                                <% if (tickets.isSold == true) { %>
-                                    <%- include('../partials/admin_transactions', {tickets: tickets[x]}); %>
-                                <% } %>
-                            <% } %>
-                    </div>                
-                </div> 
-            <% } else if (admin == "tickets") { %>
-                <br><hr><br>
-                <p class="profile_products">No Available Transaction Tickets</p>
-            <% } %>    
         </main>
 
         <br><br>

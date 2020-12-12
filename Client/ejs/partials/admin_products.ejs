@@ -1,14 +1,31 @@
 <tr>
-    <td class="admin"> <%= tickets.productID %> </td>
-    <td class="admin"> <%= tickets.productName %> </td>
-    <td class="admin"> <%= tickets.sellerEmail %> </td>
-    <td class="admin"> <%= tickets.quantity %> </td>
-    <td class="admin"> <%= tickets.price %> </td>
+    <% if (entries.confirmed) { %>
+        <td class="admin" style="background-color: green;"> <%= x %> </td>
+    <% } else { %>
+        <td class="admin" style="background-color: red;"> <%= x %> </td>
+    <% } %>            
+    <td class="admin"> <a target="_blank" href="/info/<%= entries._id %>"> <%= entries.productName %> </a> </td>
+    <td class="admin"> <a target="_blank" href="/profile/<%= entries.userID %> "> <%= entries.email %> </a> </td>
+    <td class="admin"> <%= entries.quantity %> </td>
+    <td class="admin"> <%= entries.price %> </td>
     <td class="admin">
-        <form class="form_inline" action="/approve/<%= tickets._id %>">
-            <input type="hidden" name="adminRedirectURL" value="admin/<%= admin %>/<%= category %>">
-            <input class="btn_admin" type="submit" value="Approve">
-            <input class="btn_admin" style="background:#C12727" type="submit" value="Delete">
-        </form> 
+        
+            <% if (entries.confirmed) { %>
+                <form class="form_inline" method="POST">
+                    <input type="hidden" name="entryURL" value="<%= type %>">
+                    <input type="hidden" name="categoryURL" value="<%= category %>">
+                    <input type="hidden" name="productID" value="<%= entries._id %>">
+                    <input class="btn_admin" style="background:#C12727" type="submit" name="btn_modify" value="delete">
+                </form> 
+            <% } else { %>
+                <form class="form_inline" method="POST">
+                    <input type="hidden" name="entryURL" value="<%= type %>">
+                    <input type="hidden" name="categoryURL" value="<%= category %>">
+                    <input type="hidden" name="productID" value="<%= entries._id %>">
+                    <input class="btn_admin" type="submit" name="btn_modify" value="approve">
+                </form>
+            <% } %>            
+            
+        
     </td>
 </tr>

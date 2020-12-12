@@ -5,100 +5,144 @@ const connection = require("../Database/Connection.js");
 const path = require('path');
 const User = require("../Database/User");
 const Ticket = require("../Database/Ticket");
+const Product = require("../Database/Product");
 let router = express.Router();
 
 router.use(function(req, res, next) {
-    // console.log(req.url, "@", Date.now());
     next();
 })
 
 // Login Routes
 router
-    .route("/:admin/:category")
-    .get((req, res) => {
-        let admin = req.params.admin;
-        let category = req.params.category;
-
+    .route("/:type/:category")
+    .get( async (req, res) => {
         // Credibility Check
         if (req.session.email == null || req.session._id == null) return res.redirect("/login");
-        User.findById(req.session._id, (err, existingUser) => {     
-            if (existingUser == null) {
-                return res.redirect("/page_not_found");     
-            }
-            else if (req.session.isAdmin) {
-                let tickets = [];
-                let categorySelection = ["categories"];
-                let ticketSelection = ["tickets", "confirmed", "unconfirmed", "transactions"];
+        if (!req.session.isAdmin) return res.redirect("/page_not_found");
 
-                // Checks if the link is viable
-                if (!ticketSelection.includes(admin) || !categorySelection.includes(category)){
-                    return res.redirect("/page_not_found");
-                }
-
-                Ticket.find({}, (err, existingTicket) => {     
-                    tickets = existingTicket;
-                });
-
-                // Sorts the data needed
-                if (admin == "tickets"){
-                    if (category == "categories"){
-                        Ticket.find({}, (err, existingTicket) => {     
-                            tickets = existingTicket;
-                        });
-                    } else {
-                        Ticket.find({category}, (err, existingTicket) => {     
-                            tickets = existingTicket;
-                        });
-                    } 
-                } else {
-                    // Transactions tickets with categories
-                    if (admin == "transactions"){
-                        if (category == "categories"){
-                            Ticket.find({isSold: admin == "transactions"}, (err, existingTicket) => {     
-                                tickets = existingTicket;
-                            });
-                        } else {
-                            Ticket.find({isSold: admin == "transactions", category}, (err, existingTicket) => {     
-                                tickets = existingTicket;
-                            });
-                        } 
-                    // Confirmed and unconfirmed tickets with categories    
-                    } else {
-                        if (category == "categories"){
-                            Ticket.find({isConfirmed: admin == "confirmed"}, (err, existingTicket) => {     
-                                tickets = existingTicket;
-                            });
-                        } else {
-                            Ticket.find({isConfirmed: admin == "confirmed", category}, (err, existingTicket) => {     
-                                tickets = existingTicket;
-                            });
-                        } 
-                    }
-                } 
-
-                // Renders the page with the tickets
-                return res.render(path.join(__dirname, '../../Client/ejs/pages', 'admin.ejs'), 
-                    {
-                        admin,
-                        category,
-                        email: existingUser.email, 
-                        _id: req.session._id,
-                        firstName: existingUser.firstName,
-                        lastName: existingUser.lastName,
-                        phoneNumber: existingUser.phoneNumber,
-                        isAdmin: req.session.isAdmin,
-                        isSeller: req.session.isSeller,
-                        tickets
-                    });
-            }
-            else {
-                return res.redirect("/page_not_found");
-            }
-        }); 
-        
+        entriesRetrieve(req, res, req.params.type, req.params.category);     
     })
     .post( async (req, res) => {
+        if (req.session.email == null || req.session._id == null) return res.redirect("/login");
+        if (!req.session.isAdmin) return res.redirect("/page_not_found");
+
+        if (req.body.btn_modify == "approve"){
+            Product.updateOne({_id: req.body.productID}, { $set: {confirmed: true}}, (err, existingTicket) => {     
+                entriesRetrieve(req, res, req.body.entryURL, req.body.categoryURL);
+            });
+        } else if (req.body.btn_modify == "delete") {
+            Product.deleteOne({_id: req.body.productID}, (err, result) => {
+                entriesRetrieve(req, res, req.body.entryURL, req.body.categoryURL);
+            });
+        }
+        else return res.redirect("/page_not_found");
         
     });
+
+async function entriesRetrieve(req, res, type, category){
+    let entries = [];
+
+    let productCategories = ["health&beauty", "food", "digitalproducts", "electronics"];
+
+    if (type == "products") {
+        if (category == "all") {
+            await Product.find({}, (err, existingProduct) => {     
+                if (err) return res.redirect("/page_not_found");
+                entries = existingProduct;
+                return res.render(path.join(__dirname, '../../Client/ejs/pages', 'admin.ejs'), {
+                    type,
+                    category,
+                    email: req.session.email, 
+                    _id: req.session._id,
+                    isAdmin: req.session.isAdmin,
+                    isSeller: req.session.isSeller,
+                    entries
+                });
+            });
+        }
+        else if (productCategories.includes(category)) {
+            await Product.find({category}, (err, existingProduct) => {     
+                if (err) return res.redirect("/page_not_found");
+                entries = existingProduct;
+                return res.render(path.join(__dirname, '../../Client/ejs/pages', 'admin.ejs'), {
+                    type,
+                    category,
+                    email: req.session.email, 
+                    _id: req.session._id,
+                    isAdmin: req.session.isAdmin,
+                    isSeller: req.session.isSeller,
+                    entries
+                });
+            });
+        }
+    }
+    else if (type == "confirmed" || type == "unconfirmed") {
+        if (category == "all") {
+            await Product.find({confirmed: type == "confirmed"}, (err, existingProduct) => {     
+                if (err) return res.redirect("/page_not_found");
+                entries = existingProduct;
+                return res.render(path.join(__dirname, '../../Client/ejs/pages', 'admin.ejs'), {
+                    type,
+                    category,
+                    email: req.session.email, 
+                    _id: req.session._id,
+                    isAdmin: req.session.isAdmin,
+                    isSeller: req.session.isSeller,
+                    entries
+                });
+            });
+        }
+        else if (productCategories.includes(category)) {
+            await Product.find({category, confirmed: type == "confirmed"}, (err, existingProduct) => {     
+                if (err) return res.redirect("/page_not_found");
+                entries = existingProduct;
+                return res.render(path.join(__dirname, '../../Client/ejs/pages', 'admin.ejs'), {
+                    type,
+                    category,
+                    email: req.session.email, 
+                    _id: req.session._id,
+                    isAdmin: req.session.isAdmin,
+                    isSeller: req.session.isSeller,
+                    entries
+                });
+            });
+        }
+    }
+    else if (type == "tickets") {
+        if (category == "all") {
+            await Ticket.find({isConfirmed: true}, (err, existingTicket) => {     
+                if (err) return res.redirect("/page_not_found");
+                entries = existingTicket;
+                return res.render(path.join(__dirname, '../../Client/ejs/pages', 'admin.ejs'), {
+                    type,
+                    category,
+                    email: req.session.email, 
+                    _id: req.session._id,
+                    isAdmin: req.session.isAdmin,
+                    isSeller: req.session.isSeller,
+                    entries
+                });
+            });
+        }
+        else if (productCategories.includes(category)) {
+            await Ticket.find({category, isConfirmed: true}, (err, existingTicket) => {     
+                if (err) return res.redirect("/page_not_found");
+                entries = existingTicket;
+                return res.render(path.join(__dirname, '../../Client/ejs/pages', 'admin.ejs'), {
+                    type,
+                    category,
+                    email: req.session.email, 
+                    _id: req.session._id,
+                    isAdmin: req.session.isAdmin,
+                    isSeller: req.session.isSeller,
+                    entries
+                });
+            });
+        }
+    } 
+    else {
+        return res.redirect("/page_not_found");
+    }
+}
 
 module.exports = router;

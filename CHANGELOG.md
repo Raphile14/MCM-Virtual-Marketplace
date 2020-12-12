@@ -1,5 +1,8 @@
 # Changelog
 
+## indev 1.0.0 (12/12/2020)
+- Initial Prototype (Alpha Build)
+
 ## indev 0.1.4 (12/8/2020)
 - Initial Login handling
 
