@@ -1,0 +1,49 @@
+<html lang="en">
+    <head>
+        <%- include('../partials/head'); %>
+        <title> MCM Virtual Marketplace </title>
+    </head>
+    <body style="background:white">
+        <header>
+            <%- include('../partials/header'); %>
+        </header>
+
+        <main>
+            <ul class="menu">
+                <li class="menu"><a href="/permissions/all"> All Users </a></li>
+                <li class="menu"><a href="/permissions/sellers"> Sellers </a></li>
+                <li class="menu"><a href="/permissions/nonseller"> Nonsellers </a></li>
+            </ul>
+            
+            <% if (entries.length != 0) { %>
+                <p class="profile_products"> Users </p>
+            <% } else { %>
+                <p class="profile_products"> No Registered Users </p>
+            <% } %>                
+
+            <!-- OVERALL -->
+            <div class="container">
+                <% if (entries.length != 0) { %>
+                    <table>
+                        <tr>
+                            <th class="admin"> No. </th>
+                            <th class="admin"> Name </th>
+                            <th class="admin"> Email </th>
+                            <th class="admin"> Phone Number </th>
+                            <th class="admin"> Verdict </th>
+                        </tr>
+                        <% for (let x = 0; x < entries.length; x++) { %>
+                            <%- include('../partials/permissions_table', {entries: entries[x], x: x + 1}); %>
+                        <% } %>
+                    </table>    
+                <% } %>                                                   
+            </div> 
+        </main>
+
+        <br><br>
+
+        <footer>
+            <%- include('../partials/footer'); %>
+        </footer>
+    </body>
+</html>

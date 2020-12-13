@@ -1,0 +1,22 @@
+<tr>
+    <td class="admin"> <%= x %> </td>
+    <td class="admin"> <a target="_blank" href="/profile/<%= entries._id %>"> <%= entries.firstName %> <%= entries.lastName %> </a> </td>
+    <td class="admin"> <%= entries.email %> </td>
+    <td class="admin"> <%= entries.phoneNumber %></td>
+    <td class="admin">
+        
+        <% if (entries.isSeller) { %>
+            <form class="form_inline" method="POST">
+                <input type="hidden" name="entryURL" value="<%= type %>">
+                <input type="hidden" name="userID" value="<%= entries._id %>">
+                <input class="btn_admin" style="background:#C12727" type="submit" name="btn_modify" value="Remove Seller">
+            </form> 
+        <% } else { %>
+            <form class="form_inline" method="POST">
+                <input type="hidden" name="entryURL" value="<%= type %>">
+                <input type="hidden" name="userID" value="<%= entries._id %>">
+                <input class="btn_admin" type="submit" name="btn_modify" value="Promote to Seller">
+            </form>
+        <% } %>                        
+</td>
+</tr>

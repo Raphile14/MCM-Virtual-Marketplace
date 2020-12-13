@@ -14,6 +14,8 @@ router.use(function(req, res, next) {
 router
     .route("/:id")
     .get((req, res) => {
+        // console.log("i was here");
+        // console.log(req.params.id);
         try {
             let ownership = false;
             if (req.session.email == null || req.session._id == null) return res.redirect("/login");
@@ -48,9 +50,7 @@ router
                             isSeller: req.session.isSeller,
                             products
                         });
-                    });
-    
-                    
+                    });  
                 }
             }); 
         }

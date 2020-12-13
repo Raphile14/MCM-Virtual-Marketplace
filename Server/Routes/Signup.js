@@ -26,6 +26,9 @@ router
         if (!email.includes("@mcm.edu.ph")) {
             return res.render(path.join(__dirname, '../../Client/ejs/pages', 'signup.ejs'), {errorMessage: "Only MCM emails are accepted!", user, edit: false, isRecovering: false});
         }
+        if (req.body.password.length < 8) {
+            return res.render(path.join(__dirname, '../../Client/ejs/pages', 'signup.ejs'), {errorMessage: "Passwords should have a minimum of 8 characters!", user, edit: false, isRecovering: false});
+        }
         if (req.body.password != req.body.confirmPassword) {
             return res.render(path.join(__dirname, '../../Client/ejs/pages', 'signup.ejs'), {errorMessage: "Passwords are not the same!", user, edit: false, isRecovering: false});
         }
