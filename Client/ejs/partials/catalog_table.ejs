@@ -1,9 +1,9 @@
-<div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4">
-    <table class="catalog">
-        <tr>
+<div class="placedProduct col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4" style="margin:18px">
+    <!-- <table class="catalog">
+        <tr> -->
             <!-- REPEAT -->
-            <td class="catalog">
-                <table class="catalog">
+            <div class="catalog">
+                <table style="width:377px; height:500px;">
                     <tr>
                         <td>
                             <!-- <img src="../../images/logo.png" class="catalog" alt="product"> -->
@@ -12,7 +12,12 @@
                     </tr>
                     <tr>
                         <td>
-                            <h1 class="item"> <%= products.productName %> </h1>
+                            <% if (products.productName.length > 10) { %>
+                                <h1 class="item"> <%= products.productName.slice(0, 10) %>... </h1>
+                            <% } else { %>
+                                <h1 class="item"> <%= products.productName %> </h1>
+                            <% } %>   
+                            <br style="line-height: 50%;">
                             <p class="price"> ₱<%= products.price %> </p>
                             <p class="item"> <%= products.quantity %> pcs. left </p>
                         </td>
@@ -34,7 +39,7 @@
                         </td>
                     </tr>
                 </table>
-            </td>
-        </tr>
-    </table>
+            </div>
+        <!-- </tr>
+    </table> -->
 </div>

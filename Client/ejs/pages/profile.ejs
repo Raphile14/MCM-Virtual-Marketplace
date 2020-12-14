@@ -24,7 +24,7 @@
                         <p class="profile_contact"> <%= sellerEmail %> </p>
                         <p class="profile_contact"> <%= phoneNumber %> </p>
                         <% if (ownership) { %>
-                            <a href="/profileedit/<%= _id %>"><img src="../../images/icon_settings.png" class="profile_icon" align ="left" alt="Settings">
+                            <a href="/profileedit/<%= _id %>"><img src="../../images/icon_settings.png" class="profile_icon" align ="left" alt="settings">
                         <% } %>
                     </td>
                     <td style="width:350px; padding:20px">
@@ -68,14 +68,14 @@
                 </tr>
             </table>
 
-            <br><br><br><br><br>
+            <br /><br /><br /><br /><br />
             <% if (products.length != 0) { %>
                 <p class="profile_products">Products On Sale </p>
             <% } else { %>
                 <p class="profile_products">No Products On Sale </p>
             <% } %>
             
-            <div class="container">
+            <div id="productPlacements" class="container" style="max-width:100%">
                 <div class="row">
                     <% for (let x = 0; x < products.length; x++) { %>
                         <%- include('../partials/catalog_table', {products: products[x], _id: _id}); %>

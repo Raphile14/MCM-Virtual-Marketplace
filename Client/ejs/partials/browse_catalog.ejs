@@ -1,38 +1,38 @@
-<div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
-    <table class="catalog">
-        <tr>
-            <!-- REPEAT -->
-            <td class="catalog">
-                <table class="catalog">
-                    <tr>
-                        <td>
-                            <!-- <img src="../../images/logo.png" class="catalog" alt="product"> -->
-                            <img src="<%= products.imagePath1 %>" class="catalog" alt="product">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <h1 class="item"> <%= products.productName %> </p>
-                            <p class="price"> ₱<%= products.price %> </p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <p class="item"> <%= products.quantity %> pcs. left </p>
-                            <form class="form_inline" action="/order/<%= products._id %> ">
-                                <input class="btn_catalog" type="submit" value="Order Now">
-                            </form>                            
+<div class="placedProduct col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4" style="margin:0px">
+    <!-- REPEAT -->
+    <div class="catalog">
+        <table style="width:377px; height:500px;">
+            <tr>
+                <td>
+                    <img src="<%= products.imagePath1 %>" class="catalog" alt="product">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <% if (products.productName.length > 10) { %>
+                        <h1 class="item"> <%= products.productName.slice(0, 10) %>... </h1>
+                    <% } else { %>
+                        <h1 class="item"> <%= products.productName %> </h1>
+                    <% } %>                    
+                    <br style="line-height: 50%;">
+                    <p class="price"> ₱<%= products.price %> </p>
+                </td>
+            </tr>
+            <tr>
+                <td><a href="/profile/<%= products.userID %>" class="seller"> <%= products.firstName %> <%= products.lastName %> </a></td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="item"> <%= products.quantity %> pcs. left </p>
+                    <form class="form_inline" action="/order/<%= products._id %> ">
+                        <input class="btn_catalog" type="submit" value="Order Now">
+                    </form>                            
 
-                            <form class="form_inline" action="/info/<%= products._id %>">
-                                <input class="btn_catalog" style="background:#263B5B" type="submit" value="Learn More">
-                            </form>                            
-                        </td>
-                    </tr>
-                    <tr>
-                        <td> <a href="/profile/<%= products.userID %>"> <%= products.firstName %> <%= products.lastName %> </a> </td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-    </table>
+                    <form class="form_inline" action="/info/<%= products._id %>">
+                        <input class="btn_catalog" style="background:#263B5B" type="submit" value="Learn More">
+                    </form>                            
+                </td>
+            </tr>
+        </table>
+    </div>
 </div>

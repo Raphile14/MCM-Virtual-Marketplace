@@ -9,9 +9,18 @@ body.alternate {
   background-color: #263B5B;
 }
 
+.row {
+  margin: 0 1px;
+}
+
 a {
   color:#407688; 
   text-decoration: underline;
+}
+
+a.seller {
+  color:#263B5B; 
+  text-decoration: none;
 }
 
 div.center {
@@ -148,6 +157,16 @@ div.footer {
   font-size: 12px;
 }
 
+div#productPlacements.container {
+  padding-right: 0px;
+  padding-left: 0px;
+  padding-bottom: 10px;
+}
+
+div.placedProduct {
+  padding-bottom: 30px;
+}
+
 ul.menu {
   list-style-type: none;
   margin: 0;
@@ -171,21 +190,21 @@ input.search_button {
   height: 51px;
   background: #263B5B;
   color: white;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.08);
+  /* box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.08); */
   font-size: 15px;
   border: none;
 }
 
-table.catalog {
+/* table.catalog {
   border-spacing: 20px;
   border-collapse: separate;
-}
+} */
 
 td {
   text-align: center;
 }
 
-td.catalog {
+div.catalog {
   background: white;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.25);
   border-radius: 5px;
@@ -241,9 +260,6 @@ input.txt_profile {
 
 p.profile_products {
   color: #C12727;
-  background: none;
-  position: relative;
-  font-family: Roboto;
   font-weight: bold;
   font-size: 36px;
   text-align: center;
