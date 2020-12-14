@@ -1,14 +1,16 @@
-<ul class="header">
-  <li style="float:left"><a href="/" class="header"><img src="../../images/logo_cropped.png" alt="logo" width="25" height="25"></a></li>
-  <li><a href="/logout" class="header">Logout</a></li>
-  <li><a href="/profile/<%= _id %>" class="header"> <%= email %> </a></li>
-  <% if (isSeller) { %>
-    <li><a href="/product" class="header">Sell Something!</a></li>
-    <li><a href="/tickets" class="header"> Transaction Tickets </a></li>
-  <% } %>   
-  <li><a href="/" class="header"> Shopping Centre </a></li>
-  <% if (isAdmin) { %>
-    <li><a href="/admin/products/all" class="header"> Content Moderation </a></li>
-    <li><a href="/permissions/all" class="header"> Permissions </a></li>  
-  <% } %>   
-</ul>
+<nav class="header">
+  <ul class="header">
+    <li class="header" style="float:left"><a href="/" class="header"><img src="../../images/logo.png" style="width:25px; height:25px;" /></a></li>
+    <li class="header"><a href="/logout" class="header">Logout</a></li>
+    <li class="header"><a href="/profile/<%= _id %>" class="header"> <%= email %> </a></li>
+    <% if (isSeller) { %>
+      <li class="header"><a href="/product" class="header">Sell Something!</a></li>
+      <li class="header"><a href="/tickets" class="header"> Transaction Tickets </a></li>
+    <% } %>   
+    <li class="header"><a href="/" class="header"> Shopping Centre </a></li>
+    <% if (isAdmin) { %>
+      <li class="header"><a href="/admin/products/all" class="header"> Content Moderation </a></li>
+      <li class="header"><a href="/permissions/all" class="header"> Permissions </a></li>  
+    <% } %>   
+  </ul>
+</nav>

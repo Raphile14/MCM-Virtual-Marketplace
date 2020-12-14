@@ -1,123 +1,12 @@
 body {
-  background:#263B5B;
+  background-color: white;
   color: #9F9F9F;
-  font-family: Lato;
-  font-size: 13px;
-}
-
-table.login {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 830px;
-  height: 599px;
-  background: white;
-  border-radius: 10px;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  /* overflow: hidden; */
-}
-
-table {
-  margin: auto;
-  /* width: 50%; */
-  /* border: 3px solid green; */
-  /* padding: 10px; */
-}
-
-table.login_title {
-  /* width: 384px; */
-  width: 100%;
-  height: 159px;
-  top: 55px;
-  /* left: 223px; */
-  position: absolute;
-  text-align: center;
-}
-
-p.login_MCM {
-  /* width: 384px; */
-  color: #263B5B;
-  background: none;
-  position: relative;
-  /* top: 124px; */
-  /* left: 0px; */
   font-family: Roboto;
-  font-weight: bold;
-  font-size: 30px;
-  text-align: center;
-  padding: 20px;
-}
-
-/* WORKS */
-table.login_txtfield {
-  /* width: 538px; */
-  width: 100%;
-  /* height: 126px;  */
-  height: 175px; 
-  position: absolute;
-  top: 246px;
-  /* left: 147px; */
-  /* box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25); */
-  text-align: center;
-}
-
-input.txt_login {
-  width: 538px;
-  height: 53px;
-  position: relative;
-  font-size: 15px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
-  border: none;
-  padding: 20px;
-}
-
-td.login_dot {
-  /* width: 538px; */
-  position: relative;
-  color: white;
-  background: none;
-  font-family: Roboto;
-  font-style: italic;
-  font-size: 15px;
-  /* text-align: left; */
-  /* border: 3px solid green; */
-}
-
-td.login_error {
-  position: relative;
-  color: #C12727;
-  font-family: Roboto;
-  font-style: italic;
   font-size: 15px;
 }
 
-table.login_btn {
-  /* width: 300px; */
-  width: 100%;
-  height: 100px;
-  background: none;
-  position: absolute;
-  /* top: 478px; */
-  top: 465px;
-  /* left: 324px; */
-  text-align: center;
-}
-
-input.btn_login {
-  width: 161px;
-  height: 51px;
-  background: #C12727;
-  color: white;
-  position: relative;
-  /* top: 0px; */
-  /* left: 11px; */
-  border-radius: 5px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.25);
-  font-family: Roboto;
-  font-size: 20px;
-  border: none;
-  /* text-align: center; */
+body.alternate {
+  background-color: #263B5B;
 }
 
 a {
@@ -125,13 +14,129 @@ a {
   text-decoration: underline;
 }
 
+div.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+div.login_box {
+  width: 830px;
+  height: 599px;
+  background-color: white;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+div.contents {
+  text-align: center;
+}
+
+h1.login_MCM {
+  color: #263B5B;
+  font-weight: bold;
+  font-size: 30px;
+}
+
+input.login_text {
+  width: 538px;
+  height: 53px;
+  font-family: Lato;
+  font-size: 15px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
+  border: none;
+  padding: 20px;
+}
+
+p.small_text {
+  font-family: Lato;
+}
+
+input.big_button {
+  width: 161px;
+  height: 51px;
+  background: #C12727;
+  color: white;
+  border-radius: 5px;
+  font-size: 20px;
+  border: none;
+}
+
+table {
+  margin: auto;
+}
+
+div.new_signup_box{
+  width: 830px;
+  height: 705px;
+  background-color: white;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+div.edit_signup_box{
+  width: 830px;
+  height: 555px;
+  background-color: white;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+table.signup {
+  border-collapse: separate;
+  border-spacing: 20px 15px;
+}
+
+nav.header {
+  width: 100%;
+  height: 73px;
+  background-color: #263B5B;
+  padding: 1px;
+}
+
 ul.header {
   list-style-type: none;
-  margin: 0;
-  overflow: hidden;
-  background: none;
   padding: 0px 80px;
-  background: #263B5B;
+}
+
+li.header {
+  float: right;
+}
+
+li a.header {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 25px 16px 0px;
+  text-decoration: none;
+}
+
+li a{
+  color:#263B5B;
+  text-align: center;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+div.footer {
+  width: 100%;
+  height: auto;
+  max-height: 100vh; 
+  overflow: auto;
+  background-color: #263B5B;
+  align-items: center;
+  padding: 80px;
+  color: #C4C4C4;
+  text-align: left;
+  font-size: 20px;
 }
 
 ul.menu {
@@ -142,57 +147,27 @@ ul.menu {
   padding: 80px 0px 30px;
 }
 
-li a{
-  float: center;
-  color:#263B5B;
-  text-align: center;
-  font-family: Roboto;
-  font-size: 14px;
-  text-decoration: none;
-}
-
-li a.header {
-  float: right;
-  color: white;
-  padding: 20px 20px;
-}
-
 li.menu {
+  float: center;
   display: inline;
   padding: 20px 20px;
-}
-
-li.footer {
-  float: left;
-  color: #C4C4C4;
-  text-align: center;
-  padding: 80px 20px;
-  font-size: 20px;
 }
 
 a:hover {
   color: #407688
 }
 
-input.btn_search {
+input.search_button {
   width: 75px;
   height: 51px;
   background: #263B5B;
   color: white;
-  position: relative;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.08);
-  /* top: 0px; */
-  /* left: 11px; */
-  font-family: Roboto;
   font-size: 15px;
   border: none;
-  /* text-align: center; */
 }
 
 table.catalog {
-  /* width: 750px;
-  height: 1000px;
-  padding: 100px; */
   border-spacing: 20px;
   border-collapse: separate;
 }
@@ -214,7 +189,7 @@ img.catalog {
   height: 259px;
 }
 
-p.item {
+h1.item {
   font-family: Merriweather;
   font-size: 36px;
   font-weight: bold;
@@ -267,7 +242,6 @@ p.profile_products {
 
 table.profile {
   width: 1317px;
-  /* height: 62px; */
   background: white;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.25);
   border-radius: 5px;
@@ -375,7 +349,6 @@ select.product_avail {
 }
 
 p.error_caption {
-  font-family: Roboto;
   font-size: 20px;
 }
 
@@ -398,11 +371,6 @@ input.btn_signup {
   font-family: Roboto;
   font-size: 20px;
   border: none;
-}
-
-table.signup {
-  width: 700px;
-  height: 625px;
 }
 
 table.view_product {

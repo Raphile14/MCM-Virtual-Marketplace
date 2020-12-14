@@ -3,7 +3,7 @@
         <%- include('../partials/head'); %>
         <title> Product - MCM Virtual Marketplace </title>
     </head>
-    <body style="background:white">
+    <body>
         <header>
             <%- include('../partials/header'); %>
         </header>
@@ -17,7 +17,7 @@
                                 <img src="<%= data.imagePath1 %>" alt="logo" width="435" height="519">
                             </td>
                             <td class="view_product">
-                                <p class="item"> <%= data.productName %> </p>
+                                <h1 class="item"> <%= data.productName %> </h1>
                                 <p class="price"> ₱<%= data.price %> </p><br>
                                 <p class="error_caption"> <a target="_blank" href="/profile/<%= data.userID %>"> <%= data.firstName %> <%= data.lastName %> </a> </p><br>
                                 <p class="error_caption"> <%= data.description %> </p>
@@ -36,10 +36,10 @@
                             <span class="close">&times;</span>
                             <p>
                                 To inquire more about the product, <b> you may contact the seller</b> through any of these platforms:<br><br>
-                                <img src="../../images/icon_messenger.png" class="profile_icon" alt="messenger">
-                                <img src="../../images/icon_instagram.png" class="profile_icon" alt="instagram">
-                                <img src="../../images/icon_twitter.png" class="profile_icon" alt="twitter">
-                                <img src="../../images/icon_linkedin.png" class="profile_icon" alt="linkedin">                                
+                                <img src="../../images/icon_messenger.png" class="profile_icon" alt="Messenger">
+                                <img src="../../images/icon_instagram.png" class="profile_icon" alt="Instagram">
+                                <img src="../../images/icon_twitter.png" class="profile_icon" alt="Twitter">
+                                <img src="../../images/icon_linkedin.png" class="profile_icon" alt="Linkedin">                                
                             </p>
                             <p>
                                 Send an <b> order request </b> <a href="/order/<%= data._id %>"> HERE </a>
