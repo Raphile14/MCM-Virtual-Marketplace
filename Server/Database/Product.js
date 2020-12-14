@@ -25,13 +25,14 @@ const productSchema = new mongoose.Schema({
     category: requestRequired,
     confirmed: requestBoolean,
     imagePath1: requestRequired,
+    firstName: requestRequired,
+    lastName: requestRequired,
+    email: requestRequired
+
     // imagePath2: requestNotRequired,
     // imagePath3: requestNotRequired,
     // imagePath4: requestNotRequired,
     // imagePath5: requestNotRequired,
-    firstName: requestRequired,
-    lastName: requestRequired,
-    email: requestRequired
 });
 
 module.exports = Product = mongoose.model('tbl_products', productSchema);
