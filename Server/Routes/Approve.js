@@ -30,12 +30,11 @@ router
                     });
                 });
             } else {
-                Ticket.updateOne({_id: req.params.id}, {isSold: true}, async (err, existingTicket) => {   
-                    if (existingTicket == null || err) {
+                Ticket.findByIdAndUpdate({_id: req.params.id}, {isSold: true}, async (err, updatedTicket) => {   
+                    if (updatedTicket == null || err) {
                         return res.redirect("/page_not_found");
                     }
                     Ticket.find({sellerID: req.session._id}, async (err, existingTicket) => {
-                        let quantity = existingTicket.quantity;
                         let errorMessage = "Order Request Tickets";
                         if (err) {
                             return res.redirect("/page_not_found");
@@ -44,33 +43,32 @@ router
                             errorMessage = "No Order Request Tickets as of now";
                         }
 
-                        // // Deduct Area                        
-                        // Product.findOne({_id: existingTicket.productID}, async (err, existingProduct) => {
-                        //     let currentQuantity = parseInt(existingProduct.quantity) - parseInt(existingTicket.quantity);
-                        //     Product.updateOne({_id: existingTicket.productID}, { $set: {price: currentQuantity}}, async (err, sellerData) => {
-                        //         console.log("Product Quantity have been deducted!");
-                        //     })                            
-                        // });   
+                        // Deduct Area                        
+                        Product.findOne({_id: updatedTicket.productID}, async (err, existingProduct) => {
+                            let currentQuantity = parseInt(existingProduct.quantity) - parseInt(updatedTicket.quantity);
+                            Product.updateOne({_id: updatedTicket.productID}, { $set: {quantity: currentQuantity}}, async (err, result) => {                                
+                            })                            
+                        });   
 
                         // Buyer Email Response
                         // Get Buyer Data
-                        // User.findOne({_id: existingTicket.buyerID}, async (err, buyerData) => {
-                        //     // Seller Data
-                        //     Product.findById({_id: existingTicket.productID}, async (err, sellerData) => {
-                        //         console.log(buyerData)
-                        //         console.log(sellerData);
-                        //         EmailBuyer.sendEmail(buyerData, sellerData, quantity);
-                        //     })
-                        // });                      
-                        return res.render(path.join(__dirname, '../../Client/ejs/pages', 'tickets.ejs'), {
-                            errorMessage,
-                            sessionEmail: req.session.email,
-                            email: req.session.email, 
-                            _id: req.session._id,
-                            isAdmin: req.session.isAdmin,
-                            isSeller: req.session.isSeller,
-                            existingTicket
-                        });
+                        User.findById({_id: updatedTicket.buyerID}, async (err, buyerData) => {
+                            if (err) return res.redirect("/page_not_found");
+                            // Seller Data
+                            Product.findOne({_id: updatedTicket.productID}, async (err, sellerData) => {
+                                if (err) return res.redirect("/page_not_found");
+                                EmailBuyer.sendEmail(buyerData, sellerData, updatedTicket.quantity);
+                                return res.render(path.join(__dirname, '../../Client/ejs/pages', 'tickets.ejs'), {
+                                    errorMessage,
+                                    sessionEmail: req.session.email,
+                                    email: req.session.email, 
+                                    _id: req.session._id,
+                                    isAdmin: req.session.isAdmin,
+                                    isSeller: req.session.isSeller,
+                                    existingTicket
+                                });
+                            })                            
+                        });                                              
                     });             
                 }); 
             }
