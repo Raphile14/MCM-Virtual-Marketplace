@@ -57,7 +57,6 @@ router
                         return res.redirect("/");
                     }
                     else {
-                        console.log("User has already signed up");
                         return res.render(path.join(__dirname, '../../Client/ejs/pages', 'signup.ejs'), {errorMessage: "User has already signed up!", user, edit: false, isRecovering: false});
                     }
                 })                

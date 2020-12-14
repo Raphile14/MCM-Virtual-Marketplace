@@ -29,10 +29,41 @@
                     </td>
                     <td style="width:350px; padding:20px">
                         <p class="profile_icon" style="text-align:left">Contact Me:</p>
-                        <img src="../../images/icon_messenger.png" class="profile_icon" align ="left" alt="Messenger">
-                        <img src="../../images/icon_instagram.png" class="profile_icon" align ="left" alt="Instagram">
-                        <img src="../../images/icon_twitter.png" class="profile_icon" align ="left" alt="Twitter">
-                        <img src="../../images/icon_linkedin.png" class="profile_icon" align ="left" alt="LinkedIn">
+                        <% if (messengerLink.length != 0) { %>
+                            <% if (messengerLink.indexOf('http://') === 0 || messengerLink.indexOf('https://') === 0) { %>
+                                <a target="_blank" href="<%= messengerLink %>"> <img src="../../images/icon_messenger.png" class="profile_icon" align ="left" alt="Messenger"> </a>
+                            <% } else { %>
+                                <a target="_blank" href="https://<%= messengerLink %>"> <img src="../../images/icon_messenger.png" class="profile_icon" align ="left" alt="Messenger"> </a>
+                            <% } %>                              
+                        <% } %>
+                        
+                        <% if (instagram.length != 0) { %>
+                            <% if (instagram.indexOf('http://') === 0 || instagram.indexOf('https://') === 0) { %>
+                                <a target="_blank" href="<%= instagram %>"> <img src="../../images/icon_instagram.png" class="profile_icon" align ="left" alt="Instagram"> </a>
+                            <% } else { %>
+                                <a target="_blank" href="https://<%= instagram %>"> <img src="../../images/icon_instagram.png" class="profile_icon" align ="left" alt="Instagram"> </a>
+                            <% } %>                          
+                        <% } %>
+
+                        <% if (twitter.length != 0) { %>
+                            <% if (linkedIn.indexOf('http://') === 0 || linkedIn.indexOf('https://') === 0) { %>
+                                <a target="_blank" href="<%= twitter %>"> <img src="../../images/icon_twitter.png" class="profile_icon" align ="left" alt="Twitter"> </a>
+                            <% } else { %>
+                                <a target="_blank" href="https://<%= twitter %>"> <img src="../../images/icon_twitter.png" class="profile_icon" align ="left" alt="Twitter"> </a>
+                            <% } %>
+                        <% } %>
+                        
+                        <% if (linkedIn.length != 0) { %>
+                            <% if (linkedIn.indexOf('http://') === 0 || linkedIn.indexOf('https://') === 0) { %>
+                                <a target="_blank" href="<%= linkedIn %>"> <img src="../../images/icon_linkedin.png" class="profile_icon" align ="left" alt="LinkedIn"> </a>
+                            <% } else { %>
+                                <a target="_blank" href="https://<%= linkedIn %>"> <img src="../../images/icon_linkedin.png" class="profile_icon" align ="left" alt="LinkedIn"> </a>
+                            <% } %>
+                        <% } %>
+
+                        <% if (messengerLink.length == 0 && instagram.length == 0 && twitter.length == 0 && linkedIn.length == 0) { %>
+                            <p class="profile_icon" style="text-align:left"> No Social Media Details</p>
+                        <% } %>
                     </td>
                 </tr>
             </table>
