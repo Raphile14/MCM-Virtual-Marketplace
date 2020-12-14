@@ -1,7 +1,7 @@
 <html lang="en">
     <head>
         <%- include('../partials/head'); %>
-        <title> MCM Virtual Marketplace </title>
+        <title>MCM Virtual Marketplace</title>
     </head>
     <body>
         <header>
@@ -16,14 +16,13 @@
                 <li class="menu"><a href="/catalog/digitalproducts">Digital Products</a></li>
                 <li class="menu"><a href="/catalog/electronics">Electronics</a></li>
             </ul>
-            <br /><br />
 
             <table>
                 <tr>
                     <td>
                         <form method="POST">
-                            <input name="search" class="login_text" type="text">
-                            <input class="search_button" type="submit" value="Search">
+                            <input name="search" class="login_text" type="text" />
+                            <input class="search_button" type="submit" value="Search" />
                         </form>
                     </td>
                 </tr>
@@ -41,7 +40,7 @@
                 <p class="profile_products">No Products On Sale</p>
             <% } %>
             
-            <div class="container">
+            <div class="container" style="max-width:84%">
                 <div class="row">
                     <% for (let i = products.length - 1; i > 0; i--) { %>
                     <%    let j = Math.floor(Math.random() * (i + 1)); %>

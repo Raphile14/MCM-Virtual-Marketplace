@@ -3,51 +3,29 @@
         <%- include('../partials/head'); %>
         <title> Login - MCM Virtual Marketplace </title>
     </head>
-    <body class="alternate">
+    <body class="alternate"> 
         <main>
-            <table class="login">
-                <tr>
-                    <td>
-                        <table class="login_title">
-                            <tr>
-                                <td><img src="../../images/logo_cropped.png" alt="logo" width="100" height="100"></td>
-                            </tr>
-                            <tr>
-                                <td><p class="login_MCM"> Recover an Account</p></td>
-                            </tr>     
-                        </table>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
+            <div class="center">
+                <div class="login_box">
+                    <div class="contents">
+                        <br /><br />
+                        <img src="../../images/logo.png" alt="logo" style="width:100px; height:100px">
+                        <br /><br />
+                        <h1 class="login_MCM"> Recover an Account</h1>
+                        <br />
                         <form method="POST">
-                            <table class="login_txtfield">
-                                <tr>
-                                    <td><input class="txt_login" name ="email" type="email" placeholder="MCM Email Address" required></td>
-                                </tr>
-                                <tr>
-                                    <% if (errorMessage) { %>
-                                        <td><p class="login_error"> <%= errorMessage %> </p></td>
-                                    <% } %>                          
-                                </tr>
-                            </table>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <table class="login_btn">
-                            <tr>
-                                <td><input class="btn_login" type="submit" value="SUBMIT"></td>
-                            </tr>
-                            <tr>                                
-                                <td colspan="2"> <a href="/login"> Back to Login </a></td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-                
-                </form>
-            </table>
+                            <input class="login_text" name ="email" type="email" placeholder="MCM Email Address" required>
+                            <% if (errorMessage) { %>
+                                <br /> <%= errorMessage %>
+                            <% } %>
+                            <br /><br /><br /><br />                 
+                            <input class="big_button" type="submit" value="SUBMIT" />     
+                            <br /><br style="line-height: 75%;" />                       
+                            <p class="small_text"><a href="/login"> Back to Login </a></p>
+                        </form>
+                    </div>
+                </div>
+            </form>
         </main>
     </body>
 </html>
