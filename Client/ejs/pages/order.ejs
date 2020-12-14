@@ -27,7 +27,11 @@
                             <p> Product Category: <%= products.category %> </p>
                             <p> Price: ₱<%= products.price %> </p>
                             <p> Quantity Available: <%= products.quantity %> items </p>
-                            <p> Description: <%= products.description %> </p>
+                            <p id="description"> </p>
+                            
+                            <script>
+                                document.getElementById("description").innerHTML = "Description: " + "<%- products.description %>";
+                            </script>
                         </td>
                     </tr>
                     <tr>

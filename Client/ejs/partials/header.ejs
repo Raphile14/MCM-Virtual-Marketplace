@@ -1,16 +1,50 @@
-<nav class="header">
-  <ul class="header">
-    <li class="header" style="float:left"><a href="/" class="header"><img src="../../images/logo.png" style="width:25px; height:25px;" /></a></li>
-    <li class="header"><a href="/logout" class="header">Logout</a></li>
-    <li class="header"><a href="/profile/<%= _id %>" class="header"> <%= email %> </a></li>
-    <% if (isSeller) { %>
-      <li class="header"><a href="/product" class="header">Sell Something!</a></li>
-      <li class="header"><a href="/tickets" class="header"> Transaction Tickets </a></li>
-    <% } %>   
-    <li class="header"><a href="/" class="header"> Shopping Centre </a></li>
-    <% if (isAdmin) { %>
-      <li class="header"><a href="/admin/products/all" class="header"> Content Moderation </a></li>
-      <li class="header"><a href="/permissions/all" class="header"> Permissions </a></li>  
-    <% } %>   
-  </ul>
+<nav class="header visible-sm visible-md visible-lg visible-xl">
+    <ul class="header" class="nav navbar-nav navbar-right text-center">
+      <li class="header" style="float:left"><a href="/" class="header"><img src="../../images/logo.png" style="width:25px; height:25px;" /></a></li>
+      <li class="header"><a href="/logout" class="header">Logout</a></li>
+      <li class="header"><a href="/profile/<%= _id %>" class="header"> <%= email %> </a></li>
+      <% if (isSeller) { %>
+        <li class="header"><a href="/product" class="header"> Sell </a></li>
+        <li class="header"><a href="/tickets" class="header"> Tickets </a></li>
+      <% } %>         
+      <% if (isAdmin) { %>
+        <li class="header"><a href="/permissions/all" class="header"> Permissions </a></li>  
+        <li class="header"><a href="/admin/products/all" class="header"> Admin </a></li>        
+      <% } %>   
+      <li class="header"><a href="/" class="header"> Shopping </a></li>
+    </ul>
+</nav>
+
+<!-- ================================================================= -->
+
+<nav id="header-nav" class="visible-xs">
+  <div id="index" class="container"> 
+      <div class="navbar-brand"> 
+        <a href="/" class="header"><img src="../../images/logo.png" style="width:25px; height:25px;" /></a>
+      </div>                                             
+        
+      <!-- Collapsable Button -->                    
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#collapsable-nav" aria-expanded="false">
+        <span class="sr-only"> Toggle Navigation </span>  
+        <span style="color: white;"> Menu </span>          
+      </button>          
+    </div>
+
+    <!-- Collapsable Navbar -->
+    <div id="collapsable-nav" class="collapse navbar-collapse">
+      <ul id="nav-list" class="nav navbar-nav navbar-right text-center">
+        <li class="header" style="float:left"><a href="/" class="header"><img src="../../images/logo.png" style="width:25px; height:25px;" /></a></li>
+        <li class="header"><a href="/logout" class="header">Logout</a></li>
+        <li class="header"><a href="/profile/<%= _id %>" class="header"> <%= email %> </a></li>
+        <% if (isSeller) { %>
+          <li class="header"><a href="/product" class="header"> Sell </a></li>
+          <li class="header"><a href="/tickets" class="header"> Tickets </a></li>
+        <% } %>         
+        <% if (isAdmin) { %>
+          <li class="header"><a href="/permissions/all" class="header"> Permissions </a></li>  
+          <li class="header"><a href="/admin/products/all" class="header"> Admin </a></li>        
+        <% } %>   
+        <li class="header"><a href="/" class="header"> Shopping </a></li>  
+      </ul>
+  </div>
 </nav>

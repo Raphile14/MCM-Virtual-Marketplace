@@ -95,11 +95,20 @@ table.signup {
   border-spacing: 20px 15px;
 }
 
+.no-line {
+  text-decoration: none;
+}
+
 nav.header {
   width: 100%;
   height: 73px;
   background-color: #263B5B;
   padding: 1px;
+}
+
+nav#header-nav {
+  background-color: #263B5B;
+  color: #263B5B;
 }
 
 ul.header {
@@ -129,14 +138,14 @@ li a{
 div.footer {
   width: 100%;
   height: auto;
-  max-height: 100vh; 
+  max-height: 25vh; 
   overflow: auto;
   background-color: #263B5B;
   align-items: center;
-  padding: 80px;
+  padding: 20px;
   color: #C4C4C4;
   text-align: left;
-  font-size: 20px;
+  font-size: 12px;
 }
 
 ul.menu {

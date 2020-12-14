@@ -60,6 +60,7 @@ router
                     product.firstName = existingUser.firstName;
                     product.lastName = existingUser.lastName;
                     product.email = existingUser.email;
+                    product.parentID = null;
 
                     let productModel = new Product(product);
                     await productModel.save();

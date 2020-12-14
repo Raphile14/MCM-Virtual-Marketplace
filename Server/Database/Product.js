@@ -27,7 +27,8 @@ const productSchema = new mongoose.Schema({
     imagePath1: requestRequired,
     firstName: requestRequired,
     lastName: requestRequired,
-    email: requestRequired
+    email: requestRequired,
+    parentID: requestNotRequired
 
     // imagePath2: requestNotRequired,
     // imagePath3: requestNotRequired,

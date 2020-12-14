@@ -24,6 +24,7 @@
                                 <th class="admin"> Qty. </th>
                                 <th class="admin"> Price (Total) </th>
                                 <th class="admin"> Verdict </th>
+                                <th class="admin"> Invoice </th>
                             </tr>
                             <% for (let x = 0; x < existingTicket.length; x++) { %>
                                 <%- include('../partials/ticket_catalog', {existingTicket: existingTicket[x], _id: _id, x: x + 1}); %>

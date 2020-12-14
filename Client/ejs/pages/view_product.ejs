@@ -20,7 +20,11 @@
                                 <h1 class="item"> <%= data.productName %> </h1>
                                 <p class="price"> ₱<%= data.price %> </p><br>
                                 <p class="error_caption"> <a target="_blank" href="/profile/<%= data.userID %>"> <%= data.firstName %> <%= data.lastName %> </a> </p><br>
-                                <p class="error_caption"> <%= data.description %> </p>
+                                <p class="error_caption" id="description"> </p>
+                            
+                                <script>
+                                    document.getElementById("description").innerHTML = "Description: " + "<%- data.description %>";
+                                </script>
 
                                 <input class="view_product" type="button" value="<%= data.quantity %> items left" disabled>  
 

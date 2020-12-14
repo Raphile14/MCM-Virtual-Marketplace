@@ -97,19 +97,26 @@ router
         // }
     })
     .post( async (req, res) => {
-        await Product.findOne({_id: req.params.productID}, async (err, existingProduct) => {
-            if (existingProduct.userID == req.session._id){
-                let product = req.body;
-                product.category = req.body.category.toLowerCase().replace(/\s/g, '');
-                // Update Database
-                Product.updateOne({_id: req.params.productID}, { $set: product}, async (err, existingUser) => {
-                    if (err) return res.redirect("/page_not_found");
+        if (req.body.btn_choice == "Delete"){
+            Product.findOneAndDelete({_id: req.params.productID}, (err, result) => {
+                return res.redirect("/profile/" + result.userID);
+            });
+        } else if (req.body.btn_choice == "Modify"){
+            await Product.findOne({_id: req.params.productID}, async (err, existingProduct) => {
+                if (existingProduct.userID == req.session._id){
+                    let product = req.body;
+                    product.category = req.body.category.toLowerCase().replace(/\s/g, '');
+                    // Update Database
+                    Product.updateOne({_id: req.params.productID}, { $set: product}, async (err, existingUser) => {
+                        if (err) return res.redirect("/page_not_found");
+                        return res.redirect("/profile/" + existingProduct.userID);
+                    });
+                } else {
                     return res.redirect("/profile/" + existingProduct.userID);
-                });
-            } else {
-                return res.redirect("/profile/" + existingProduct.userID);
-            }
-        });
+                }
+            });
+        }
+        
         // return res.redirect("/profile/" + product.userID);
     });
 

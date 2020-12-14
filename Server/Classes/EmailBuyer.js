@@ -1,4 +1,5 @@
 const nodemailer = require('nodemailer');
+const path = require('path');
 
 module.exports = class EmailOrder {
     constructor() {
@@ -11,7 +12,7 @@ module.exports = class EmailOrder {
             }
         });
     }
-    sendEmail(buyer, product, quantity) {
+    sendEmail(buyer, product, quantity, invoiceID) {
         try {          
             let amount = (parseFloat(product.price) * parseFloat(quantity));
             let text = 
@@ -31,7 +32,14 @@ module.exports = class EmailOrder {
                 to: buyer.email,
                 subject: 'MCM Virtual Marketplace Order Confirmation',
                 html: message,
-                text: text
+                text: text,
+                attachments: [
+                    {
+                        filename: 'invoice - ' + invoiceID + '.pdf',
+                        path: path.join(__dirname, '../../tmp/invoice - ' + invoiceID + '.pdf')
+                    }
+
+                ]
             }
             
             this.transporter.sendMail(mailOptions, function(err, data){

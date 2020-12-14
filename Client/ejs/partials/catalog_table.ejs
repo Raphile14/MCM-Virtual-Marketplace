@@ -12,8 +12,9 @@
                     </tr>
                     <tr>
                         <td>
-                            <p class="item"> <%= products.productName %> </p>
+                            <h1 class="item"> <%= products.productName %> </h1>
                             <p class="price"> ₱<%= products.price %> </p>
+                            <p class="item"> <%= products.quantity %> pcs. left </p>
                         </td>
                     </tr>
                     <tr>
@@ -22,7 +23,7 @@
                                 <form class="form_inline" action="/info/<%= products._id %>">
                                     <input class="btn_catalog" style="background:#263B5B" type="submit" value="Edit">
                                 </form>                                 
-                            <% } else { %>                                                                                  
+                            <% } else { %>                                                                                
                                 <form class="form_inline" action="/order/<%= products._id %> ">
                                     <input class="btn_catalog" type="submit" value="Order Now">
                                 </form>

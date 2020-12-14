@@ -68,6 +68,7 @@
                                 <!-- <form method="post" enctype="multipart/form-data"> -->
                                     <!-- <input type="file" name="filetoupload" value="Upload Photo"> -->
                                 <input type="button" value="Save Product" class="btn_product" id="popUp">
+                                <input type="button" value="Delete Product" class="btn_product" style="background-color: red" id="popUpDelete">
                                     <!-- <input type="button" value="Delete" id="deleteProduct"> -->
                                 <!-- </form> -->
                             </td>
@@ -78,18 +79,23 @@
                         <div class="modal-content">
                           <span class="close">&times;</span>
                           <!-- IF saveProduct is pressed -->
-                          <% if (productError) { %>
-                          <p> The product will be now modified, would you like to continue? </p>
-                          <% } else { %>
-                          <p> The product placement will be moderated first by an admin. </p>
-                          <% } %>
+                          <p> Continue modify <%= data.productName %>? </p>
                           <!-- ELSE -->
                           <!-- <p>Are you sure you want to delete this product?</p> -->
-                          <input type="submit" value="Okay!" id="deleteProduct">
+                          <input type="submit" value="Modify" name="btn_choice" id="deleteProduct">
                         </div>
-                    </div> 
-    
+                    </div>
                 </form>
+                <form method="POST">
+                    <div id="myModalDelete" class="modal">
+                        <div class="modal-content">
+                          <span class="close">&times;</span>
+                          <p> Continue delete <%= data.productName %>? </p>
+                          <input type="submit" value="Delete" name="btn_choice" id="deleteProduct">
+                        </div>
+                    </div>
+                </form>
+                
             <% } else { %>
                 <form method="POST">
                     <table class="product">
@@ -158,7 +164,7 @@
                           <p> The product placement will be moderated first by an admin. </p>
                           <!-- ELSE -->
                           <!-- <p>Are you sure you want to delete this product?</p> -->
-                          <input type="submit" value="Okay!" id="deleteProduct">
+                          <input type="submit" value="Okay, I understand!" name="btn_choice" id="deleteProduct">
                         </div>
                     </div> 
     

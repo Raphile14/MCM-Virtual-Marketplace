@@ -112,7 +112,7 @@ async function entriesRetrieve(req, res, type, category){
         if (category == "all") {
             await Ticket.find({isSold: true}, (err, existingTicket) => {     
                 if (err) return res.redirect("/page_not_found");
-                entries = existingTicket;
+                entries = existingTicket.reverse();
                 return res.render(path.join(__dirname, '../../Client/ejs/pages', 'admin.ejs'), {
                     type,
                     category,
@@ -127,7 +127,7 @@ async function entriesRetrieve(req, res, type, category){
         else if (productCategories.includes(category)) {
             await Ticket.find({category, isConfirmed: true}, (err, existingTicket) => {     
                 if (err) return res.redirect("/page_not_found");
-                entries = existingTicket;
+                entries = existingTicket.reverse();
                 return res.render(path.join(__dirname, '../../Client/ejs/pages', 'admin.ejs'), {
                     type,
                     category,
