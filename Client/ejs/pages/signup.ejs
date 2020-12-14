@@ -3,72 +3,98 @@
         <%- include('../partials/head'); %>
         <title> Signup - MCM Virtual Marketplace </title>
     </head>
-    <body>
+    <body class="alternate">
         <main>
-            <table class="login" style="height:705px">
-                <tr><td>
-                <table class="signup">
-                    
-                    <form method="POST">
-                        <tr>
-                            <% if (edit) { %>
-                                <td colspan="2"><p class="login_MCM">Profile Editing</p></td>
-                            <% } else { %>
-                                <td colspan="2"><p class="login_MCM">Sign up to start shopping!</p></td>
-                            <% } %>
-                            
-                        </tr>
-                        <tr>
-                            <td><input type="text" name="firstName" class="txt_signup" placeholder="First Name *" value="<%= user.firstName %>" required></td>
-                            <td><input type="text" name="lastName" class="txt_signup" placeholder="Last Name *" value="<%= user.lastName %>" required></td>
-                        </tr>
-                        <tr>
-                            <% if (edit) { %>
-                                <td><input type="email" name="email" class="txt_signup" placeholder="MCM Email Address *" value="<%= user.email %>" readonly required></td>
-                            <% } else { %>
-                                <td><input type="email" name="email" class="txt_signup" placeholder="MCM Email Address *" value="<%= user.email %>" required></td>
-                            <% } %>
-                            <td><input type="number" name="phoneNumber" class="txt_signup" placeholder="Phone Number *" value="<%= user.phoneNumber %>" required></td>
-                        </tr>
-                        <tr>
-                            <td><input type="password" name="password" class="txt_signup" placeholder="Create Password *" required></td>
-                            <td><input type="password" name="confirmPassword" class="txt_signup" placeholder="Confirm Password *" required></td>
-                        </tr>
-                        <tr>
-                            <td> <input type="text" name="city" class="txt_signup" placeholder="City *" value="<%= user.city %>" required> </td>
-                            <td> <input type="text" name="avatarPath" class="txt_signup" placeholder="Avatar Link *" value="<%= user.avatarPath %>" required> </td>
-                        </tr>
-                        <tr>
-                            <td><input type="text" name="messengerLink" class="txt_signup" placeholder="Messenger Link" value="<%= user.messengerLink%>"></td>
-                            <td><input type="text" name="instagram" class="txt_signup" placeholder="Instagram" value="<%= user.instagram %>"></td>
-                        </tr>
-                        <tr>
-                            <td><input type="text" name="twitter" class="txt_signup" placeholder="Twitter" value="<%= user.twitter %>"></td>
-                            <td><input type="text" name="linkedIn" class="txt_signup" placeholder="LinkedIn" value="<%= user.linkedIn %>"></td>
-                        </tr>
-                        <% if (isRecovering) { %>
+            <div class="center">
+                <!-- USE <div class="edit_signup_box"> IF PROFILE EDITING and use <div class="new_signup_box"> IF SIGN UP PAGE-->
+                <div class="new_signup_box">
+                    <table class="signup">
+                        <form method="POST">
                             <tr>
-                                <td><input type="number" name="code" class="txt_signup" placeholder="Confirmation Code" value=""></td>
+                                <% if (edit) { %>
+                                    <td colspan="2"><h1 class="login_MCM">Profile Editing</h1><br /></td>
+                                <% } else { %>
+                                    <td colspan="2"><h1 class="login_MCM">Sign up to start shopping!</h1><br /></td>
+                                <% } %>
                             </tr>
+                            <tr>
+                                <td><input type="text" name="firstName" class="txt_signup" placeholder="First Name *" value="<%= user.firstName %>" required></td>
+                                <td><input type="text" name="lastName" class="txt_signup" placeholder="Last Name *" value="<%= user.lastName %>" required></td>
+                            </tr>
+                            <tr>
+                                <% if (edit) { %>
+                                    <td><input type="email" name="email" class="txt_signup" placeholder="MCM Email Address *" value="<%= user.email %>" readonly required></td>
+                                <% } else { %>
+                                    <td><input type="email" name="email" class="txt_signup" placeholder="MCM Email Address *" value="<%= user.email %>" required></td>
+                                <% } %>
+                                <td><input type="number" name="phoneNumber" class="txt_signup" placeholder="Phone Number *" value="<%= user.phoneNumber %>" required></td>
+                            </tr>
+                            <tr>
+                                <td><input type="password" name="password" class="txt_signup" placeholder="Create Password *" required></td>
+                                <td><input type="password" name="confirmPassword" class="txt_signup" placeholder="Confirm Password *" required></td>
+                            </tr>
+                            <tr>
+                                <td> <input type="text" name="city" class="txt_signup" placeholder="City *" value="<%= user.city %>" required> </td>
+                                <td> <input type="text" name="avatarPath" class="txt_signup" placeholder="Avatar Link *" value="<%= user.avatarPath %>" required> </td>
+                            </tr>
+                            <!-- REMOVE THIS -->
+                            <tr>
+                                <td><input type="text" name="messengerLink" class="txt_signup" placeholder="Messenger Link" value="<%= user.messengerLink%>"></td>
+                                <td><input type="text" name="instagram" class="txt_signup" placeholder="Instagram" value="<%= user.instagram %>"></td>
+                            </tr>
+                            <tr>
+                                <td><input type="text" name="twitter" class="txt_signup" placeholder="Twitter" value="<%= user.twitter %>"></td>
+                                <td><input type="text" name="linkedIn" class="txt_signup" placeholder="LinkedIn" value="<%= user.linkedIn %>"></td>
+                            </tr>
+                            <!-- UNTIL THIS TO MAKE SIGN UP PAGE -->
+                            <!-- OLD ERROR MESSAGE -->
+                            <% if (isRecovering) { %>
+                                <tr>
+                                    <td><input type="number" name="code" class="txt_signup" placeholder="Confirmation Code" value=""></td>
+                                </tr>
+                            <% } %>
+                            <tr>
+                                <% if (errorMessage != null) { %>
+                                    <td colspan="2" class="login_error"> <%= errorMessage %> </td>
+                                <% } %>
+                            </tr>
+                            <!-- UNTIL HERE    -->
+                            <tr>
+                                <% if (edit) { %>
+                                    <td colspan="2">
+                                        <br />
+                                        <input type="submit" name="register" class="big_button" style="width: 246px;" value="SAVE CHANGES" id="PopUp">
+                                        <br /><br style="line-height: 75%;" />
+                                        <a href="/">Cancel</a>
+                                    </td>
+                                <% } else { %>
+                                    <td colspan="2">
+                                        <br />
+                                        <input type="submit" name="register" class="big_button" style="width: 246px;" value="CREATE ACCOUNT" id="PopUp">
+                                        <br /><br style="line-height: 75%;" />
+                                        <p class="small_text"><a href="/">Cancel</a></p>
+                                    </td>
+                                <% } %>
+                            </tr>                
+                        </form>
+                    </table>
+                </div>
+            </div>
+            <!-- NEW ERROR MESSAGE -->
+            <!-- <div id="myModal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                        <% if (isRecovering) { %>
+                            <input type="number" name="code" class="txt_signup" placeholder="Confirmation Code" value="">
                         <% } %>
-                        <tr>
-                            <% if (errorMessage != null) { %>
-                                <td colspan="2" class="login_error"> <%= errorMessage %> </td>
-                            <% } %>
-                            <!-- IF NO ERROR aka staring point -->
-                            <td colspan="2" class="login_dot">.</td> 
-                        </tr>   
-                        <tr>
-                            <% if (edit) { %>
-                                <td colspan="2"><input type="submit" name="register" class="btn_signup" value="SAVE CHANGES"></td>
-                            <% } else { %>
-                                <td colspan="2"><input type="submit" name="register" class="btn_signup" value="CREATE ACCOUNT"></td>
-                            <% } %>
-                        </tr> 
-                        <tr> <td colspan="2"> <a href="/"> Cancel </a></td> </tr>                     
-                    </form>
-                </table></td></tr>
-            </table>
+                        <% if (errorMessage != null) { %>
+                            <%= errorMessage %>
+                        <% } %>
+                </div>
+            </div>  -->
+            
+            <!-- Is there a way to put this link in head? -->
+            <!-- <script type="text/javascript" src="../../js/scripts.js"></script> -->
         </main>
     </body>
 </html>

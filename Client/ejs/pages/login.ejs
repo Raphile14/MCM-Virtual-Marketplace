@@ -1,58 +1,54 @@
 <html lang="en">
     <head>
         <%- include('../partials/head'); %>
-        <title> Login - MCM Virtual Marketplace </title>
+        <title>Login - MCM Virtual Marketplace</title>
     </head>
-    <body>
+    <body class="alternate">
         <main>
-            <table class="login">
-                <tr>
-                    <td>
-                        <table class="login_title">
-                            <tr>
-                                <td><img src="../../images/logo_cropped.png" alt="logo" width="100" height="100"></td>
-                            </tr>
-                            <tr>
-                                <td><p class="login_MCM">MCM Virtual Marketplace</p></td>
-                            </tr>     
-                        </table>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
+            <div class="center">
+                <div class="login_box">
+                    <div class="contents">
                         <form method="POST">
-                            <table class="login_txtfield">
-                                <tr>
-                                    <td><input class="txt_login" name ="email" type="email" placeholder="MCM Email Address"></td>
-                                </tr>
-                                <tr>
-                                    <td><input class="txt_login" name="password" type="password" placeholder="Password"></td>
-                                </tr>
-                                <tr>
-                                    <% if (loginError) { %>
-                                        <td><p class="login_error">User credentials do not match our records or the account is not yet confirmed. Try again!</p></td>
-                                    <% } %>                          
-                                </tr>
-                            </table>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <table class="login_btn">
-                            <tr>
-                                <td><input class="btn_login" type="submit" value="LOGIN"></td>
-                            </tr>
-                            <tr>
-                                <td >  <a href="/recover"> Forgot Password? </a></td>
-                            </tr>
-                            <tr>
-                                <td >New member? <a href="/signup"> Sign up here! </a></td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-                </form>
-            </table>
+                            <br /><br />
+                            <img src="../../images/logo.png" alt="MCM Logo" style="width:100px; height:100px;" />
+                            <br /><br />
+                            <h1 class="login_MCM">MCM Virtual Marketplace</h1>
+                            <br />
+
+                            <input class="login_text" name ="email" type="email" placeholder="MCM Email Address" />
+                            <br /><br />
+                            <input class="login_text" name="password" type="password" placeholder="Password" />
+
+                            <!-- OLD ERROR MESSAGE -->
+                            <% if (loginError) { %>
+                                <br />User credentials do not match our records or the account is not yet confirmed. Try again!
+                            <% } %>
+                            <!-- UNTIL HERE -->
+
+                            <br /><br /><br /><br />
+                            <input class="big_button" type="submit" value="LOGIN" id="popUp" />
+                            <br /><br style="line-height: 75%;" />
+                            <p class="small_text">
+                                <a href="/recover">Forgot Password?</a>
+                                <br />
+                                New member? <a href="/signup">Sign up here!</a>
+                            </p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- NEW ERROR MESSAGE -->
+            <!-- <div id="myModal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <% if (loginError) { %>
+                    User credentials do not match our records or the account is not yet confirmed. Try again!
+                    <% } %>
+                </div>
+            </div>  -->
+
+            <!-- Is there a way to put this link in head? -->
+            <!-- <script type="text/javascript" src="../../js/scripts.js"></script> -->
         </main>
     </body>
 </html>
