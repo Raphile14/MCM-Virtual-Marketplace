@@ -18,21 +18,27 @@
             </ul>
             <br /><br />
 
-            <table style="margin:auto;">
+            <table>
                 <tr>
                     <td>
-                        <input class="login_text" type="text">
-                        <input class="search_button" type="button" value="Search">
+                        <form method="POST">
+                            <input name="search" class="login_text" type="text">
+                            <input class="search_button" type="submit" value="Search">
+                        </form>
                     </td>
                 </tr>
             </table>
 
             <br><br>    
             
+            <% if (isSearched) { %>
+                <p class="profile_products">Searched for "<%= searchedKey %>"</p>
+            <% } %>
+
             <% if (products.length != 0) { %>
-                <p class="profile_products">Products On Sale </p>
+                <p class="profile_products">Products On Sale</p>
             <% } else { %>
-                <p class="profile_products">No Products On Sale </p>
+                <p class="profile_products">No Products On Sale</p>
             <% } %>
             
             <div class="container">

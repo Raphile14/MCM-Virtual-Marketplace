@@ -22,6 +22,7 @@ const info = require("./Routes/ProductInfo.js");
 const admin = require("./Routes/Admin.js");
 const order = require("./Routes/Order.js");
 const approve = require("./Routes/Approve.js");
+const permissions = require("./Routes/Permissions.js");
 const confirmation = require("./Routes/Confirmation.js");
 const Product = require('./Database/Product.js');
 
@@ -54,6 +55,7 @@ app.use("/admin", admin);
 app.use("/logout", logout);
 app.use("/order", order);
 app.use("/approve", approve);
+app.use("/permissions", permissions);
 
 // Routings
 app.get("/", (req, res) => {
@@ -71,18 +73,47 @@ app.get("/", (req, res) => {
             _id: req.session._id,
             isAdmin: req.session.isAdmin,
             isSeller: req.session.isSeller,
-            products
+            products,
+            isSearched: false,
+            searchedKey: ""
         });
     });     
+});
+
+app.post("/", (req, res) => {
+    Product.find({confirmed: true, userID: {$ne: req.session._id}}, (err, existingProduct) => {
+        let products = [];
+        let productsTemp = existingProduct;
+        let searchedKey = req.body.search.toLowerCase();
+        if (productsTemp != null){
+            for (let i = 0; i < productsTemp.length; i++) {
+                if (productsTemp[i].productName.toLowerCase().includes(searchedKey)){
+                    products.push(productsTemp[i]);
+                }  else if ((productsTemp[i].firstName + productsTemp[i].lastName).toLowerCase().includes(searchedKey)) {
+                    products.push(productsTemp[i]);
+                }
+            }
+        }
+        return res.render(path.join(__dirname, '../Client/ejs/pages', 'index.ejs'), {
+            sessionEmail: req.session.email,
+            email: req.session.email, 
+            _id: req.session._id,
+            isAdmin: req.session.isAdmin,
+            isSeller: req.session.isSeller,
+            products,
+            isSearched: true,
+            searchedKey: req.body.search
+        });
+    });    
 });
 
 app.get("/page_not_found", (req, res) => {
     return res.render(path.join(__dirname, '../Client/ejs/pages', 'page_not_found.ejs'));
 });
 
-app.get("*", (req, res) => {
-    return res.redirect("/page_not_found");    
-});
+// app.get("*", (req, res) => {
+//     return res.redirect("/page_not_found");    
+// });
 
 app.listen(process.env.PORT, () => {
     console.log("Server is listening on " + process.env.PORT);

@@ -66,20 +66,20 @@ router
         }
     })
     .post( async (req, res) => {
-        Product.findOne({_id: req.params.productID}, async (err, product) => {
-            if (product.userID == req.session._id){
+        await Product.findOne({_id: req.params.productID}, async (err, existingProduct) => {
+            if (existingProduct.userID == req.session._id){
                 let product = req.body;
                 product.category = req.body.category.toLowerCase().replace(/\s/g, '');
                 // Update Database
                 Product.updateOne({_id: req.params.productID}, { $set: product}, async (err, existingUser) => {
-                    if (err) throw err;
-                    console.log("1 document updated");
+                    if (err) return res.redirect("/page_not_found");
+                    return res.redirect("/profile/" + existingProduct.userID);
                 });
-                res.redirect("/");
             } else {
-                res.redirect("/profile/" + product.userID);
+                return res.redirect("/profile/" + existingProduct.userID);
             }
         });
+        // return res.redirect("/profile/" + product.userID);
     });
 
 module.exports = router;
