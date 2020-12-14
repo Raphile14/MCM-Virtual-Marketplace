@@ -75,7 +75,8 @@ app.get("/", (req, res) => {
             isSeller: req.session.isSeller,
             products,
             isSearched: false,
-            searchedKey: ""
+            searchedKey: "",
+            placeHolder: "All Products"
         });
     });     
 });
@@ -102,7 +103,8 @@ app.post("/", (req, res) => {
             isSeller: req.session.isSeller,
             products,
             isSearched: true,
-            searchedKey: req.body.search
+            searchedKey: req.body.search,
+            placeHolder: "All Products"
         });
     });    
 });

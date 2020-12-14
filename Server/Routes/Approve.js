@@ -4,6 +4,9 @@ const User = require("../Database/User");
 const path = require('path');
 const Ticket = require('../Database/Ticket.js');
 const Product = require('../Database/Product.js');
+const eb = require('../Classes/EmailBuyer.js');
+const EmailBuyer = new eb();
+
 let router = express.Router();
 
 router.use(function(req, res, next) {
@@ -27,8 +30,8 @@ router
                     });
                 });
             } else {
-                Ticket.updateOne({_id: req.params.id}, {isSold: true}, async (err, existingTicket) => {   
-                    if (existingTicket == null || err) {
+                Ticket.findByIdAndUpdate({_id: req.params.id}, {isSold: true}, async (err, updatedTicket) => {   
+                    if (updatedTicket == null || err) {
                         return res.redirect("/page_not_found");
                     }
                     Ticket.find({sellerID: req.session._id}, async (err, existingTicket) => {
@@ -39,15 +42,33 @@ router
                         if (existingTicket.length == 0 || existingTicket == null) {
                             errorMessage = "No Order Request Tickets as of now";
                         }
-                        return res.render(path.join(__dirname, '../../Client/ejs/pages', 'tickets.ejs'), {
-                            errorMessage,
-                            sessionEmail: req.session.email,
-                            email: req.session.email, 
-                            _id: req.session._id,
-                            isAdmin: req.session.isAdmin,
-                            isSeller: req.session.isSeller,
-                            existingTicket
-                        });
+
+                        // Deduct Area                        
+                        Product.findOne({_id: updatedTicket.productID}, async (err, existingProduct) => {
+                            let currentQuantity = parseInt(existingProduct.quantity) - parseInt(updatedTicket.quantity);
+                            Product.updateOne({_id: updatedTicket.productID}, { $set: {quantity: currentQuantity}}, async (err, result) => {                                
+                            })                            
+                        });   
+
+                        // Buyer Email Response
+                        // Get Buyer Data
+                        User.findById({_id: updatedTicket.buyerID}, async (err, buyerData) => {
+                            if (err) return res.redirect("/page_not_found");
+                            // Seller Data
+                            Product.findOne({_id: updatedTicket.productID}, async (err, sellerData) => {
+                                if (err) return res.redirect("/page_not_found");
+                                EmailBuyer.sendEmail(buyerData, sellerData, updatedTicket.quantity);
+                                return res.render(path.join(__dirname, '../../Client/ejs/pages', 'tickets.ejs'), {
+                                    errorMessage,
+                                    sessionEmail: req.session.email,
+                                    email: req.session.email, 
+                                    _id: req.session._id,
+                                    isAdmin: req.session.isAdmin,
+                                    isSeller: req.session.isSeller,
+                                    existingTicket
+                                });
+                            })                            
+                        });                                              
                     });             
                 }); 
             }

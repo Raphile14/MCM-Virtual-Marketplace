@@ -9,7 +9,7 @@ router.use(function(req, res, next) {
     next();
 })
 
-// COnfirmation Routes
+// Confirmation Routes
 router
     .route("/:id")
     .get((req, res) => {

@@ -46,6 +46,10 @@ router
                             lastName: existingUser.lastName,
                             phoneNumber: existingUser.phoneNumber,
                             avatarPath: existingUser.avatarPath,
+                            messengerLink: existingUser.messengerLink,
+                            twitter: existingUser.twitter,
+                            linkedIn: existingUser.linkedIn,
+                            instagram: existingUser.instagram,
                             isAdmin: req.session.isAdmin,
                             isSeller: req.session.isSeller,
                             products
