@@ -12,8 +12,8 @@
             <br><br>
             <table class="profile">
                 <tr>
-                    <td>
-                        <% if (avatarPath == null) { %>
+                    <td>                        
+                        <% if (avatarPath.length == 0) { %>
                             <img src="../../images/temp.png" width="250" align ="left" alt="profile_image">
                         <% } else { %>
                             <img src="<%= avatarPath %>" width="250" align ="left" alt="profile_image">
