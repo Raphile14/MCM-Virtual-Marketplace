@@ -65,7 +65,7 @@ router
                 invoice_nr: existingTicket._id
             };
 
-            PDFWriter.createInvoice(invoice);
+            await PDFWriter.createInvoice(invoice);
 
 
             // After Printing PDF

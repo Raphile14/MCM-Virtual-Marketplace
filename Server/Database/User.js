@@ -31,7 +31,7 @@ const userSchema = new mongoose.Schema({
     isSeller: requestBoolean,
     isRecovering: requestBoolean,
     code: requestNotRequired,
-    avatarPath: requestRequired
+    avatarPath: requestNotRequired
 });
 
 module.exports = User = mongoose.model('tbl_users', userSchema);

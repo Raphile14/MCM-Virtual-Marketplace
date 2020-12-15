@@ -33,74 +33,75 @@ router
                         return res.adminRedirectURL  
                     });
                 });
-            } else {
+            } else {                
                 Ticket.findByIdAndUpdate({_id: req.params.id}, {isSold: true}, async (err, updatedTicket) => { 
-                    
-                    const invoice = {
-                        shipping: {
-                            date: updatedTicket.date,
-                            sellerID: updatedTicket.sellerID,
-                            sellerEmail: updatedTicket.sellerEmail,
-                            buyerID: updatedTicket.buyerID,
-                            buyerEmail: updatedTicket.buyerEmail
-                            
-                        },
-                        items: [
-                          {
-                            item: updatedTicket.productName,
-                            category: updatedTicket.category,
-                            description: updatedTicket.description,
-                            quantity: updatedTicket.quantity,
-                            amount: updatedTicket.price
-                          }
-                        ],
-                        subtotal: updatedTicket.totalPrice,
-                        invoice_nr: updatedTicket._id
-                    };
-        
-                    PDFWriter.createInvoice(invoice);
-   
-                    if (updatedTicket == null || err) {
-                        return res.redirect("/page_not_found");
-                    }
-                    Ticket.find({sellerID: req.session._id}, async (err, existingTicket) => {
-                        let errorMessage = "Order Request Tickets";
-                        if (err) {
-                            return res.redirect("/page_not_found");
-                        }
-                        if (existingTicket.length == 0 || existingTicket == null) {
-                            errorMessage = "No Order Request Tickets as of now";
-                        }
-
-                        // Deduct Area                        
-                        Product.findOne({_id: updatedTicket.productID}, async (err, existingProduct) => {
-                            let currentQuantity = parseInt(existingProduct.quantity) - parseInt(updatedTicket.quantity);
-                            Product.updateOne({_id: updatedTicket.productID}, { $set: {quantity: currentQuantity}}, async (err, result) => {                                
-                            })                            
-                        });   
-
-                        // Buyer Email Response
+                    // Deduct Area                        
+                    Product.findOne({_id: updatedTicket.productID}, async (err, existingProduct) => {
+                        let currentQuantity = parseInt(existingProduct.quantity) - parseInt(updatedTicket.quantity);
+                        Product.updateOne({_id: updatedTicket.productID}, { $set: {quantity: currentQuantity}}, async (err, result) => {                                
+                        })                            
+                    });   
+                    // Buyer Email Response
                         // Get Buyer Data
                         User.findById({_id: updatedTicket.buyerID}, async (err, buyerData) => {
+
+                            const invoice = {
+                                shipping: {
+                                    date: updatedTicket.date,
+                                    sellerID: updatedTicket.sellerID,
+                                    sellerEmail: updatedTicket.sellerEmail,
+                                    buyerID: updatedTicket.buyerID,
+                                    buyerEmail: updatedTicket.buyerEmail
+                                    
+                                },
+                                items: [
+                                  {
+                                    item: updatedTicket.productName,
+                                    category: updatedTicket.category,
+                                    description: updatedTicket.description,
+                                    quantity: updatedTicket.quantity,
+                                    amount: updatedTicket.price
+                                  }
+                                ],
+                                subtotal: updatedTicket.totalPrice,
+                                invoice_nr: updatedTicket._id
+                            };
+                
+                            PDFWriter.createInvoice(invoice);
 
                             if (err) return res.redirect("/page_not_found");
                             // Seller Data
                             Product.findOne({_id: updatedTicket.productID}, async (err, sellerData) => {
-                                let tickets = existingTicket.reverse();
+                                // let tickets = existingTicket.reverse();
                                 if (err) return res.redirect("/page_not_found");                                
                                 EmailBuyer.sendEmail(buyerData, sellerData, updatedTicket.quantity, updatedTicket._id);
-                                return res.render(path.join(__dirname, '../../Client/ejs/pages', 'tickets.ejs'), {
-                                    errorMessage,
-                                    sessionEmail: req.session.email,
-                                    email: req.session.email, 
-                                    _id: req.session._id,
-                                    isAdmin: req.session.isAdmin,
-                                    isSeller: req.session.isSeller,
-                                    existingTicket: tickets
-                                });
+                                return res.redirect("/tickets");
+                                // return res.render(path.join(__dirname, '../../Client/ejs/pages', 'tickets.ejs'), {
+                                //     errorMessage,
+                                //     sessionEmail: req.session.email,
+                                //     email: req.session.email, 
+                                //     _id: req.session._id,
+                                //     isAdmin: req.session.isAdmin,
+                                //     isSeller: req.session.isSeller,
+                                //     existingTicket: tickets
+                                // });
                             })                            
-                        });                                              
-                    });             
+                        }); 
+
+   
+                    // if (updatedTicket == null || err) {
+                    //     return res.redirect("/page_not_found");
+                    // }
+                    // Ticket.find({sellerID: req.session._id}, async (err, existingTicket) => {
+                    //     let errorMessage = "Order Request Tickets";
+                    //     if (err) {
+                    //         return res.redirect("/page_not_found");
+                    //     }
+                    //     if (existingTicket.length == 0 || existingTicket == null) {
+                    //         errorMessage = "No Order Request Tickets as of now";
+                    //     }
+                                             
+                    // });             
                 }); 
             }
         }

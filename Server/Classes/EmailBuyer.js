@@ -36,7 +36,7 @@ module.exports = class EmailOrder {
                 attachments: [
                     {
                         filename: 'Informed_Consent_Virtual_Market' + '.pdf',
-                        path: path.join(__dirname, '../../Server/Attachments/invoice/Informed_Consent_Virtual_Market' + '.pdf')
+                        path: path.join(__dirname, '../../Server/Attachments/Informed_Consent_Virtual_Market' + '.pdf')
                     },
                     {
                         filename: 'invoice - ' + invoiceID + '.pdf',

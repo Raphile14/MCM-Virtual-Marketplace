@@ -20,7 +20,11 @@
     <td class="admin"> 
         <form class="form_inline" method="POST">
             <input type="hidden" name="ticketID" value="<%= existingTicket._id %>">
-            <input type="submit" class="btn_catalog" value="Download">
+            <% if (existingTicket.isSold) { %>
+                <input type="submit" class="btn_catalog" value="Download">
+            <% } else { %>        
+                <input type="button" value="Download" style="background-color: grey;" class="btn_catalog" disabled>                    
+            <% } %>
         </form>                    
     </td>
 </tr>
