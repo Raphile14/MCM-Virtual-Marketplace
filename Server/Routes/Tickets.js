@@ -83,7 +83,12 @@ router
                 let pdfData;
                 fs.readFile(filePath, function (err,data){
                     pdfData = data;
+                    let file = fs.createReadStream(filePath);
+                    let stat = fs.statSync(filePath);
+                    res.setHeader('Content-Length', stat.size);
                     res.contentType("application/pdf");
+                    res.setHeader('Content-Disposition', 'attachment; filename=invoice - '+ invoice.invoice_nr + '.pdf');
+                    file.pipe(res);
                     return res.send(pdfData);
                     // return res.send(pdfData);
                     // return res.render(path.join(__dirname, '../../Client/ejs/pages', 'tickets.ejs'), {

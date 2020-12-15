@@ -34,7 +34,6 @@ router
         }
         
         await connection().then( async () => {
-            console.log(req.body);
             try {        
                 User.findOne({email: req.body.email}, async (err, existingUser) => {    
                     if (err) {
