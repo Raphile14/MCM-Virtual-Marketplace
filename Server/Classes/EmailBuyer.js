@@ -18,13 +18,13 @@ module.exports = class EmailOrder {
             let text = 
             'Hi, ' + buyer.firstName + ' ' + buyer.lastName + '!'
             + '\n\nSeller ' + product.firstName + ' ' + product.lastName + ' (' + product.email + ') has confirmed your order of ' + product.productName + ' with a quantity of ' + quantity + ' for the total price of ₱' + amount + '. '
-            + ''
+            + 'The invoice receipt and informed consent letter are attached to this email.'
             + '\n\nThank you!';
 
             let message = 
             '<h1> Hi, ' + buyer.firstName + ' ' + buyer.lastName + '!</h1> <br>'
             + 'Seller ' + product.firstName + ' ' + product.lastName + ' (' + product.email + ') has confirmed your order of ' + product.productName + ' with a quantity of ' + quantity + ' for the total price of ₱' + amount + '. '
-            + '<br> <br>'
+            + 'The invoice receipt and informed consent letter are attached to this email.<br> <br>'
             + 'Thank you!';
 
             let mailOptions = {
@@ -34,6 +34,10 @@ module.exports = class EmailOrder {
                 html: message,
                 text: text,
                 attachments: [
+                    {
+                        filename: 'Informed_Consent_Virtual_Market' + '.pdf',
+                        path: path.join(__dirname, '../../Server/Attachments/invoice/Informed_Consent_Virtual_Market' + '.pdf')
+                    },
                     {
                         filename: 'invoice - ' + invoiceID + '.pdf',
                         path: path.join(__dirname, '../../tmp/invoice - ' + invoiceID + '.pdf')
