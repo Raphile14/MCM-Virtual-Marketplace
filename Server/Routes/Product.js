@@ -27,11 +27,11 @@ router
             if (err) {
                 return res.redirect("/");
             }
-            if (existingProducts.length == 10){
-                isFull = true;
-                // Show page where list of selling items is full
-                return res.redirect("/");
-            }
+            // if (existingProducts.length == 10){
+            //     isFull = true;
+            //     // Show page where list of selling items is full
+            //     return res.redirect("/");
+            // }
             else {
                 res.render(path.join(__dirname, '../../Client/ejs/pages', 'product.ejs'), {
                     data: {},
