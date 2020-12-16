@@ -5,7 +5,9 @@ const path = require('path');
 const Product = require('../Database/Product.js');
 const Ticket = require('../Database/Ticket.js');
 const eo = require('../Classes/EmailOrder.js');
+const eobn = require('../Classes/EmailOrderBuyerNotification.js');
 const EmailOrder = new eo();
+const EmailOrderBuyerNotification = new eobn();
 let router = express.Router();
 
 router.use(function(req, res, next) {
@@ -70,6 +72,7 @@ router
 
                 product = productData;
                 EmailOrder.sendEmail(buyer, product, req.body.quantity);
+                EmailOrderBuyerNotification.sendEmail(buyer, product, req.body.quantity);
                 let ticket = {};
                 ticket.sellerID = product.userID;
                 ticket.sellerEmail = product.email;
