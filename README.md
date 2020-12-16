@@ -1,7 +1,7 @@
 # MCM-Virtual-Marketplace
 
 ## Purpose
-To serve as a platform for the upcoming MCM Virtual Marketplace. December 16 - 18, 2020.
+To serve as a platform for the upcoming MCM Virtual Marketplace. December 16 - 31, 2020.
 
 ## Notes
 * [Changelog](CHANGELOG.md)
