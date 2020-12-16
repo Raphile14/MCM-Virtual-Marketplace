@@ -17,6 +17,7 @@ const profile = require("./Routes/Profile.js");
 const catalog = require("./Routes/Catalog.js");
 const tickets = require("./Routes/Tickets.js");
 const seller = require("./Routes/Seller.js");
+const faq = require("./Routes/Faq.js");
 const logout = require("./Routes/Logout.js");
 const info = require("./Routes/ProductInfo.js");
 const admin = require("./Routes/Admin.js");
@@ -24,6 +25,7 @@ const order = require("./Routes/Order.js");
 const approve = require("./Routes/Approve.js");
 const permissions = require("./Routes/Permissions.js");
 const confirmation = require("./Routes/Confirmation.js");
+const status = require("./Routes/Status.js");
 const Product = require('./Database/Product.js');
 
 // Connect to MongoDB
@@ -51,11 +53,13 @@ app.use("/tickets", tickets);
 app.use("/seller", seller);
 app.use("/confirmation", confirmation);
 app.use("/info", info);
+app.use("/faq", faq);
 app.use("/admin", admin);
 app.use("/logout", logout);
 app.use("/order", order);
 app.use("/approve", approve);
 app.use("/permissions", permissions);
+app.use("/status", status);
 
 // Routings
 app.get("/", (req, res) => {

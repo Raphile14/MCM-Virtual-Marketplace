@@ -1,4 +1,4 @@
-    "use strict";
+"use strict";
 const express = require("express");
 const connection = require("../Database/Connection.js");
 const fs = require('fs');
@@ -21,7 +21,7 @@ router
         if (req.session.email == null || req.session._id == null) {
             return res.redirect("/login");
         }
-        Ticket.find({sellerID: req.session._id}, async (err, existingTicket) => {
+        Ticket.find({buyerID: req.session._id}, async (err, existingTicket) => {
             let tickets = existingTicket.reverse();
             let errorMessage = "Order Request Tickets";
             if (err) {
@@ -38,7 +38,7 @@ router
                 isAdmin: req.session.isAdmin,
                 isSeller: req.session.isSeller,
                 existingTicket: tickets,
-                isStatus: false
+                isStatus: true
             });
         });        
     })
@@ -70,7 +70,7 @@ router
 
 
             // After Printing PDF
-            Ticket.find({sellerID: req.session._id}, async (err, existingTicket) => {
+            Ticket.find({buyerID: req.session._id}, async (err, existingTicket) => {
                 let tickets = existingTicket.reverse();
                 let errorMessage = "Order Request Tickets";
                 if (err) {
@@ -106,40 +106,6 @@ router
             });            
         });  
         
-
-
-
-        // let sellerID = req.session.email;
-        // console.log("test")
-    
-        // // Save Database
-        // await connection().then( async () => {
-        //     try {
-        //         console.log("==================PASSED HERE=======================")
-        //         let ticket = req.body;
-        //         ticket.sellerID = sellerID;
-        //         ticket.buyerEmail = req.body.email.toLowerCase();
-        //         ticket.quantity = false;
-
-        //         let ticketModel = new Ticket(ticket);
-        //         await ticketModel.save()
-        //         res.redirect("/");
-        //     }
-        //     catch (e) {
-        //         res.render(path.join(__dirname, '../../Client/ejs/pages', 'tickets.ejs'), {
-        //             productError: true, 
-        //             data,
-        //             email: req.session.email, 
-        //             _id: req.params.id,
-        //             isAdmin: req.session.isAdmin,
-        //             isSeller: req.session.isSeller
-        //         });
-        //         console.log(e);
-        //     }
-        //     finally {
-        //         connection.close;
-        //     }
-        // } )
     });
 
 

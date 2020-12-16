@@ -9,22 +9,39 @@
     <td class="admin"> <%= existingTicket.productName %> </td>
     <td class="admin"> <a target="_blank" href="/profile/<%= existingTicket.buyerID %>"> <%= existingTicket.buyerEmail %> </a> </td>
     <td class="admin"> <%= existingTicket.quantity %> </td>
-    <td class="admin"> ₱<%= existingTicket.totalPrice %> </td>        
-    <% if (existingTicket.isSold) { %>
-        <td class="admin"> Sold </td>
-    <% } else { %>        
-        <form class="form_inline" action="/approve/<%= existingTicket._id %>">
-            <td class="admin"> <input class="btn_admin" type="submit" value="Confirm Purchase"> </td>
-        </form>                                 
-    <% } %>
+    <td class="admin"> ₱<%= existingTicket.totalPrice %> </td>    
+    <% if (isStatus) { %> 
+        <% if (existingTicket.isSold) { %>
+            <td class="admin"> Sold </td>
+        <% } else { %>        
+            <td class="admin"> Waiting </td>                               
+        <% } %>
+    <% } else { %> 
+        <% if (existingTicket.isSold) { %>
+            <td class="admin"> Sold </td>
+        <% } else { %>        
+            <form class="form_inline" action="/approve/<%= existingTicket._id %>">
+                <td class="admin"> <input class="btn_admin" type="submit" value="Confirm Purchase"> </td>
+            </form>                                 
+        <% } %>
+    <% } %>     
     <td class="admin"> 
-        <form class="form_inline" method="POST">
-            <input type="hidden" name="ticketID" value="<%= existingTicket._id %>">
+        <% if (isStatus) { %>
             <% if (existingTicket.isSold) { %>
-                <input type="submit" class="btn_catalog" value="Download">
-            <% } else { %>        
-                <input type="button" value="Download" style="background-color: grey;" class="btn_catalog" disabled>                    
+                <p class="admin"> Receipt Sent to Email </p>    
+            <% } else { %>
+                <p class="admin"> Receipt Not Available </p>    
             <% } %>
-        </form>                    
+        <% } else { %>
+            <form class="form_inline" method="POST">
+                <input type="hidden" name="ticketID" value="<%= existingTicket._id %>">
+                <% if (existingTicket.isSold) { %>
+                    <input type="submit" class="btn_catalog" value="Download">
+                <% } else { %>        
+                    <input type="button" value="Download" style="background-color: grey;" class="btn_catalog" disabled>                    
+                <% } %>
+            </form>
+        <% } %>
+                            
     </td>
 </tr>

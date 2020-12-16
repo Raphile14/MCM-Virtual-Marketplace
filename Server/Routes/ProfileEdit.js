@@ -48,7 +48,6 @@ router
                     user.code = null;              
                     User.updateOne({email}, { $set: user }, async (err, existingUser) => {
                         if (err) throw err;
-                        console.log("1 document updated");
                         return res.redirect("/");
                     });
                 }
@@ -61,8 +60,7 @@ router
             email = req.session.email;
             user.email = email;
             User.updateOne({email}, { $set: user }, async (err, existingUser) => {
-                if (err) throw err;
-                console.log("1 document updated");                
+                if (err) throw err;            
             });
             return res.redirect("/");
         }        
